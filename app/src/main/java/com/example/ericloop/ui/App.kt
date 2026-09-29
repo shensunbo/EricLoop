@@ -27,6 +27,7 @@ import kotlinx.coroutines.launch
     var route by rememberSaveable { mutableStateOf("home") }
     var selectedId by rememberSaveable { mutableStateOf<String?>(null) }
     var historyRecord by rememberSaveable { mutableStateOf<String?>(null) }
+    var selectedTag by rememberSaveable { mutableStateOf<String?>(null) }
     var editorReturn by rememberSaveable { mutableStateOf("home") }
     var detailReturn by rememberSaveable { mutableStateOf("home") }
     var busy by remember { mutableStateOf(false) }
@@ -54,7 +55,7 @@ import kotlinx.coroutines.launch
         }
     }
     fun open(id: String) { detailReturn = route; selectedId = id; route = "detail" }
-    fun back() { route = when (route) { "edit" -> editorReturn; "detail" -> detailReturn; "completed" -> "home"; "trash" -> "settings"; else -> "home" } }
+    fun back() { route = when (route) { "edit" -> editorReturn; "detail" -> detailReturn; "completed" -> "home"; "trash" -> "settings"; "tagrecords" -> "tags"; "recordhistory" -> "history"; else -> "home" } }
     BackHandler(route !in listOf("home", "tags", "history", "settings")) { back() }
     LaunchedEffect(ready, backup.datasetId, selectedId) { if (ready && route == "detail" && selected == null) route = "home" }
     val tabs = listOf(Triple("home", "记录", R.drawable.ic_dashboard), Triple("tags", "标签", R.drawable.ic_sell), Triple("history", "变更", R.drawable.ic_timeline), Triple("settings", "设置", R.drawable.ic_settings))
@@ -62,7 +63,7 @@ import kotlinx.coroutines.launch
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background,
         topBar = {
-            TopAppBar(title = { Text(when (route) { "edit" -> "编辑记录"; "detail" -> "记录详情"; "completed" -> "已完成"; "trash" -> "回收站"; else -> "EricLoop" }, style = MaterialTheme.typography.titleLarge) },
+            TopAppBar(title = { Text(when (route) { "edit" -> "编辑记录"; "detail" -> "记录详情"; "completed" -> "已完成"; "trash" -> "回收站"; "tagrecords" -> "标签记录"; "recordhistory" -> "变更记录"; else -> "EricLoop" }, style = MaterialTheme.typography.titleLarge) },
                 navigationIcon = { if (!isTab) IconButton(onClick = { back() }) { LoopIcon(R.drawable.ic_arrow_back, "返回") } },
                 actions = { if (isTab && ready) Text("${backup.records.count { it.deletedAt == null }} 条记录", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(end = 20.dp)) },
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.background))
@@ -81,14 +82,19 @@ import kotlinx.coroutines.launch
             if (initError != null) { Box(Modifier.padding(24.dp)) { EmptyPanel("本地数据读取失败", initError!!, R.drawable.ic_history) } }
             else if (!ready) Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) { CircularProgressIndicator() }
             else when (route) {
-                "home", "completed", "trash", "tags" -> RecordsPage(backup, route, ::open, { route = it }, { selectedId = null; editorReturn = "home"; route = "edit" }, { name -> work { repository.addTag(name) } }, { id, name -> work { repository.renameTag(id, name) } })
+                "home", "completed", "trash", "tagrecords" -> RecordsPage(backup, route, ::open, { route = it }, initialTag = if (route == "tagrecords") selectedTag else null)
+                "tags" -> TagsPage(backup,
+                    onOpenTag = { id -> selectedTag = id; route = "tagrecords" },
+                    onAddTag = { name -> work { repository.addTag(name) } },
+                    onRenameTag = { id, name -> work { repository.renameTag(id, name) } })
                 "edit" -> RecordEditor(selected, backup.tags) { record -> work { repository.saveRecord(record); selectedId = record.id; detailReturn = if (editorReturn == "detail") detailReturn else editorReturn; route = "detail" } }
                 "detail" -> selected?.let { record -> RecordDetail(record, backup,
                     onEdit = { editorReturn = "detail"; route = "edit" }, onConvert = { type -> work { repository.convert(record.id, type) } },
                     onStatus = { status -> work { repository.changeStatus(record.id, status) } }, onTrash = { work { repository.trash(record.id); route = detailReturn } },
                     onRestore = { work { repository.restoreRecord(record.id) } }, onCheckIn = { checkIn -> work { repository.saveCheckIn(checkIn) } },
-                    onDeleteCheckIn = { id -> work { repository.deleteCheckIn(id) } }, onHistory = { id -> historyRecord = id; route = "history" }) }
-                "history" -> HistoryPage(backup, historyRecord, ::open)
+                    onDeleteCheckIn = { id -> work { repository.deleteCheckIn(id) } }, onHistory = { id -> historyRecord = id; route = "recordhistory" }) }
+                "history" -> HistoryDirectory(backup) { id -> historyRecord = id; route = "recordhistory" }
+                "recordhistory" -> historyRecord?.let { HistoryPage(backup, it, ::open) }
                 "settings" -> SettingsPage(settings, syncState, backup,
                     onSave = { owner, repo, branch, token -> work { sync.saveSettings(owner, repo, branch, token); snackbar.showSnackbar("连接设置已保存") } },
                     onUpload = { networkWork { sync.upload(); snackbar.showSnackbar(sync.status.value.message ?: "备份完成") } }, onForce = { confirmForce = true },

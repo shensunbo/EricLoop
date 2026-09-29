@@ -1,10 +1,10 @@
 package com.example.ericloop.ui
 
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.*
@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.ericloop.R
 import com.example.ericloop.data.*
@@ -24,19 +25,31 @@ import java.time.ZoneId
 private val laneColors = listOf(Color(0xFF7084D0), Color(0xFF6BA892), Color(0xFFD09F65), Color(0xFFBB82B0), Color(0xFF619BBB), Color(0xFFBD7979))
 private fun historyColor(id: String?) = laneColors[(id ?: "tags").hashCode().ushr(1) % laneColors.size]
 
-@Composable fun HistoryPage(backup: Backup, initialRecord: String?, onOpen: (String) -> Unit) {
-    var selectedRecord by rememberSaveable(initialRecord) { mutableStateOf(initialRecord) }
-    var operation by rememberSaveable { mutableStateOf("全部") }
-    var start by rememberSaveable { mutableStateOf("") }
-    var end by rememberSaveable { mutableStateOf("") }
-    var picker by remember { mutableStateOf(false) }
+@Composable fun HistoryDirectory(backup: Backup, onSelect: (String) -> Unit) {
+    val records = remember(backup.records) { backup.records.sortedByDescending { it.updatedAt } }
+    LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(20.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+        item { SectionHeading("YOUR JOURNEY", "变更记录", "选择一条想法或计划，查看它的历程。") }
+        if (records.isEmpty()) item { EmptyPanel("旅程从第一条记录开始", "创建想法或计划后，可以在这里查看它的变更。", R.drawable.ic_timeline) }
+        items(records, key = { it.id }) { record ->
+            Card(onClick = { onSelect(record.id) }, modifier = Modifier.fillMaxWidth(), colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)) {
+                Text(record.title, style = MaterialTheme.typography.titleMedium, maxLines = 2, overflow = TextOverflow.Ellipsis, modifier = Modifier.padding(20.dp))
+            }
+        }
+    }
+}
+
+@Composable fun HistoryPage(backup: Backup, recordId: String, onOpen: (String) -> Unit) {
+    var operation by rememberSaveable(recordId) { mutableStateOf("全部") }
+    var start by rememberSaveable(recordId) { mutableStateOf("") }
+    var end by rememberSaveable(recordId) { mutableStateOf("") }
     var selectedEvent by remember { mutableStateOf<HistoryEvent?>(null) }
     val startDate = runCatching { LocalDate.parse(start) }.getOrNull()
     val endDate = runCatching { LocalDate.parse(end) }.getOrNull()
     val datesValid = (start.isBlank() || startDate != null) && (end.isBlank() || endDate != null) && (startDate == null || endDate == null || !startDate.isAfter(endDate))
-    val events = backup.events.filter {
+    val recordEvents = remember(backup.events, recordId) { backup.events.filter { it.recordId == recordId } }
+    val events = recordEvents.filter {
         val date = java.time.Instant.ofEpochMilli(it.operatedAt).atZone(ZoneId.systemDefault()).toLocalDate()
-        datesValid && (selectedRecord == null || it.recordId == selectedRecord) && (operation == "全部" || it.operation == operation) &&
+        datesValid && (operation == "全部" || it.operation == operation) &&
             (startDate == null || !date.isBefore(startDate)) && (endDate == null || !date.isAfter(endDate))
     }.sortedByDescending { it.sequence }
     val ids = events.map { it.recordId ?: "tags" }.distinct()
@@ -44,10 +57,9 @@ private fun historyColor(id: String?) = laneColors[(id ?: "tags").hashCode().ush
     val ranges = ids.associateWith { id -> events.indices.filter { (events[it].recordId ?: "tags") == id }.let { it.first()..it.last() } }
     val graphScroll = rememberScrollState()
     Column(Modifier.fillMaxSize().padding(horizontal = 20.dp)) {
-        SectionHeading("YOUR JOURNEY", "每一步，都有迹可循", "${events.size} 次变更 · 点击节点查看当时的内容")
+        SectionHeading("YOUR JOURNEY", backup.records.find { it.id == recordId }?.title ?: "记录已不存在", "${events.size} 次变更 · 点击节点查看当时的内容")
         Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            OutlinedButton(onClick = { picker = true }) { Text(selectedRecord?.let { id -> backup.records.find { it.id == id }?.title } ?: "全部记录") }
-            ChoiceMenu("操作", listOf("全部") + backup.events.map { it.operation }.distinct(), operation) { operation = it }
+            ChoiceMenu("操作", listOf("全部") + recordEvents.map { it.operation }.distinct(), operation) { operation = it }
         }
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             OutlinedTextField(start, { start = it }, Modifier.weight(1f), singleLine = true, label = { Text("起始日期") }, placeholder = { Text("yyyy-MM-dd") }, isError = start.isNotBlank() && startDate == null)
@@ -87,12 +99,6 @@ private fun historyColor(id: String?) = laneColors[(id ?: "tags").hashCode().ush
             }
         }
     }
-    if (picker) AlertDialog(onDismissRequest = { picker = false }, title = { Text("筛选记录") }, text = {
-        LazyColumn(Modifier.heightIn(max = 380.dp)) {
-            item { TextButton(onClick = { selectedRecord = null; picker = false }) { Text("全部记录") } }
-            itemsIndexed(backup.records) { _, record -> TextButton(onClick = { selectedRecord = record.id; picker = false }) { Text(record.title) } }
-        }
-    }, confirmButton = { TextButton(onClick = { picker = false }) { Text("关闭") } })
     selectedEvent?.let { event ->
         AlertDialog(onDismissRequest = { selectedEvent = null }, title = { Text(event.operation) }, text = {
             LazyColumn(Modifier.heightIn(max = 440.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
