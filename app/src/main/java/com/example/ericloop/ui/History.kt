@@ -22,6 +22,7 @@ import java.time.LocalDate
 import java.time.ZoneId
 
 private val laneColors = listOf(Color(0xFF7084D0), Color(0xFF6BA892), Color(0xFFD09F65), Color(0xFFBB82B0), Color(0xFF619BBB), Color(0xFFBD7979))
+private fun historyColor(id: String?) = laneColors[(id ?: "tags").hashCode().ushr(1) % laneColors.size]
 
 @Composable fun HistoryPage(backup: Backup, initialRecord: String?, onOpen: (String) -> Unit) {
     var selectedRecord by rememberSaveable(initialRecord) { mutableStateOf(initialRecord) }
@@ -61,14 +62,14 @@ private val laneColors = listOf(Color(0xFF7084D0), Color(0xFF6BA892), Color(0xFF
                 LazyColumn(Modifier.width(rowWidth).fillMaxHeight(), contentPadding = PaddingValues(bottom = 24.dp)) {
                     itemsIndexed(events, key = { _, event -> event.id }) { index, event ->
                         val lane = lanes.getValue(event.recordId ?: "tags")
-                        val color = laneColors[lane % laneColors.size]
+                        val color = historyColor(event.recordId)
                         Row(Modifier.fillMaxWidth().height(IntrinsicSize.Min)) {
                             Canvas(Modifier.width(laneWidth).fillMaxHeight()) {
                                 ranges.forEach { (id, range) ->
                                     if (index in range) {
                                         val track = lanes.getValue(id)
                                         val x = (12 + track * 22).dp.toPx()
-                                        drawLine(laneColors[track % laneColors.size].copy(alpha = 0.42f), Offset(x, if (index == range.first) 30.dp.toPx() else 0f), Offset(x, if (index == range.last) 30.dp.toPx() else size.height), strokeWidth = 2.dp.toPx())
+                                        drawLine(historyColor(id.takeUnless { it == "tags" }).copy(alpha = 0.42f), Offset(x, if (index == range.first) 30.dp.toPx() else 0f), Offset(x, if (index == range.last) 30.dp.toPx() else size.height), strokeWidth = 2.dp.toPx())
                                     }
                                 }
                                 drawCircle(color, radius = 6.dp.toPx(), center = Offset((12 + lane * 22).dp.toPx(), 30.dp.toPx()))

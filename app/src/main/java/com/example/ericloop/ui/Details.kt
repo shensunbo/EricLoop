@@ -29,7 +29,7 @@ import java.time.format.DateTimeFormatter
     var deadline by rememberSaveable(initial.id) { mutableStateOf(initial.deadline ?: "") }
     var selectedTags by rememberSaveable(initial.id) { mutableStateOf(initial.tagIds) }
     var dateOpen by remember { mutableStateOf(false) }
-    val dateValid = deadline.isBlank() || runCatching { LocalDate.parse(deadline) }.isSuccess
+    val dateValid = kind != RecordKind.PLAN.name || deadline.isBlank() || runCatching { LocalDate.parse(deadline) }.isSuccess
     LazyColumn(Modifier.fillMaxSize().imePadding(), contentPadding = PaddingValues(24.dp), verticalArrangement = Arrangement.spacedBy(18.dp)) {
         item { SectionHeading(if (record == null) "NEW CHAPTER" else "KEEP EVOLVING", if (record == null) "留下一点新想法" else "完善这条记录") }
         if (record == null) item {
@@ -71,8 +71,9 @@ import java.time.format.DateTimeFormatter
     onStatus: (PlanStatus) -> Unit, onTrash: () -> Unit, onRestore: () -> Unit,
     onCheckIn: (CheckIn) -> Unit, onDeleteCheckIn: (String) -> Unit, onHistory: (String) -> Unit,
 ) {
-    var checkInEditor by remember { mutableStateOf(false) }
-    var editingCheckIn by remember { mutableStateOf<CheckIn?>(null) }
+    var checkInEditor by rememberSaveable(record.id) { mutableStateOf(false) }
+    var editingCheckInId by rememberSaveable(record.id) { mutableStateOf<String?>(null) }
+    val editingCheckIn = backup.checkIns.find { it.id == editingCheckInId }
     var deleteConfirm by remember { mutableStateOf(false) }
     var deletingCheckIn by remember { mutableStateOf<String?>(null) }
     val checkIns = backup.checkIns.filter { it.recordId == record.id && it.deletedAt == null }.sortedByDescending { it.occurredAt }
@@ -117,7 +118,7 @@ import java.time.format.DateTimeFormatter
                 HorizontalDivider(); Spacer(Modifier.height(18.dp))
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Column(Modifier.weight(1f)) { Text("进展笔记", style = MaterialTheme.typography.titleLarge); Text("${checkIns.size} 次打卡，每一步都有意义", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant) }
-                    if (record.deletedAt == null) FilledTonalButton(onClick = { editingCheckIn = null; checkInEditor = true }) { LoopIcon(R.drawable.ic_add); Text("打卡") }
+                    if (record.deletedAt == null) FilledTonalButton(onClick = { editingCheckInId = null; checkInEditor = true }) { LoopIcon(R.drawable.ic_add); Text("打卡") }
                 }
             }
             if (checkIns.isEmpty()) item { EmptyPanel("记录今天的一小步", "打卡无需固定频率，也可以补记过去的进展。", R.drawable.ic_note_add) }
@@ -127,7 +128,7 @@ import java.time.format.DateTimeFormatter
                         Text(displayTime(checkIn.occurredAt, "yyyy年MM月dd日 HH:mm"), style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.secondary)
                         Text(checkIn.note.ifBlank { "完成了一次打卡" }, style = MaterialTheme.typography.bodyLarge)
                         if (record.deletedAt == null) Row {
-                            TextButton(onClick = { editingCheckIn = checkIn; checkInEditor = true }) { Text("编辑") }
+                            TextButton(onClick = { editingCheckInId = checkIn.id; checkInEditor = true }) { Text("编辑") }
                             TextButton(onClick = { deletingCheckIn = checkIn.id }) { Text("删除") }
                         }
                     }
@@ -141,16 +142,39 @@ import java.time.format.DateTimeFormatter
     if (deletingCheckIn != null) AlertDialog(onDismissRequest = { deletingCheckIn = null }, title = { Text("删除这次打卡？") }, text = { Text("原内容仍可在变更历史中查看。") }, confirmButton = { TextButton(onClick = { onDeleteCheckIn(deletingCheckIn!!); deletingCheckIn = null }) { Text("删除") } }, dismissButton = { TextButton(onClick = { deletingCheckIn = null }) { Text("取消") } })
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable private fun CheckInDialog(recordId: String, editing: CheckIn?, onDismiss: () -> Unit, onSave: (CheckIn) -> Unit) {
     val initial = remember { editing ?: CheckIn(recordId = recordId) }
     var note by rememberSaveable { mutableStateOf(initial.note) }
     var time by rememberSaveable { mutableStateOf(displayTime(initial.occurredAt, "yyyy-MM-dd HH:mm")) }
+    var dateOpen by remember { mutableStateOf(false) }
+    var timeOpen by remember { mutableStateOf(false) }
+    var chosenDate by rememberSaveable { mutableStateOf(time.take(10)) }
     val parsed = runCatching { LocalDateTime.parse(time, DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm").withResolverStyle(java.time.format.ResolverStyle.STRICT)).atZone(ZoneId.systemDefault()).toInstant().toEpochMilli() }.getOrNull()
     val valid = parsed != null && parsed <= System.currentTimeMillis()
     AlertDialog(onDismissRequest = onDismiss, title = { Text(if (editing == null) "记录进展" else "编辑打卡") }, text = {
         Column(verticalArrangement = Arrangement.spacedBy(14.dp)) {
             OutlinedTextField(note, { note = it }, label = { Text("这次做了什么？ · 可选") }, modifier = Modifier.fillMaxWidth().heightIn(min = 100.dp))
-            OutlinedTextField(time, { time = it }, label = { Text("发生时间") }, singleLine = true, isError = !valid, supportingText = { Text(if (valid) "可修改时间补记过去的进展" else "格式 yyyy-MM-dd HH:mm，不能晚于现在") })
+            OutlinedTextField(time, {}, readOnly = true, label = { Text("发生时间") }, singleLine = true, isError = !valid,
+                trailingIcon = { IconButton(onClick = { dateOpen = true }) { LoopIcon(R.drawable.ic_event, "选择打卡日期") } },
+                supportingText = { Text(if (valid) "点击日历补记过去的进展" else "发生时间不能晚于现在，请重新选择") })
         }
-    }, confirmButton = { TextButton(enabled = valid, onClick = { onSave(initial.copy(note = note, occurredAt = parsed!!)) }) { Text("保存打卡") } }, dismissButton = { TextButton(onClick = onDismiss) { Text("取消") } })
+    }, confirmButton = { TextButton(enabled = valid, onClick = { onSave(initial.copy(note = note,
+        occurredAt = if (time == displayTime(initial.occurredAt, "yyyy-MM-dd HH:mm")) initial.occurredAt else parsed!!)) }) { Text("保存打卡") } }, dismissButton = { TextButton(onClick = onDismiss) { Text("取消") } })
+    if (dateOpen) {
+        val state = rememberDatePickerState(initialSelectedDateMillis = LocalDate.parse(chosenDate).atStartOfDay(java.time.ZoneOffset.UTC).toInstant().toEpochMilli(),
+            selectableDates = object : SelectableDates {
+                override fun isSelectableDate(utcTimeMillis: Long) = java.time.Instant.ofEpochMilli(utcTimeMillis).atZone(java.time.ZoneOffset.UTC).toLocalDate() <= LocalDate.now()
+            })
+        DatePickerDialog(onDismissRequest = { dateOpen = false },
+            confirmButton = { TextButton(enabled = state.selectedDateMillis != null, onClick = { state.selectedDateMillis?.let { chosenDate = java.time.Instant.ofEpochMilli(it).atZone(java.time.ZoneOffset.UTC).toLocalDate().toString() }; dateOpen = false; timeOpen = true }) { Text("选择时间") } },
+            dismissButton = { TextButton(onClick = { dateOpen = false }) { Text("取消") } }) { DatePicker(state) }
+    }
+    if (timeOpen) {
+        val local = LocalDateTime.parse(time, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
+        val state = rememberTimePickerState(initialHour = local.hour, initialMinute = local.minute, is24Hour = true)
+        AlertDialog(onDismissRequest = { timeOpen = false }, title = { Text("发生时间") },
+            text = { TimeInput(state) }, confirmButton = { TextButton(onClick = { time = LocalDate.parse(chosenDate).atTime(state.hour, state.minute).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")); timeOpen = false }) { Text("确定时间") } },
+            dismissButton = { TextButton(onClick = { timeOpen = false }) { Text("取消") } })
+    }
 }

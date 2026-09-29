@@ -30,11 +30,13 @@ adb -s 10AE970D5P0017U shell am start -n com.example.ericloop/.MainActivity
 3. 手机设置页填入仓库 `shensunbo/EricLoop`、分支 `main` 及 Token，保存连接设置。
 4. 点击“手动同步”。云端已有未知数据时先恢复，或确认“强制上传”以手机数据为准。
 
-Token 使用 Android Keystore 密钥加密保存，不进入日志或备份。过期后在手机重新配置。不要把 Token 写入源码或 GitHub 备份。
+Token 使用 Android Keystore 密钥加密保存，不进入日志或备份。过期后在手机重新配置，也可以点击“清除 GitHub 授权”移除已保存的 Token。不要把 Token 写入源码或 GitHub 备份。
 
 备份位于 `data/ericloop/backup.json`，包括 schemaVersion、datasetId、revision、exportedAt、records、tags、checkIns 和 events。此仓库公开，用户选择明文公开备份。
 
 普通同步检测备份文件变化，不因电脑提交代码而冲突。“强制上传”只替换备份文件，在最新远端提交后追加提交，不覆盖代码或重写分支历史。恢复会先校验并预览，确认后保存本地安全副本，再原子替换。
+
+手机无需 clone 或拉取整个仓库。通过 GitHub API 读取最新提交和目录树，以及备份文件内容；上传以最新目录树为基础仅替换备份路径，创建提交并更新分支。代码文件和完整提交历史保留在 GitHub，手机不下载它们。
 
 本地安全副本在应用私有文件目录 `pre-restore-*.json`，可在 Debug 版本用 `adb -s 10AE970D5P0017U shell run-as com.example.ericloop ls files` 查看。卸载应用会删除本地数据与副本，卸载前先同步。
 

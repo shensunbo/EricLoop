@@ -85,10 +85,17 @@ class GithubSync(context: Context, private val repository: DataRepository) {
             uploadedRevision = prefs.getLong("revision", 0), uploadedDatasetId = prefs.getString("dataset", null), message = "连接设置已保存")
     }
 
+    suspend fun clearToken() = operation {
+        if (!prefs.edit().remove("token").commit()) throw SyncFailure("无法清除授权，请重试。")
+        preview = null
+        settingsState.value = settingsState.value.copy(hasToken = false)
+        statusState.value = statusState.value.copy(message = "GitHub 授权已清除")
+    }
+
     suspend fun upload(force: Boolean = false) = operation {
         val config = settingsState.value
         val token = readToken()
-        val snapshot = repository.snapshot()
+        val snapshot = canonical(repository.snapshot())
         val content = backupJson.encodeToString(snapshot)
         val bytes = content.toByteArray(Charsets.UTF_8)
         if (bytes.size > MAX_BYTES) throw SyncFailure("本地备份超过 20 MB，无法上传。")
@@ -285,7 +292,12 @@ class GithubSync(context: Context, private val repository: DataRepository) {
     }
     private fun JsonObject.required(name: String): String = this[name]?.jsonPrimitive?.content
         ?: throw SyncFailure("GitHub 响应格式无效。")
-    private fun semanticallyEqual(first: Backup, second: Backup) = first.copy(exportedAt = 0) == second.copy(exportedAt = 0)
+    private fun canonical(backup: Backup) = backup.copy(
+        records = backup.records.sortedBy { it.id }, tags = backup.tags.sortedBy { it.id },
+        checkIns = backup.checkIns.sortedBy { it.id }, events = backup.events.sortedBy { it.sequence },
+    )
+    private fun semanticallyEqual(first: Backup, second: Backup) =
+        canonical(first).copy(exportedAt = 0) == canonical(second).copy(exportedAt = 0)
     private fun gitBlobSha(bytes: ByteArray): String {
         val digest = MessageDigest.getInstance("SHA-1")
         digest.update("blob ${bytes.size}\u0000".toByteArray(Charsets.UTF_8))

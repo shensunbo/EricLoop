@@ -93,6 +93,7 @@ import kotlinx.coroutines.launch
                     onSave = { owner, repo, branch, token -> work { sync.saveSettings(owner, repo, branch, token); snackbar.showSnackbar("连接设置已保存") } },
                     onUpload = { networkWork { sync.upload(); snackbar.showSnackbar(sync.status.value.message ?: "备份完成") } }, onForce = { confirmForce = true },
                     onDownload = { networkWork { restorePreview = sync.download() } }, onTrash = { route = "trash" },
+                    onClearToken = { work { sync.clearToken(); snackbar.showSnackbar("GitHub 授权已清除") } },
                 )
             }
         }
@@ -106,7 +107,7 @@ import kotlinx.coroutines.launch
 @Composable private fun SettingsPage(
     settings: SyncSettings, status: SyncStatus, backup: Backup,
     onSave: (String, String, String, String) -> Unit, onUpload: () -> Unit, onForce: () -> Unit,
-    onDownload: () -> Unit, onTrash: () -> Unit,
+    onDownload: () -> Unit, onTrash: () -> Unit, onClearToken: () -> Unit,
 ) {
     var owner by rememberSaveable(settings.owner) { mutableStateOf(settings.owner) }
     var repo by rememberSaveable(settings.repo) { mutableStateOf(settings.repo) }
@@ -135,6 +136,7 @@ import kotlinx.coroutines.launch
                 OutlinedTextField(branch, { branch = it }, Modifier.fillMaxWidth(), label = { Text("分支") }, singleLine = true)
                 OutlinedTextField(token, { token = it }, Modifier.fillMaxWidth(), label = { Text("GitHub Token") }, singleLine = true, visualTransformation = PasswordVisualTransformation(), supportingText = { Text(if (settings.hasToken) "已保存 Token；留空保留现有授权" else "使用此仓库的细粒度 Token，Contents 读写权限") })
                 Button(enabled = !status.busy && owner.isNotBlank() && repo.isNotBlank() && branch.isNotBlank(), onClick = { onSave(owner.trim(), repo.trim(), branch.trim(), token.trim()); token = "" }, modifier = Modifier.fillMaxWidth()) { Text("保存连接设置") }
+                if (settings.hasToken) TextButton(enabled = !status.busy, onClick = { token = ""; onClearToken() }) { Text("清除 GitHub 授权") }
             }
         }
         item {
