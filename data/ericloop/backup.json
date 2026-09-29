@@ -1,0 +1,238 @@
+{
+    "schemaVersion": 1,
+    "datasetId": "468d0be1-b460-429d-94e2-d7cf841f60c1",
+    "revision": 16,
+    "exportedAt": 1790676446072,
+    "records": [
+        {
+            "id": "045cea38-a696-4aa0-8233-d43a2beffc90",
+            "title": "20260929",
+            "body": "C凹凸热暗idea俺的track",
+            "kind": "PLAN",
+            "planType": "LONG_TERM",
+            "status": "COMPLETED",
+            "tagIds": [
+                "work",
+                "902bf035-5d35-4c68-b885-63a409971e03"
+            ],
+            "deadline": null,
+            "createdAt": 1790674289957,
+            "updatedAt": 1790675754414,
+            "deletedAt": null
+        }
+    ],
+    "tags": [
+        {
+            "id": "902bf035-5d35-4c68-b885-63a409971e03",
+            "name": "2027",
+            "preset": false
+        },
+        {
+            "id": "health",
+            "name": "健康",
+            "preset": true
+        },
+        {
+            "id": "life",
+            "name": "生活",
+            "preset": true
+        },
+        {
+            "id": "project",
+            "name": "个人项目",
+            "preset": true
+        },
+        {
+            "id": "study",
+            "name": "学习",
+            "preset": true
+        },
+        {
+            "id": "work",
+            "name": "工作",
+            "preset": true
+        }
+    ],
+    "checkIns": [
+        {
+            "id": "5c7c03ff-1141-4e5e-ad00-b41583f18048",
+            "recordId": "045cea38-a696-4aa0-8233-d43a2beffc90",
+            "note": "1",
+            "occurredAt": 1790674440000,
+            "createdAt": 1790674463492,
+            "updatedAt": 1790675109303,
+            "deletedAt": 1790675109303
+        },
+        {
+            "id": "a043390d-564a-4eac-b7ff-5cc14d967ef8",
+            "recordId": "045cea38-a696-4aa0-8233-d43a2beffc90",
+            "note": "",
+            "occurredAt": 1790588820000,
+            "createdAt": 1790675379074,
+            "updatedAt": 1790675392074,
+            "deletedAt": null
+        }
+    ],
+    "events": [
+        {
+            "id": "b5f352ff-a4e5-4bbd-9033-685cfee2ccb5",
+            "recordId": "045cea38-a696-4aa0-8233-d43a2beffc90",
+            "operation": "创建想法",
+            "title": "D",
+            "operatedAt": 1790674347926,
+            "sequence": 1,
+            "beforeJson": null,
+            "afterJson": "{\n    \"id\": \"045cea38-a696-4aa0-8233-d43a2beffc90\",\n    \"title\": \"D\",\n    \"body\": \"C凹凸热暗idea俺的track\",\n    \"kind\": \"IDEA\",\n    \"planType\": \"ONCE\",\n    \"status\": \"NOT_STARTED\",\n    \"tagIds\": [\n        \"work\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790674289957,\n    \"updatedAt\": 1790674347901,\n    \"deletedAt\": null,\n    \"tags\": [\n        {\n            \"id\": \"work\",\n            \"name\": \"工作\",\n            \"preset\": true\n        }\n    ]\n}"
+        },
+        {
+            "id": "468f3770-c8a9-42de-a439-93fb49840a26",
+            "recordId": "045cea38-a696-4aa0-8233-d43a2beffc90",
+            "operation": "转为计划",
+            "title": "D",
+            "operatedAt": 1790674435413,
+            "sequence": 2,
+            "beforeJson": "{\n    \"id\": \"045cea38-a696-4aa0-8233-d43a2beffc90\",\n    \"title\": \"D\",\n    \"body\": \"C凹凸热暗idea俺的track\",\n    \"kind\": \"IDEA\",\n    \"planType\": \"ONCE\",\n    \"status\": \"NOT_STARTED\",\n    \"tagIds\": [\n        \"work\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790674289957,\n    \"updatedAt\": 1790674347901,\n    \"deletedAt\": null,\n    \"tags\": [\n        {\n            \"id\": \"work\",\n            \"name\": \"工作\",\n            \"preset\": true\n        }\n    ]\n}",
+            "afterJson": "{\n    \"id\": \"045cea38-a696-4aa0-8233-d43a2beffc90\",\n    \"title\": \"D\",\n    \"body\": \"C凹凸热暗idea俺的track\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"NOT_STARTED\",\n    \"tagIds\": [\n        \"work\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790674289957,\n    \"updatedAt\": 1790674435410,\n    \"deletedAt\": null,\n    \"tags\": [\n        {\n            \"id\": \"work\",\n            \"name\": \"工作\",\n            \"preset\": true\n        }\n    ]\n}"
+        },
+        {
+            "id": "fce219e7-f305-4ab9-bbb1-8ed23be20191",
+            "recordId": "045cea38-a696-4aa0-8233-d43a2beffc90",
+            "operation": "打卡",
+            "title": "D",
+            "operatedAt": 1790674513548,
+            "sequence": 3,
+            "beforeJson": null,
+            "afterJson": "{\n    \"id\": \"5c7c03ff-1141-4e5e-ad00-b41583f18048\",\n    \"recordId\": \"045cea38-a696-4aa0-8233-d43a2beffc90\",\n    \"note\": \"\",\n    \"occurredAt\": 1790674440000,\n    \"createdAt\": 1790674463492,\n    \"updatedAt\": 1790674513547,\n    \"deletedAt\": null\n}"
+        },
+        {
+            "id": "35d80f5b-ec17-4da0-8981-5f05aa4a80de",
+            "recordId": "045cea38-a696-4aa0-8233-d43a2beffc90",
+            "operation": "状态变更",
+            "title": "D",
+            "operatedAt": 1790674536707,
+            "sequence": 4,
+            "beforeJson": "{\n    \"id\": \"045cea38-a696-4aa0-8233-d43a2beffc90\",\n    \"title\": \"D\",\n    \"body\": \"C凹凸热暗idea俺的track\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"NOT_STARTED\",\n    \"tagIds\": [\n        \"work\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790674289957,\n    \"updatedAt\": 1790674513547,\n    \"deletedAt\": null,\n    \"tags\": [\n        {\n            \"id\": \"work\",\n            \"name\": \"工作\",\n            \"preset\": true\n        }\n    ]\n}",
+            "afterJson": "{\n    \"id\": \"045cea38-a696-4aa0-8233-d43a2beffc90\",\n    \"title\": \"D\",\n    \"body\": \"C凹凸热暗idea俺的track\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"COMPLETED\",\n    \"tagIds\": [\n        \"work\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790674289957,\n    \"updatedAt\": 1790674536702,\n    \"deletedAt\": null,\n    \"tags\": [\n        {\n            \"id\": \"work\",\n            \"name\": \"工作\",\n            \"preset\": true\n        }\n    ]\n}"
+        },
+        {
+            "id": "2b272358-a855-4d2b-bddf-43e6ce175c1f",
+            "recordId": "045cea38-a696-4aa0-8233-d43a2beffc90",
+            "operation": "状态变更",
+            "title": "D",
+            "operatedAt": 1790674586433,
+            "sequence": 5,
+            "beforeJson": "{\n    \"id\": \"045cea38-a696-4aa0-8233-d43a2beffc90\",\n    \"title\": \"D\",\n    \"body\": \"C凹凸热暗idea俺的track\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"COMPLETED\",\n    \"tagIds\": [\n        \"work\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790674289957,\n    \"updatedAt\": 1790674536702,\n    \"deletedAt\": null,\n    \"tags\": [\n        {\n            \"id\": \"work\",\n            \"name\": \"工作\",\n            \"preset\": true\n        }\n    ]\n}",
+            "afterJson": "{\n    \"id\": \"045cea38-a696-4aa0-8233-d43a2beffc90\",\n    \"title\": \"D\",\n    \"body\": \"C凹凸热暗idea俺的track\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"ACTIVE\",\n    \"tagIds\": [\n        \"work\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790674289957,\n    \"updatedAt\": 1790674586427,\n    \"deletedAt\": null,\n    \"tags\": [\n        {\n            \"id\": \"work\",\n            \"name\": \"工作\",\n            \"preset\": true\n        }\n    ]\n}"
+        },
+        {
+            "id": "be66e415-72c1-4654-8369-66af297e9b22",
+            "recordId": null,
+            "operation": "新增标签",
+            "title": "2026",
+            "operatedAt": 1790674783996,
+            "sequence": 6,
+            "beforeJson": null,
+            "afterJson": "{\n    \"id\": \"902bf035-5d35-4c68-b885-63a409971e03\",\n    \"name\": \"2026\",\n    \"preset\": false\n}"
+        },
+        {
+            "id": "39527f63-9295-4662-a323-c0da514326d6",
+            "recordId": null,
+            "operation": "重命名标签",
+            "title": "2027",
+            "operatedAt": 1790674816438,
+            "sequence": 7,
+            "beforeJson": "{\n    \"id\": \"902bf035-5d35-4c68-b885-63a409971e03\",\n    \"name\": \"2026\",\n    \"preset\": false\n}",
+            "afterJson": "{\n    \"id\": \"902bf035-5d35-4c68-b885-63a409971e03\",\n    \"name\": \"2027\",\n    \"preset\": false\n}"
+        },
+        {
+            "id": "e328497d-c513-48eb-9a68-76ab2952d3ef",
+            "recordId": "045cea38-a696-4aa0-8233-d43a2beffc90",
+            "operation": "编辑计划",
+            "title": "20260929",
+            "operatedAt": 1790674959776,
+            "sequence": 8,
+            "beforeJson": "{\n    \"id\": \"045cea38-a696-4aa0-8233-d43a2beffc90\",\n    \"title\": \"D\",\n    \"body\": \"C凹凸热暗idea俺的track\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"ACTIVE\",\n    \"tagIds\": [\n        \"work\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790674289957,\n    \"updatedAt\": 1790674586427,\n    \"deletedAt\": null,\n    \"tags\": [\n        {\n            \"id\": \"work\",\n            \"name\": \"工作\",\n            \"preset\": true\n        }\n    ]\n}",
+            "afterJson": "{\n    \"id\": \"045cea38-a696-4aa0-8233-d43a2beffc90\",\n    \"title\": \"20260929\",\n    \"body\": \"C凹凸热暗idea俺的track\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"ACTIVE\",\n    \"tagIds\": [\n        \"work\",\n        \"902bf035-5d35-4c68-b885-63a409971e03\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790674289957,\n    \"updatedAt\": 1790674959758,\n    \"deletedAt\": null,\n    \"tags\": [\n        {\n            \"id\": \"work\",\n            \"name\": \"工作\",\n            \"preset\": true\n        },\n        {\n            \"id\": \"902bf035-5d35-4c68-b885-63a409971e03\",\n            \"name\": \"2027\",\n            \"preset\": false\n        }\n    ]\n}"
+        },
+        {
+            "id": "0690f25b-66fc-40a4-afce-24a98477df3e",
+            "recordId": "045cea38-a696-4aa0-8233-d43a2beffc90",
+            "operation": "编辑打卡",
+            "title": "20260929",
+            "operatedAt": 1790675008519,
+            "sequence": 9,
+            "beforeJson": "{\n    \"id\": \"5c7c03ff-1141-4e5e-ad00-b41583f18048\",\n    \"recordId\": \"045cea38-a696-4aa0-8233-d43a2beffc90\",\n    \"note\": \"\",\n    \"occurredAt\": 1790674440000,\n    \"createdAt\": 1790674463492,\n    \"updatedAt\": 1790674513547,\n    \"deletedAt\": null\n}",
+            "afterJson": "{\n    \"id\": \"5c7c03ff-1141-4e5e-ad00-b41583f18048\",\n    \"recordId\": \"045cea38-a696-4aa0-8233-d43a2beffc90\",\n    \"note\": \"1\",\n    \"occurredAt\": 1790674440000,\n    \"createdAt\": 1790674463492,\n    \"updatedAt\": 1790675008519,\n    \"deletedAt\": null\n}"
+        },
+        {
+            "id": "9fae863f-8fa5-4ff7-9673-3e97893feb99",
+            "recordId": "045cea38-a696-4aa0-8233-d43a2beffc90",
+            "operation": "删除打卡",
+            "title": "20260929",
+            "operatedAt": 1790675109304,
+            "sequence": 10,
+            "beforeJson": "{\n    \"id\": \"5c7c03ff-1141-4e5e-ad00-b41583f18048\",\n    \"recordId\": \"045cea38-a696-4aa0-8233-d43a2beffc90\",\n    \"note\": \"1\",\n    \"occurredAt\": 1790674440000,\n    \"createdAt\": 1790674463492,\n    \"updatedAt\": 1790675008519,\n    \"deletedAt\": null\n}",
+            "afterJson": "{\n    \"id\": \"5c7c03ff-1141-4e5e-ad00-b41583f18048\",\n    \"recordId\": \"045cea38-a696-4aa0-8233-d43a2beffc90\",\n    \"note\": \"1\",\n    \"occurredAt\": 1790674440000,\n    \"createdAt\": 1790674463492,\n    \"updatedAt\": 1790675109303,\n    \"deletedAt\": 1790675109303\n}"
+        },
+        {
+            "id": "353c2ee1-904b-430f-820a-a9784f728d16",
+            "recordId": "045cea38-a696-4aa0-8233-d43a2beffc90",
+            "operation": "删除记录",
+            "title": "20260929",
+            "operatedAt": 1790675114517,
+            "sequence": 11,
+            "beforeJson": "{\n    \"id\": \"045cea38-a696-4aa0-8233-d43a2beffc90\",\n    \"title\": \"20260929\",\n    \"body\": \"C凹凸热暗idea俺的track\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"ACTIVE\",\n    \"tagIds\": [\n        \"work\",\n        \"902bf035-5d35-4c68-b885-63a409971e03\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790674289957,\n    \"updatedAt\": 1790675109303,\n    \"deletedAt\": null,\n    \"tags\": [\n        {\n            \"id\": \"work\",\n            \"name\": \"工作\",\n            \"preset\": true\n        },\n        {\n            \"id\": \"902bf035-5d35-4c68-b885-63a409971e03\",\n            \"name\": \"2027\",\n            \"preset\": false\n        }\n    ]\n}",
+            "afterJson": "{\n    \"id\": \"045cea38-a696-4aa0-8233-d43a2beffc90\",\n    \"title\": \"20260929\",\n    \"body\": \"C凹凸热暗idea俺的track\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"ACTIVE\",\n    \"tagIds\": [\n        \"work\",\n        \"902bf035-5d35-4c68-b885-63a409971e03\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790674289957,\n    \"updatedAt\": 1790675114509,\n    \"deletedAt\": 1790675114509,\n    \"tags\": [\n        {\n            \"id\": \"work\",\n            \"name\": \"工作\",\n            \"preset\": true\n        },\n        {\n            \"id\": \"902bf035-5d35-4c68-b885-63a409971e03\",\n            \"name\": \"2027\",\n            \"preset\": false\n        }\n    ]\n}"
+        },
+        {
+            "id": "b37ee639-d61e-404e-9677-c62ee7193506",
+            "recordId": "045cea38-a696-4aa0-8233-d43a2beffc90",
+            "operation": "恢复记录",
+            "title": "20260929",
+            "operatedAt": 1790675245352,
+            "sequence": 12,
+            "beforeJson": "{\n    \"id\": \"045cea38-a696-4aa0-8233-d43a2beffc90\",\n    \"title\": \"20260929\",\n    \"body\": \"C凹凸热暗idea俺的track\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"ACTIVE\",\n    \"tagIds\": [\n        \"work\",\n        \"902bf035-5d35-4c68-b885-63a409971e03\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790674289957,\n    \"updatedAt\": 1790675114509,\n    \"deletedAt\": 1790675114509,\n    \"tags\": [\n        {\n            \"id\": \"work\",\n            \"name\": \"工作\",\n            \"preset\": true\n        },\n        {\n            \"id\": \"902bf035-5d35-4c68-b885-63a409971e03\",\n            \"name\": \"2027\",\n            \"preset\": false\n        }\n    ]\n}",
+            "afterJson": "{\n    \"id\": \"045cea38-a696-4aa0-8233-d43a2beffc90\",\n    \"title\": \"20260929\",\n    \"body\": \"C凹凸热暗idea俺的track\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"ACTIVE\",\n    \"tagIds\": [\n        \"work\",\n        \"902bf035-5d35-4c68-b885-63a409971e03\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790674289957,\n    \"updatedAt\": 1790675245335,\n    \"deletedAt\": null,\n    \"tags\": [\n        {\n            \"id\": \"work\",\n            \"name\": \"工作\",\n            \"preset\": true\n        },\n        {\n            \"id\": \"902bf035-5d35-4c68-b885-63a409971e03\",\n            \"name\": \"2027\",\n            \"preset\": false\n        }\n    ]\n}"
+        },
+        {
+            "id": "fc0fe570-9e7e-4816-a681-e705932237b9",
+            "recordId": "045cea38-a696-4aa0-8233-d43a2beffc90",
+            "operation": "补记打卡",
+            "title": "20260929",
+            "operatedAt": 1790675392075,
+            "sequence": 13,
+            "beforeJson": null,
+            "afterJson": "{\n    \"id\": \"a043390d-564a-4eac-b7ff-5cc14d967ef8\",\n    \"recordId\": \"045cea38-a696-4aa0-8233-d43a2beffc90\",\n    \"note\": \"\",\n    \"occurredAt\": 1790588820000,\n    \"createdAt\": 1790675379074,\n    \"updatedAt\": 1790675392074,\n    \"deletedAt\": null\n}"
+        },
+        {
+            "id": "594a5c41-bfdf-4bac-b546-f50ed29dd55f",
+            "recordId": "045cea38-a696-4aa0-8233-d43a2beffc90",
+            "operation": "状态变更",
+            "title": "20260929",
+            "operatedAt": 1790675427396,
+            "sequence": 14,
+            "beforeJson": "{\n    \"id\": \"045cea38-a696-4aa0-8233-d43a2beffc90\",\n    \"title\": \"20260929\",\n    \"body\": \"C凹凸热暗idea俺的track\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"ACTIVE\",\n    \"tagIds\": [\n        \"work\",\n        \"902bf035-5d35-4c68-b885-63a409971e03\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790674289957,\n    \"updatedAt\": 1790675392074,\n    \"deletedAt\": null,\n    \"tags\": [\n        {\n            \"id\": \"work\",\n            \"name\": \"工作\",\n            \"preset\": true\n        },\n        {\n            \"id\": \"902bf035-5d35-4c68-b885-63a409971e03\",\n            \"name\": \"2027\",\n            \"preset\": false\n        }\n    ]\n}",
+            "afterJson": "{\n    \"id\": \"045cea38-a696-4aa0-8233-d43a2beffc90\",\n    \"title\": \"20260929\",\n    \"body\": \"C凹凸热暗idea俺的track\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"COMPLETED\",\n    \"tagIds\": [\n        \"work\",\n        \"902bf035-5d35-4c68-b885-63a409971e03\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790674289957,\n    \"updatedAt\": 1790675427388,\n    \"deletedAt\": null,\n    \"tags\": [\n        {\n            \"id\": \"work\",\n            \"name\": \"工作\",\n            \"preset\": true\n        },\n        {\n            \"id\": \"902bf035-5d35-4c68-b885-63a409971e03\",\n            \"name\": \"2027\",\n            \"preset\": false\n        }\n    ]\n}"
+        },
+        {
+            "id": "ddc54999-d55b-4338-b150-1599b393640c",
+            "recordId": "045cea38-a696-4aa0-8233-d43a2beffc90",
+            "operation": "删除记录",
+            "title": "20260929",
+            "operatedAt": 1790675725794,
+            "sequence": 15,
+            "beforeJson": "{\n    \"id\": \"045cea38-a696-4aa0-8233-d43a2beffc90\",\n    \"title\": \"20260929\",\n    \"body\": \"C凹凸热暗idea俺的track\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"COMPLETED\",\n    \"tagIds\": [\n        \"work\",\n        \"902bf035-5d35-4c68-b885-63a409971e03\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790674289957,\n    \"updatedAt\": 1790675427388,\n    \"deletedAt\": null,\n    \"tags\": [\n        {\n            \"id\": \"work\",\n            \"name\": \"工作\",\n            \"preset\": true\n        },\n        {\n            \"id\": \"902bf035-5d35-4c68-b885-63a409971e03\",\n            \"name\": \"2027\",\n            \"preset\": false\n        }\n    ]\n}",
+            "afterJson": "{\n    \"id\": \"045cea38-a696-4aa0-8233-d43a2beffc90\",\n    \"title\": \"20260929\",\n    \"body\": \"C凹凸热暗idea俺的track\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"COMPLETED\",\n    \"tagIds\": [\n        \"work\",\n        \"902bf035-5d35-4c68-b885-63a409971e03\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790674289957,\n    \"updatedAt\": 1790675725776,\n    \"deletedAt\": 1790675725776,\n    \"tags\": [\n        {\n            \"id\": \"work\",\n            \"name\": \"工作\",\n            \"preset\": true\n        },\n        {\n            \"id\": \"902bf035-5d35-4c68-b885-63a409971e03\",\n            \"name\": \"2027\",\n            \"preset\": false\n        }\n    ]\n}"
+        },
+        {
+            "id": "a0c9d978-f02d-47c9-b3fb-3b07ac19850c",
+            "recordId": "045cea38-a696-4aa0-8233-d43a2beffc90",
+            "operation": "恢复记录",
+            "title": "20260929",
+            "operatedAt": 1790675754418,
+            "sequence": 16,
+            "beforeJson": "{\n    \"id\": \"045cea38-a696-4aa0-8233-d43a2beffc90\",\n    \"title\": \"20260929\",\n    \"body\": \"C凹凸热暗idea俺的track\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"COMPLETED\",\n    \"tagIds\": [\n        \"work\",\n        \"902bf035-5d35-4c68-b885-63a409971e03\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790674289957,\n    \"updatedAt\": 1790675725776,\n    \"deletedAt\": 1790675725776,\n    \"tags\": [\n        {\n            \"id\": \"work\",\n            \"name\": \"工作\",\n            \"preset\": true\n        },\n        {\n            \"id\": \"902bf035-5d35-4c68-b885-63a409971e03\",\n            \"name\": \"2027\",\n            \"preset\": false\n        }\n    ]\n}",
+            "afterJson": "{\n    \"id\": \"045cea38-a696-4aa0-8233-d43a2beffc90\",\n    \"title\": \"20260929\",\n    \"body\": \"C凹凸热暗idea俺的track\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"COMPLETED\",\n    \"tagIds\": [\n        \"work\",\n        \"902bf035-5d35-4c68-b885-63a409971e03\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790674289957,\n    \"updatedAt\": 1790675754414,\n    \"deletedAt\": null,\n    \"tags\": [\n        {\n            \"id\": \"work\",\n            \"name\": \"工作\",\n            \"preset\": true\n        },\n        {\n            \"id\": \"902bf035-5d35-4c68-b885-63a409971e03\",\n            \"name\": \"2027\",\n            \"preset\": false\n        }\n    ]\n}"
+        }
+    ]
+}
