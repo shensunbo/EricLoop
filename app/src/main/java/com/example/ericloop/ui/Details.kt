@@ -120,12 +120,20 @@ import java.time.format.DateTimeFormatter
             Spacer(Modifier.height(20.dp))
             androidx.compose.foundation.text.selection.SelectionContainer { Text(record.body.ifBlank { "还没有正文。" }, style = MaterialTheme.typography.bodyLarge, color = if (record.body.isBlank()) MaterialTheme.colorScheme.onSurfaceVariant else MaterialTheme.colorScheme.onSurface) }
         }
+        if (record.kind == RecordKind.IDEA && record.deletedAt == null) item {
+            Text("将想法转为计划", style = MaterialTheme.typography.titleMedium)
+            Spacer(Modifier.height(12.dp))
+            Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                PlanType.entries.forEach { type ->
+                    OutlinedButton(onClick = { onConvert(type) }, modifier = Modifier.fillMaxWidth()) { Text("转为${type.label}计划") }
+                }
+            }
+        }
         item {
             Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 if (record.deletedAt != null) Button(onClick = onRestore) { LoopIcon(R.drawable.ic_restore); Text("恢复记录") }
                 else {
                     OutlinedButton(onClick = onEdit) { LoopIcon(R.drawable.ic_edit); Spacer(Modifier.width(6.dp)); Text("编辑") }
-                    if (record.kind == RecordKind.IDEA) PlanType.entries.forEach { type -> OutlinedButton(onClick = { onConvert(type) }) { Text("转为${type.label}计划") } }
                     OutlinedButton(onClick = { deleteConfirm = true }) { LoopIcon(R.drawable.ic_delete); Text("删除") }
                 }
             }
