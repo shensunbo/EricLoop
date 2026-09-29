@@ -141,3 +141,11 @@ Graph 颜色按记录 ID 固定；想法不校验隐藏的截止日期；补记�
 - [x] 更新 README、节点记录并提交图标资源及配置；项目仅验收当前连接的设备，未验证其他启动器裁切。
 
 图标配置参考 [Android 自适应图标文档](https://developer.android.com/develop/ui/compose/system/icon_design_adaptive)。Emoji 校验参考 [Android ICU UCharacter](https://developer.android.com/reference/android/icu/lang/UCharacter) 的字符串属性检查，使用 API 34 起的 RGI_EMOJI，低于项目 minSdk 35。
+
+## M9 — 磨砂金属背景：完成
+
+- [x] 采用柔和金色渐变、低对比高光和细颗粒纹理，保持静态；drawWithCache 缓存 Brush 和纹理 Path，尺寸/主题变化时重建。
+- [x] 首页已完成入口、完成记录卡片、详情完成状态卡使用同一效果，提供深浅主题；绘制在内容下方，由 Card 圆角裁切。
+- [x] `./gradlew :app:assembleDebug` 退出码 0，`BUILD SUCCESSFUL in 2s`；指定设备安装返回 `Success`，未运行单元测试。
+- [x] 真机首页入口可点击进入完成页，卡片可打开详情；三处金属渐变和细纹理均显示，圆角裁切正常，文字可读；深色详情状态卡检查通过，恢复设备原浅色设置。
+- [x] `git diff --check` 通过，进程 30075 的 AndroidRuntime 错误日志无输出；更新需求、验收记录并提交本节点。

@@ -104,7 +104,7 @@ import java.time.format.DateTimeFormatter
         if (record.kind == RecordKind.PLAN) item {
             val accent = accentColors(if (record.status == PlanStatus.COMPLETED) "completed" else "plans")
             Card(colors = CardDefaults.cardColors(containerColor = accent.container, contentColor = accent.content)) {
-                Column(Modifier.fillMaxWidth().padding(18.dp)) {
+                Column(Modifier.fillMaxWidth().metallicGold(record.status == PlanStatus.COMPLETED).padding(18.dp)) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         if (record.status == PlanStatus.COMPLETED) Text("🎉") else LoopIcon(R.drawable.ic_task_alt)
                         Spacer(Modifier.width(10.dp)); Text(record.status.label, style = MaterialTheme.typography.titleMedium, modifier = Modifier.weight(1f))

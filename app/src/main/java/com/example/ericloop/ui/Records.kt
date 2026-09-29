@@ -33,7 +33,7 @@ import com.example.ericloop.data.*
     val accent = accentColors(if (completed) "completed" else if (record.kind == RecordKind.IDEA) "ideas" else "plans")
     Card(onClick = onClick, modifier = Modifier.fillMaxWidth().then(if (completed) Modifier.border(BorderStroke(1.dp, accent.content.copy(alpha = 0.18f)), MaterialTheme.shapes.medium) else Modifier), colors = CardDefaults.cardColors(
         containerColor = accent.container, contentColor = accent.content)) {
-        Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+        Column(Modifier.fillMaxWidth().metallicGold(completed).padding(20.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(if (record.kind == RecordKind.IDEA) "想法" else record.planType.label, style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary)
                 Spacer(Modifier.weight(1f))
@@ -102,7 +102,7 @@ import com.example.ericloop.data.*
             Spacer(Modifier.height(12.dp))
             val celebration = accentColors("completed")
             OutlinedCard(onClick = { onFolder("completed") }, modifier = Modifier.fillMaxWidth(), colors = CardDefaults.outlinedCardColors(containerColor = celebration.container, contentColor = celebration.content)) {
-                Row(Modifier.padding(18.dp), verticalAlignment = Alignment.CenterVertically) {
+                Row(Modifier.fillMaxWidth().metallicGold().padding(18.dp), verticalAlignment = Alignment.CenterVertically) {
                     Text("🎉", style = MaterialTheme.typography.titleLarge); Spacer(Modifier.width(12.dp)); Text("已完成", style = MaterialTheme.typography.titleMedium)
                     Spacer(Modifier.weight(1f)); Text("$completedCount 个计划", color = MaterialTheme.colorScheme.onSurfaceVariant); Spacer(Modifier.width(10.dp)); LoopIcon(R.drawable.ic_arrow_forward)
                 }
