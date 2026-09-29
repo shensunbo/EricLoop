@@ -8,11 +8,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.ericloop.R
+import com.example.ericloop.data.LoopRecord
+import com.example.ericloop.data.RecordKind
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -32,6 +36,26 @@ private val Dark = darkColorScheme(
     onSurface = Color(0xFFE7E9F5), onSurfaceVariant = Color(0xFFB4B9CF),
 )
 
+data class UiAccent(val container: Color, val content: Color)
+
+@Composable fun accentColors(section: String): UiAccent {
+    val dark = isSystemInDarkTheme()
+    return when (section) {
+        "plans" -> if (dark) UiAccent(Color(0xFF20342A), Color(0xFFC3DFCD)) else UiAccent(Color(0xFFEDF7EE), Color(0xFF386047))
+        "ideas" -> if (dark) UiAccent(Color(0xFF21303F), Color(0xFFC7DFF4)) else UiAccent(Color(0xFFEFF6FD), Color(0xFF395B7A))
+        "completed" -> if (dark) UiAccent(Color(0xFF4F432A), Color(0xFFEDDAA8)) else UiAccent(Color(0xFFE3CC93), Color(0xFF604A1D))
+        "tags" -> if (dark) UiAccent(Color(0xFF223D34), Color(0xFFB6DFCD)) else UiAccent(Color(0xFFDFF0E8), Color(0xFF326B52))
+        "history" -> if (dark) UiAccent(Color(0xFF3B2E4C), Color(0xFFDEC5F6)) else UiAccent(Color(0xFFEDE4F6), Color(0xFF704A95))
+        "settings" -> if (dark) UiAccent(Color(0xFF293A49), Color(0xFFC0D8EC)) else UiAccent(Color(0xFFE5ECF3), Color(0xFF436276))
+        else -> UiAccent(MaterialTheme.colorScheme.primaryContainer, MaterialTheme.colorScheme.onPrimaryContainer)
+    }
+}
+
+@Composable fun CompletionMark() {
+    Text("🏅", fontSize = 24.sp, fontFamily = FontFamily.Default,
+        modifier = Modifier.semantics { contentDescription = "已完成" })
+}
+
 @Composable fun LoopTheme(content: @Composable () -> Unit) {
     MaterialTheme(
         colorScheme = if (isSystemInDarkTheme()) Dark else Light,
@@ -49,6 +73,11 @@ private val Dark = darkColorScheme(
 
 @Composable fun LoopIcon(resource: Int, description: String? = null, modifier: Modifier = Modifier) {
     Icon(painterResource(resource), contentDescription = description, modifier = modifier.size(24.dp))
+}
+
+@Composable fun RecordIcon(record: LoopRecord) {
+    record.emoji?.let { Text(it, fontSize = 26.sp, fontFamily = FontFamily.Default) }
+        ?: LoopIcon(if (record.kind == RecordKind.IDEA) R.drawable.ic_lightbulb else R.drawable.ic_task_alt)
 }
 fun displayTime(time: Long, pattern: String = "MM月dd日 HH:mm"): String =
     Instant.ofEpochMilli(time).atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern(pattern))

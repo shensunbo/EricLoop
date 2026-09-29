@@ -28,6 +28,8 @@ import java.time.format.DateTimeFormatter
     var planType by rememberSaveable(initial.id) { mutableStateOf(initial.planType.name) }
     var deadline by rememberSaveable(initial.id) { mutableStateOf(initial.deadline ?: "") }
     var selectedTags by rememberSaveable(initial.id) { mutableStateOf(initial.tagIds) }
+    var emoji by rememberSaveable(initial.id) { mutableStateOf(initial.emoji) }
+    var emojiOpen by rememberSaveable(initial.id) { mutableStateOf(false) }
     var dateOpen by remember { mutableStateOf(false) }
     val dateValid = kind != RecordKind.PLAN.name || deadline.isBlank() || runCatching { LocalDate.parse(deadline) }.isSuccess
     LazyColumn(Modifier.fillMaxSize().imePadding(), contentPadding = PaddingValues(24.dp), verticalArrangement = Arrangement.spacedBy(18.dp)) {
@@ -38,6 +40,14 @@ import java.time.format.DateTimeFormatter
             }
         }
         item { OutlinedTextField(title, { title = it }, Modifier.fillMaxWidth(), label = { Text("标题") }, placeholder = { Text("给它一个名字") }, singleLine = true, shape = MaterialTheme.shapes.medium) }
+        item {
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                RecordIcon(initial.copy(kind = RecordKind.valueOf(kind), emoji = emoji))
+                OutlinedButton(onClick = { emojiOpen = true }) { Text("选择图标") }
+                if (emoji != null) TextButton(onClick = { emoji = null }) { Text("恢复默认") }
+            }
+            Text("可选，未设置时使用默认图标", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        }
         item { OutlinedTextField(body, { body = it }, Modifier.fillMaxWidth().heightIn(min = 200.dp), label = { Text("正文") }, placeholder = { Text("想做什么？为什么想做？慢慢写下来。") }, shape = MaterialTheme.shapes.medium) }
         if (kind == RecordKind.PLAN.name) {
             item {
@@ -56,9 +66,10 @@ import java.time.format.DateTimeFormatter
             Text("在标签页创建更多分类", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
         }
         item {
-            Button(onClick = { onSave(initial.copy(title = title.trim(), body = body, kind = RecordKind.valueOf(kind), planType = PlanType.valueOf(planType), tagIds = selectedTags, deadline = if (kind == RecordKind.PLAN.name) deadline.trim().ifBlank { null } else null)) }, enabled = title.isNotBlank() && dateValid, modifier = Modifier.fillMaxWidth().height(54.dp)) { LoopIcon(R.drawable.ic_check); Spacer(Modifier.width(8.dp)); Text("保存记录") }
+            Button(onClick = { onSave(initial.copy(title = title.trim(), body = body, emoji = emoji, kind = RecordKind.valueOf(kind), planType = PlanType.valueOf(planType), tagIds = selectedTags, deadline = if (kind == RecordKind.PLAN.name) deadline.trim().ifBlank { null } else null)) }, enabled = title.isNotBlank() && dateValid, modifier = Modifier.fillMaxWidth().height(54.dp)) { LoopIcon(R.drawable.ic_check); Spacer(Modifier.width(8.dp)); Text("保存记录") }
         }
     }
+    if (emojiOpen) EmojiPicker(emoji, onDismiss = { emojiOpen = false }, onSelect = { emoji = it; emojiOpen = false })
     if (dateOpen) {
         val state = rememberDatePickerState()
         DatePickerDialog(onDismissRequest = { dateOpen = false }, confirmButton = { TextButton(onClick = { state.selectedDateMillis?.let { deadline = java.time.Instant.ofEpochMilli(it).atZone(java.time.ZoneOffset.UTC).toLocalDate().toString() }; dateOpen = false }) { Text("确定") } }, dismissButton = { TextButton(onClick = { dateOpen = false }) { Text("取消") } }) { DatePicker(state) }
@@ -80,16 +91,23 @@ import java.time.format.DateTimeFormatter
     LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(24.dp), verticalArrangement = Arrangement.spacedBy(20.dp)) {
         item {
             Text(if (record.deletedAt != null) "回收站" else if (record.kind == RecordKind.IDEA) "IDEA / 想法" else "PLAN / ${record.planType.label}", style = MaterialTheme.typography.labelMedium, letterSpacing = androidx.compose.ui.unit.TextUnit.Unspecified, color = MaterialTheme.colorScheme.primary)
-            Spacer(Modifier.height(12.dp)); Text(record.title, style = MaterialTheme.typography.headlineLarge)
+            Spacer(Modifier.height(12.dp))
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                RecordIcon(record)
+                Text(record.title, style = MaterialTheme.typography.headlineLarge, modifier = Modifier.weight(1f))
+                if (record.kind == RecordKind.PLAN && record.status == PlanStatus.COMPLETED) CompletionMark()
+            }
             Spacer(Modifier.height(12.dp)); Text("创建于 ${displayTime(record.createdAt, "yyyy年MM月dd日 HH:mm")}", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
             Text("最近变更 ${displayTime(record.updatedAt)}", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
             FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) { backup.tags.filter { it.id in record.tagIds }.forEach { AssistChip(onClick = {}, label = { Text(it.name) }) } }
         }
         if (record.kind == RecordKind.PLAN) item {
-            Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer)) {
+            val accent = accentColors(if (record.status == PlanStatus.COMPLETED) "completed" else "plans")
+            Card(colors = CardDefaults.cardColors(containerColor = accent.container, contentColor = accent.content)) {
                 Column(Modifier.fillMaxWidth().padding(18.dp)) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        LoopIcon(R.drawable.ic_task_alt); Spacer(Modifier.width(10.dp)); Text(record.status.label, style = MaterialTheme.typography.titleMedium, modifier = Modifier.weight(1f))
+                        if (record.status == PlanStatus.COMPLETED) Text("🎉") else LoopIcon(R.drawable.ic_task_alt)
+                        Spacer(Modifier.width(10.dp)); Text(record.status.label, style = MaterialTheme.typography.titleMedium, modifier = Modifier.weight(1f))
                         if (record.deletedAt == null) ChoiceMenu("调整", PlanStatus.entries.map { it.label }, record.status.label) { label -> onStatus(PlanStatus.entries.first { it.label == label }) }
                     }
                     record.deadline?.let { Text("截止日期  $it", style = MaterialTheme.typography.bodyMedium) }

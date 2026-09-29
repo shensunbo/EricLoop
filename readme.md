@@ -5,6 +5,7 @@
 ## 功能
 
 - 想法转为一次性或长期计划，保留全部历史。
+- 记录可设置 Android Emoji 图标，支持输入法自定义、肤色和组合 Emoji；未设置时使用默认图标。
 - 计划状态调整；完成后自动进入“已完成”，删除进入可恢复的回收站。
 - 长期计划自由打卡、补记、编辑和删除。
 - 预置及自定义标签，点击标签进入独立列表，包含想法和计划，已完成计划排在最后。
@@ -48,3 +49,5 @@ Token 使用 Android Keystore 密钥加密保存，不进入日志或备份。�
 - [首版需求](doc/spec.md)、[实施记录](doc/implementation.md)。
 
 UI 图标来自 Google Material Symbols，Apache 2.0，见 NOTICE 与 licenses/。页面使用统一主题，不需要额外购买素材。
+
+启动图标使用用户提供的 PNG，原图位于 `app/src/main/res/drawable-nodpi/ericloop_launcher_art.png`。`drawable/ic_launcher_foreground.xml` 负责等比例缩放和边距，`mipmap-anydpi-v26/ic_launcher.xml` 组合白色背景与前景，Manifest 使用 `@mipmap/ic_launcher`。当前边距按连接的 vivo 桌面验证；将来更换设备或启动器时可在 XML 调整。

@@ -11,6 +11,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
@@ -32,7 +33,10 @@ private fun historyColor(id: String?) = laneColors[(id ?: "tags").hashCode().ush
         if (records.isEmpty()) item { EmptyPanel("旅程从第一条记录开始", "创建想法或计划后，可以在这里查看它的变更。", R.drawable.ic_timeline) }
         items(records, key = { it.id }) { record ->
             Card(onClick = { onSelect(record.id) }, modifier = Modifier.fillMaxWidth(), colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)) {
-                Text(record.title, style = MaterialTheme.typography.titleMedium, maxLines = 2, overflow = TextOverflow.Ellipsis, modifier = Modifier.padding(20.dp))
+                Row(Modifier.padding(20.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                    RecordIcon(record)
+                    Text(record.title, style = MaterialTheme.typography.titleMedium, maxLines = 2, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f))
+                }
             }
         }
     }
@@ -125,6 +129,7 @@ private fun humanSnapshot(raw: String): String = runCatching {
     fun value(key: String) = (o[key] as? JsonPrimitive)?.contentOrNull
     buildString {
         value("title")?.let { appendLine(it) }
+        if (o.containsKey("kind")) appendLine("图标：${value("emoji") ?: "默认"}")
         value("body")?.let { appendLine(it.ifBlank { "（正文为空）" }) }
         value("kind")?.let { appendLine("类型：" + if (it == "IDEA") "想法" else "计划") }
         if (value("kind") == "PLAN") {

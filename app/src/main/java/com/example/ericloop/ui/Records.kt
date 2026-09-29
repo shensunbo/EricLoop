@@ -1,5 +1,7 @@
 package com.example.ericloop.ui
 
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -27,16 +29,21 @@ import com.example.ericloop.data.*
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable fun RecordCard(record: LoopRecord, tags: List<LoopTag>, onClick: () -> Unit) {
-    Card(onClick = onClick, modifier = Modifier.fillMaxWidth(), colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)) {
+    val completed = record.kind == RecordKind.PLAN && record.status == PlanStatus.COMPLETED
+    val accent = accentColors(if (completed) "completed" else if (record.kind == RecordKind.IDEA) "ideas" else "plans")
+    Card(onClick = onClick, modifier = Modifier.fillMaxWidth().then(if (completed) Modifier.border(BorderStroke(1.dp, accent.content.copy(alpha = 0.18f)), MaterialTheme.shapes.medium) else Modifier), colors = CardDefaults.cardColors(
+        containerColor = accent.container, contentColor = accent.content)) {
         Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                LoopIcon(if (record.kind == RecordKind.IDEA) R.drawable.ic_lightbulb else R.drawable.ic_task_alt)
-                Spacer(Modifier.width(8.dp))
                 Text(if (record.kind == RecordKind.IDEA) "想法" else record.planType.label, style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary)
                 Spacer(Modifier.weight(1f))
                 if (record.kind == RecordKind.PLAN) Text(record.status.label, style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.secondary)
             }
-            Text(record.title, style = MaterialTheme.typography.titleLarge, maxLines = 2, overflow = TextOverflow.Ellipsis)
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                RecordIcon(record)
+                Text(record.title, style = MaterialTheme.typography.titleLarge, maxLines = 2, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f))
+                if (completed) CompletionMark()
+            }
             if (record.body.isNotBlank()) Text(record.body, maxLines = 2, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
             FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 tags.filter { it.id in record.tagIds }.forEach { tag ->
@@ -82,20 +89,21 @@ import com.example.ericloop.data.*
         item {
             when (mode) {
                 "tagrecords" -> SectionHeading("COLLECTION", initialTag?.let { id -> backup.tags.find { it.id == id }?.name ?: "无标签" } ?: "全部记录", "想法与计划 · 已完成排在最后")
-                "completed" -> SectionHeading("COMPLETED", "已完成", "每一次完成，都值得留下。")
+                "completed" -> SectionHeading("COMPLETED", "🎉 已完成", "每一次完成，都值得留下。")
                 "trash" -> SectionHeading("RECYCLE BIN", "回收站", "恢复后会回到原来的收纳位置。")
                 else -> SectionHeading("ERICLOOP / YOUR SPACE", "想法，慢慢成真。", "记录灵感 · 推进计划 · 留下过程")
             }
         }
         if (mode == "home") item {
             Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                StatCard("正在推进", active.count { it.kind == RecordKind.PLAN && it.status == PlanStatus.ACTIVE }.toString(), Modifier.weight(1f))
-                StatCard("灵感收集", active.count { it.kind == RecordKind.IDEA }.toString(), Modifier.weight(1f))
+                StatCard("正在推进", active.count { it.kind == RecordKind.PLAN && it.status == PlanStatus.ACTIVE }.toString(), Modifier.weight(1f), accentColors("plans"))
+                StatCard("灵感收集", active.count { it.kind == RecordKind.IDEA }.toString(), Modifier.weight(1f), accentColors("ideas"))
             }
             Spacer(Modifier.height(12.dp))
-            OutlinedCard(onClick = { onFolder("completed") }, modifier = Modifier.fillMaxWidth()) {
+            val celebration = accentColors("completed")
+            OutlinedCard(onClick = { onFolder("completed") }, modifier = Modifier.fillMaxWidth(), colors = CardDefaults.outlinedCardColors(containerColor = celebration.container, contentColor = celebration.content)) {
                 Row(Modifier.padding(18.dp), verticalAlignment = Alignment.CenterVertically) {
-                    LoopIcon(R.drawable.ic_folder); Spacer(Modifier.width(12.dp)); Text("已完成", style = MaterialTheme.typography.titleMedium)
+                    Text("🎉", style = MaterialTheme.typography.titleLarge); Spacer(Modifier.width(12.dp)); Text("已完成", style = MaterialTheme.typography.titleMedium)
                     Spacer(Modifier.weight(1f)); Text("$completedCount 个计划", color = MaterialTheme.colorScheme.onSurfaceVariant); Spacer(Modifier.width(10.dp)); LoopIcon(R.drawable.ic_arrow_forward)
                 }
             }
@@ -119,11 +127,11 @@ import com.example.ericloop.data.*
     }
 }
 
-@Composable private fun StatCard(label: String, value: String, modifier: Modifier) {
-    Card(modifier, colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer)) {
+@Composable private fun StatCard(label: String, value: String, modifier: Modifier, accent: UiAccent) {
+    Card(modifier, colors = CardDefaults.cardColors(containerColor = accent.container, contentColor = accent.content)) {
         Column(Modifier.padding(18.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-            Text(value, style = MaterialTheme.typography.headlineMedium, color = MaterialTheme.colorScheme.onPrimaryContainer)
-            Text(label, style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onPrimaryContainer)
+            Text(value, style = MaterialTheme.typography.headlineMedium, color = accent.content)
+            Text(label, style = MaterialTheme.typography.labelMedium, color = accent.content)
         }
     }
 }

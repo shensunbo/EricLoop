@@ -38,6 +38,7 @@ private fun validateTag(tag: LoopTag) {
 
 private fun validateRecord(record: LoopRecord, tags: List<LoopTag>) {
     require(record.id.isNotBlank() && record.title.isNotBlank() && record.title == record.title.trim()) { "标题或 ID 无效" }
+    require(record.emoji == null || isRecordEmoji(record.emoji)) { "图标必须是一个有效 Emoji" }
     val tagIds = tags.map { it.id }.toSet()
     require(record.tagIds.distinct().size == record.tagIds.size && record.tagIds.all(tagIds::contains)) { "标签引用无效" }
     record.deadline?.let { require(LocalDate.parse(it).toString() == it) { "截止日期无效" } }

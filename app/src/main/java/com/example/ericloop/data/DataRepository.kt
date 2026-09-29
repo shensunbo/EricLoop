@@ -117,7 +117,7 @@ class DataRepository(context: Context) {
     suspend fun saveRecord(record: LoopRecord) = mutate { source ->
         val old = source.records.find { it.id == record.id }
         require(old?.deletedAt == null) { "请先恢复记录" }
-        val normalized = record.copy(title = record.title.trim(), createdAt = old?.createdAt ?: record.createdAt,
+        val normalized = record.copy(title = record.title.trim(), emoji = record.emoji?.trim()?.ifBlank { null }, createdAt = old?.createdAt ?: record.createdAt,
             updatedAt = old?.updatedAt ?: record.createdAt, deletedAt = old?.deletedAt)
         if (old == normalized) source else {
             val next = normalized.copy(updatedAt = maxOf(System.currentTimeMillis(), normalized.createdAt, old?.updatedAt ?: 0))

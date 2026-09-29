@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Preserve the supplied 524:462 aspect ratio; fill the connected vivo launcher's mask. -->
+<inset xmlns:android="http://schemas.android.com/apk/res/android"
+    android:insetLeft="12.5%" android:insetRight="12.5%"
+    android:insetTop="16.94%" android:insetBottom="16.94%">
+    <bitmap android:src="@drawable/ericloop_launcher_art" android:gravity="fill" android:filter="true" />
+</inset>

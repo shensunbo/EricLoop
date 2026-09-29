@@ -70,7 +70,11 @@ import kotlinx.coroutines.launch
         },
         bottomBar = {
             if (isTab) NavigationBar(containerColor = MaterialTheme.colorScheme.surface) {
-                tabs.forEach { (key, label, icon) -> NavigationBarItem(selected = route == key, onClick = { route = key; if (key == "history") historyRecord = null }, icon = { LoopIcon(icon) }, label = { Text(label) }) }
+                tabs.forEach { (key, label, icon) ->
+                    val accent = accentColors(key)
+                    NavigationBarItem(selected = route == key, onClick = { route = key; if (key == "history") historyRecord = null }, icon = { LoopIcon(icon) }, label = { Text(label) },
+                        colors = NavigationBarItemDefaults.colors(selectedIconColor = accent.content, selectedTextColor = accent.content, indicatorColor = accent.container))
+                }
             }
         },
         floatingActionButton = {

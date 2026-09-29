@@ -18,6 +18,7 @@ fun newId(): String = UUID.randomUUID().toString()
     val status: PlanStatus = PlanStatus.NOT_STARTED, val tagIds: List<String> = emptyList(),
     val deadline: String? = null, val createdAt: Long = System.currentTimeMillis(),
     val updatedAt: Long = createdAt, val deletedAt: Long? = null,
+    val emoji: String? = null,
 )
 @Serializable data class LoopTag(val id: String = newId(), val name: String, val preset: Boolean = false)
 @Serializable data class CheckIn(
