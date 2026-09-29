@@ -1,8 +1,8 @@
 {
     "schemaVersion": 1,
     "datasetId": "468d0be1-b460-429d-94e2-d7cf841f60c1",
-    "revision": 16,
-    "exportedAt": 1790676446072,
+    "revision": 18,
+    "exportedAt": 1790676905060,
     "records": [
         {
             "id": "045cea38-a696-4aa0-8233-d43a2beffc90",
@@ -18,6 +18,36 @@
             "deadline": null,
             "createdAt": 1790674289957,
             "updatedAt": 1790675754414,
+            "deletedAt": null
+        },
+        {
+            "id": "491252d3-f793-445b-99ae-a5907a3e7e91",
+            "title": "HipHop探索",
+            "body": "尝试HipHop",
+            "kind": "IDEA",
+            "planType": "ONCE",
+            "status": "NOT_STARTED",
+            "tagIds": [
+                "life"
+            ],
+            "deadline": null,
+            "createdAt": 1790676594780,
+            "updatedAt": 1790676629747,
+            "deletedAt": null
+        },
+        {
+            "id": "d29889c1-2c00-45bb-9a72-6da20aefd68e",
+            "title": "网球",
+            "body": "学习网球",
+            "kind": "PLAN",
+            "planType": "LONG_TERM",
+            "status": "NOT_STARTED",
+            "tagIds": [
+                "life"
+            ],
+            "deadline": null,
+            "createdAt": 1790676832536,
+            "updatedAt": 1790676861575,
             "deletedAt": null
         }
     ],
@@ -233,6 +263,26 @@
             "sequence": 16,
             "beforeJson": "{\n    \"id\": \"045cea38-a696-4aa0-8233-d43a2beffc90\",\n    \"title\": \"20260929\",\n    \"body\": \"C凹凸热暗idea俺的track\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"COMPLETED\",\n    \"tagIds\": [\n        \"work\",\n        \"902bf035-5d35-4c68-b885-63a409971e03\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790674289957,\n    \"updatedAt\": 1790675725776,\n    \"deletedAt\": 1790675725776,\n    \"tags\": [\n        {\n            \"id\": \"work\",\n            \"name\": \"工作\",\n            \"preset\": true\n        },\n        {\n            \"id\": \"902bf035-5d35-4c68-b885-63a409971e03\",\n            \"name\": \"2027\",\n            \"preset\": false\n        }\n    ]\n}",
             "afterJson": "{\n    \"id\": \"045cea38-a696-4aa0-8233-d43a2beffc90\",\n    \"title\": \"20260929\",\n    \"body\": \"C凹凸热暗idea俺的track\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"COMPLETED\",\n    \"tagIds\": [\n        \"work\",\n        \"902bf035-5d35-4c68-b885-63a409971e03\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790674289957,\n    \"updatedAt\": 1790675754414,\n    \"deletedAt\": null,\n    \"tags\": [\n        {\n            \"id\": \"work\",\n            \"name\": \"工作\",\n            \"preset\": true\n        },\n        {\n            \"id\": \"902bf035-5d35-4c68-b885-63a409971e03\",\n            \"name\": \"2027\",\n            \"preset\": false\n        }\n    ]\n}"
+        },
+        {
+            "id": "4894c08c-9355-42cb-ba9b-25a01222f063",
+            "recordId": "491252d3-f793-445b-99ae-a5907a3e7e91",
+            "operation": "创建想法",
+            "title": "HipHop探索",
+            "operatedAt": 1790676629750,
+            "sequence": 17,
+            "beforeJson": null,
+            "afterJson": "{\n    \"id\": \"491252d3-f793-445b-99ae-a5907a3e7e91\",\n    \"title\": \"HipHop探索\",\n    \"body\": \"尝试HipHop\",\n    \"kind\": \"IDEA\",\n    \"planType\": \"ONCE\",\n    \"status\": \"NOT_STARTED\",\n    \"tagIds\": [\n        \"life\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790676594780,\n    \"updatedAt\": 1790676629747,\n    \"deletedAt\": null,\n    \"tags\": [\n        {\n            \"id\": \"life\",\n            \"name\": \"生活\",\n            \"preset\": true\n        }\n    ]\n}"
+        },
+        {
+            "id": "ded5df21-a975-4170-bb9c-4abf4dbd421f",
+            "recordId": "d29889c1-2c00-45bb-9a72-6da20aefd68e",
+            "operation": "创建计划",
+            "title": "网球",
+            "operatedAt": 1790676861578,
+            "sequence": 18,
+            "beforeJson": null,
+            "afterJson": "{\n    \"id\": \"d29889c1-2c00-45bb-9a72-6da20aefd68e\",\n    \"title\": \"网球\",\n    \"body\": \"学习网球\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"NOT_STARTED\",\n    \"tagIds\": [\n        \"life\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790676832536,\n    \"updatedAt\": 1790676861575,\n    \"deletedAt\": null,\n    \"tags\": [\n        {\n            \"id\": \"life\",\n            \"name\": \"生活\",\n            \"preset\": true\n        }\n    ]\n}"
         }
     ]
 }
