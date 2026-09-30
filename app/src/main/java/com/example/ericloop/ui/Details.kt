@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.ericloop.R
 import com.example.ericloop.data.*
 import java.time.LocalDate
@@ -119,7 +120,12 @@ import java.time.format.DateTimeFormatter
         item {
             HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
             Spacer(Modifier.height(8.dp))
-            androidx.compose.foundation.text.selection.SelectionContainer { Text(record.body.ifBlank { "还没有正文。" }, style = MaterialTheme.typography.bodyLarge, color = if (record.body.isBlank()) MaterialTheme.colorScheme.onSurfaceVariant else MaterialTheme.colorScheme.onSurface) }
+            androidx.compose.foundation.text.selection.SelectionContainer {
+                HandwritingText(record.body.ifBlank { "还没有正文。" },
+                    style = MaterialTheme.typography.bodyLarge.copy(fontSize = 18.sp, lineHeight = 26.sp,
+                        color = if (record.body.isBlank()) MaterialTheme.colorScheme.onSurfaceVariant else MaterialTheme.colorScheme.onSurface),
+                    useNotePreferences = true)
+            }
         }
         if (record.kind == RecordKind.IDEA && record.deletedAt == null) item {
             Text("将想法转为计划", style = MaterialTheme.typography.titleMedium)
@@ -155,7 +161,8 @@ import java.time.format.DateTimeFormatter
                     Row(Modifier.fillMaxWidth().padding(12.dp), verticalAlignment = Alignment.Top) {
                         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
                             Text(displayTime(checkIn.occurredAt, "yyyy年MM月dd日 HH:mm"), style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.secondary)
-                            Text(checkIn.note.ifBlank { "完成了一次打卡" }, style = MaterialTheme.typography.bodyLarge)
+                            HandwritingText(checkIn.note.ifBlank { "完成了一次打卡" },
+                                style = MaterialTheme.typography.bodyLarge.copy(fontSize = 18.sp, lineHeight = 25.sp), useNotePreferences = true)
                         }
                         if (record.deletedAt == null) Box {
                             IconButton(onClick = { actionsExpanded = true }) { Icon(painterResource(R.drawable.ic_more_vert), "进展操作", Modifier.size(20.dp)) }

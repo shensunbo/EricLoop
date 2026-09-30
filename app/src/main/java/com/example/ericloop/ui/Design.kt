@@ -141,7 +141,8 @@ fun displayTime(time: Long, pattern: String = "MM月dd日 HH:mm"): String =
 @Composable fun SectionHeading(title: String, subtitle: String? = null, prominent: Boolean = false) {
     Column(Modifier.fillMaxWidth().padding(top = 4.dp, bottom = 4.dp), verticalArrangement = Arrangement.spacedBy(2.dp)) {
         Text(title, style = if (prominent) MaterialTheme.typography.headlineMedium else MaterialTheme.typography.headlineSmall)
-        subtitle?.let { Text(it, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant) }
+        subtitle?.let { HandwritingText(it, style = MaterialTheme.typography.bodyMedium.copy(fontSize = 16.sp, lineHeight = 22.sp,
+            color = MaterialTheme.colorScheme.onSurfaceVariant)) }
     }
 }
 

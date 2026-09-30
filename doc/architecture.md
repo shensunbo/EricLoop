@@ -47,6 +47,8 @@ Room 数据库包含 `records`、`tags`、`checkins`、`events` 和单行 `metad
 
 本地私有 `SharedPreferences` 保存连接参数、加密 Token、上次确认的云端 blob SHA、已上传修订号/数据集 ID 和成功时间。Token 使用 Android Keystore AES-GCM 密钥加密，不进入 `Backup`、Room 业务表、历史快照或 Git 仓库。同步操作另有 `Mutex`，上传从仓库取得一致快照；上传期间后续本地修改仍会显示待上传。下载先校验文件大小、blob SHA、JSON 必需字段、引用和历史，再给用户预览。用户确认恢复时再次核对远端 blob，防止预览后目标变化。
 
+中文与英文正文字体的显示偏好另存于本机 `note_fonts` SharedPreferences。它只影响 Compose 渲染，不改变记录内容、历史事件或备份格式，也不随云端恢复覆盖。
+
 ```mermaid
 sequenceDiagram
     participant U as 用户

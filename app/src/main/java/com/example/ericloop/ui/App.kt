@@ -1,5 +1,6 @@
 package com.example.ericloop.ui
 
+import android.content.Context
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -8,6 +9,7 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -132,6 +134,10 @@ import kotlinx.coroutines.launch
     var repo by rememberSaveable(settings.repo) { mutableStateOf(settings.repo) }
     var branch by rememberSaveable(settings.branch) { mutableStateOf(settings.branch) }
     var token by remember { mutableStateOf("") }
+    val context = LocalContext.current
+    val fontPreferences = remember(context) { context.getSharedPreferences(NOTE_FONT_PREFERENCES, Context.MODE_PRIVATE) }
+    var chineseHandwriting by rememberSaveable { mutableStateOf(fontPreferences.getBoolean(CHINESE_HANDWRITING_KEY, true)) }
+    var englishFont by rememberSaveable { mutableStateOf(fontPreferences.getString(ENGLISH_FONT_KEY, "connected") ?: "connected") }
     val changed = owner != settings.owner || repo != settings.repo || branch != settings.branch || token.isNotEmpty()
     val canSync = !status.busy && settings.hasToken && !changed
     val pending = if (status.uploadedDatasetId == backup.datasetId) (backup.revision - status.uploadedRevision).coerceAtLeast(0) else backup.revision
@@ -172,6 +178,21 @@ import kotlinx.coroutines.launch
                 OutlinedButton(onClick = onForce, enabled = canSync, modifier = Modifier.weight(1f)) { Text("强制上传") }
             }
             if (changed) Text("请先保存连接设置", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary)
+        }
+        item {
+            Text("正文与进展字体", style = MaterialTheme.typography.titleLarge)
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                ChoiceMenu("中文", listOf("行书", "系统"), if (chineseHandwriting) "行书" else "系统") { choice ->
+                    chineseHandwriting = choice == "行书"
+                    fontPreferences.edit().putBoolean(CHINESE_HANDWRITING_KEY, chineseHandwriting).apply()
+                }
+                ChoiceMenu("英文", listOf("连笔", "手写", "系统"), when (englishFont) { "caveat" -> "手写"; "system" -> "系统"; else -> "连笔" }) { choice ->
+                    englishFont = when (choice) { "手写" -> "caveat"; "系统" -> "system"; else -> "connected" }
+                    fontPreferences.edit().putString(ENGLISH_FONT_KEY, englishFont).apply()
+                }
+            }
+            Text("连笔为 Dancing Script，手写为 Caveat；作用于记录正文和打卡笔记。", style = MaterialTheme.typography.labelSmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant)
         }
         item {
             OutlinedCard(onClick = onTrash, modifier = Modifier.fillMaxWidth()) {

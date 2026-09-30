@@ -15,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.shape.RoundedCornerShape
 import com.example.ericloop.R
 import com.example.ericloop.data.*
@@ -51,7 +52,10 @@ import com.example.ericloop.data.*
                 Text(record.title, style = MaterialTheme.typography.titleLarge, maxLines = 2, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f))
                 if (completed) CompletionMark()
             }
-            if (record.body.isNotBlank()) Text(record.body, maxLines = 2, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            if (record.body.isNotBlank()) HandwritingText(record.body,
+                style = MaterialTheme.typography.bodyMedium.copy(fontSize = 18.sp, lineHeight = 22.sp,
+                    color = accent.content),
+                maxLines = 2, overflow = TextOverflow.Ellipsis, useNotePreferences = true)
             FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 tags.filter { it.id in record.tagIds }.forEach { tag ->
                     Text("${tagEmoji(tag)} #${tag.name}", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary)
