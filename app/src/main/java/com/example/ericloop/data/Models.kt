@@ -20,7 +20,7 @@ fun newId(): String = UUID.randomUUID().toString()
     val updatedAt: Long = createdAt, val deletedAt: Long? = null,
     val emoji: String? = null,
 )
-@Serializable data class LoopTag(val id: String = newId(), val name: String, val preset: Boolean = false)
+@Serializable data class LoopTag(val id: String = newId(), val name: String, val preset: Boolean = false, val emoji: String? = null)
 @Serializable data class CheckIn(
     val id: String = newId(), val recordId: String, val note: String = "",
     val occurredAt: Long = System.currentTimeMillis(), val createdAt: Long = System.currentTimeMillis(),

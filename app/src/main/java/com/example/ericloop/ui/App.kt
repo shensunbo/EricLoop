@@ -55,7 +55,7 @@ import kotlinx.coroutines.launch
         }
     }
     fun open(id: String) { detailReturn = route; selectedId = id; route = "detail" }
-    fun back() { route = when (route) { "edit" -> editorReturn; "detail" -> detailReturn; "completed" -> "home"; "trash" -> "settings"; "tagrecords" -> "tags"; "recordhistory" -> "history"; else -> "home" } }
+    fun back() { route = when (route) { "edit" -> editorReturn; "detail" -> detailReturn; "completed", "active", "ideas" -> "home"; "trash" -> "settings"; "tagrecords" -> "tags"; "recordhistory" -> "history"; else -> "home" } }
     BackHandler(route !in listOf("home", "tags", "history", "settings")) { back() }
     LaunchedEffect(ready, backup.datasetId, selectedId) { if (ready && route == "detail" && selected == null) route = "home" }
     val tabs = listOf(Triple("home", "记录", R.drawable.ic_dashboard), Triple("tags", "标签", R.drawable.ic_sell), Triple("history", "变更", R.drawable.ic_timeline), Triple("settings", "设置", R.drawable.ic_settings))
@@ -63,7 +63,7 @@ import kotlinx.coroutines.launch
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background,
         topBar = {
-            TopAppBar(title = { Text(when (route) { "edit" -> "编辑记录"; "detail" -> "记录详情"; "completed" -> "已完成"; "trash" -> "回收站"; "tagrecords" -> "标签记录"; "recordhistory" -> "变更记录"; else -> "EricLoop" }, style = MaterialTheme.typography.titleLarge) },
+            TopAppBar(title = { Text(when (route) { "edit" -> "编辑记录"; "detail" -> "记录详情"; "completed" -> "已完成"; "active" -> "正在推进"; "ideas" -> "灵感收集"; "trash" -> "回收站"; "tagrecords" -> "标签记录"; "recordhistory" -> "变更记录"; else -> "EricLoop" }, style = MaterialTheme.typography.titleLarge) },
                 navigationIcon = { if (!isTab) IconButton(onClick = { back() }) { LoopIcon(R.drawable.ic_arrow_back, "返回") } },
                 actions = { if (isTab && ready) Text("${backup.records.count { it.deletedAt == null }} 条记录", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(end = 20.dp)) },
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.background))
@@ -86,11 +86,11 @@ import kotlinx.coroutines.launch
             if (initError != null) { Box(Modifier.padding(24.dp)) { EmptyPanel("本地数据读取失败", initError!!, R.drawable.ic_history) } }
             else if (!ready) Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) { CircularProgressIndicator() }
             else when (route) {
-                "home", "completed", "trash", "tagrecords" -> RecordsPage(backup, route, ::open, { route = it }, initialTag = if (route == "tagrecords") selectedTag else null)
+                "home", "completed", "active", "ideas", "trash", "tagrecords" -> RecordsPage(backup, route, ::open, { route = it }, initialTag = if (route == "tagrecords") selectedTag else null)
                 "tags" -> TagsPage(backup,
                     onOpenTag = { id -> selectedTag = id; route = "tagrecords" },
-                    onAddTag = { name -> work { repository.addTag(name) } },
-                    onRenameTag = { id, name -> work { repository.renameTag(id, name) } })
+                    onAddTag = { name, emoji -> work { repository.addTag(name, emoji) } },
+                    onEditTag = { id, name, emoji -> work { repository.editTag(id, name, emoji) } })
                 "edit" -> RecordEditor(selected, backup.tags) { record -> work { repository.saveRecord(record); selectedId = record.id; detailReturn = if (editorReturn == "detail") detailReturn else editorReturn; route = "detail" } }
                 "detail" -> selected?.let { record -> RecordDetail(record, backup,
                     onEdit = { editorReturn = "detail"; route = "edit" }, onConvert = { type -> work { repository.convert(record.id, type) } },

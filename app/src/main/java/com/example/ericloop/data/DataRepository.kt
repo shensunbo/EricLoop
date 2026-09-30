@@ -173,20 +173,21 @@ class DataRepository(context: Context) {
             event(source, changed, "删除打卡", owner.title, owner.id, backupJson.encodeToString(old), backupJson.encodeToString(next))
         }
     }
-    suspend fun addTag(name: String) = mutate { source ->
+    suspend fun addTag(name: String, emoji: String? = null) = mutate { source ->
         val trimmed = name.trim()
         require(trimmed.isNotEmpty() && source.tags.none { it.name.equals(trimmed, ignoreCase = true) }) { "标签名称不能为空或重复" }
-        val next = LoopTag(name = trimmed)
+        val next = LoopTag(name = trimmed, emoji = emoji?.trim()?.ifBlank { null })
         event(source, source.copy(tags = source.tags + next), "新增标签", trimmed, null, null, backupJson.encodeToString(next))
     }
-    suspend fun renameTag(id: String, name: String) = mutate { source ->
+    suspend fun editTag(id: String, name: String, emoji: String?) = mutate { source ->
         val old = source.tags.find { it.id == id } ?: error("标签不存在")
         require(!old.preset) { "内置标签保持固定名称，请创建自定义标签" }
         val trimmed = name.trim()
         require(trimmed.isNotEmpty() && source.tags.none { it.id != id && it.name.equals(trimmed, ignoreCase = true) }) { "标签名称不能为空或重复" }
-        if (old.name == trimmed) source else {
-            val next = old.copy(name = trimmed)
-            event(source, source.copy(tags = source.tags.map { if (it.id == id) next else it }), "重命名标签", trimmed, null,
+        val next = old.copy(name = trimmed, emoji = emoji?.trim()?.ifBlank { null })
+        if (old == next) source else {
+            event(source, source.copy(tags = source.tags.map { if (it.id == id) next else it }),
+                if (old.emoji == next.emoji) "重命名标签" else "编辑标签", trimmed, null,
                 backupJson.encodeToString(old), backupJson.encodeToString(next))
         }
     }

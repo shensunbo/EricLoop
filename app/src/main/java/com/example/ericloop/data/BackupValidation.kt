@@ -34,6 +34,7 @@ private fun validateTimes(created: Long, updated: Long, deleted: Long?) {
 
 private fun validateTag(tag: LoopTag) {
     require(tag.id.isNotBlank() && tag.name.isNotBlank() && tag.name == tag.name.trim()) { "标签名称或 ID 无效" }
+    require(tag.emoji == null || isRecordEmoji(tag.emoji)) { "标签图标必须是一个有效 Emoji" }
 }
 
 private fun validateRecord(record: LoopRecord, tags: List<LoopTag>) {
@@ -175,7 +176,7 @@ private class ReplayState(records: List<LoopRecord>, tags: List<LoopTag>, checkI
 
 private val recordOperations = setOf("创建想法", "创建计划", "编辑想法", "编辑计划", "转为计划", "状态变更", "删除记录", "恢复记录")
 private val checkInOperations = setOf("打卡", "补记打卡", "编辑打卡", "删除打卡")
-private val tagOperations = setOf("新增标签", "重命名标签")
+private val tagOperations = setOf("新增标签", "重命名标签", "编辑标签")
 private val creationOperations = setOf("创建想法", "创建计划", "打卡", "补记打卡", "新增标签")
 
 private fun validateEvent(event: HistoryEvent, backup: Backup) {

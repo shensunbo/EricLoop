@@ -61,7 +61,7 @@ import java.time.format.DateTimeFormatter
         item {
             Text("标签", style = MaterialTheme.typography.titleMedium)
             FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                tags.forEach { tag -> FilterChip(tag.id in selectedTags, { selectedTags = if (tag.id in selectedTags) selectedTags - tag.id else selectedTags + tag.id }, label = { Text(tag.name) }) }
+                tags.forEach { tag -> FilterChip(tag.id in selectedTags, { selectedTags = if (tag.id in selectedTags) selectedTags - tag.id else selectedTags + tag.id }, label = { Text("${tagEmoji(tag)} ${tag.name}") }) }
             }
             Text("在标签页创建更多分类", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
         }
@@ -99,7 +99,7 @@ import java.time.format.DateTimeFormatter
             }
             Spacer(Modifier.height(12.dp)); Text("创建于 ${displayTime(record.createdAt, "yyyy年MM月dd日 HH:mm")}", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
             Text("最近变更 ${displayTime(record.updatedAt)}", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
-            FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) { backup.tags.filter { it.id in record.tagIds }.forEach { AssistChip(onClick = {}, label = { Text(it.name) }) } }
+            FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) { backup.tags.filter { it.id in record.tagIds }.forEach { AssistChip(onClick = {}, label = { Text("${tagEmoji(it)} ${it.name}") }) } }
         }
         if (record.kind == RecordKind.PLAN) item {
             val accent = accentColors(if (record.status == PlanStatus.COMPLETED) "completed" else "plans")
