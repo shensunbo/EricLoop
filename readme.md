@@ -11,7 +11,7 @@
 - 预置及自定义标签，点击标签进入独立列表，包含想法和计划，已完成计划排在最后。
 - 记录详情点“编辑”即可勾选或取消标签；自定义标签可设置、更换或清除 Emoji 图标。
 - 首页“正在推进”“灵感收集”计数卡可点击进入各自列表。
-- 变更页显示记录标题，点击后查看该计划或想法的 Graph，按操作和日期筛选，查看修改前后内容。
+- 变更页显示记录标题，点击后查看该计划或想法的 Graph，按操作和日期筛选，查看该次操作后的状态。
 - GitHub 手动同步、强制上传数据及预览恢复。
 
 ## 构建与指定真机运行
@@ -48,7 +48,7 @@ Token 使用 Android Keystore 密钥加密保存，不进入日志或备份。�
 - `data/`：模型、Room 数据库、Repository、备份校验。
 - `sync/`：Token 保护、GitHub API 与同步状态。
 - `ui/`：统一设计、记录/标签、详情编辑、Graph 和设置。
-- [首版需求](doc/spec.md)、[架构设计](doc/architecture.md)、[详细设计](doc/detailed-design.md)、[实施记录](doc/implementation.md)。
+- [首版需求](doc/spec.md)、[架构设计](doc/architecture.md)、[跨文件详细设计](doc/detailed-design.md)、[模块与逐文件详细设计](doc/module-file-design.md)、[实施记录](doc/implementation.md)。
 
 UI 图标来自 Google Material Symbols，Apache 2.0，见 NOTICE 与 licenses/。页面使用统一主题，不需要额外购买素材。
 

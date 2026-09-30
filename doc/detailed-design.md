@@ -1,6 +1,6 @@
 # EricLoop 详细设计
 
-状态：对应 2026-09-30 当前实现。架构与依赖边界见 [architecture.md](architecture.md)，产品规则见 [spec.md](spec.md)。这里记录实际数据结构、页面跳转、写入和同步算法，后续改动应同步修订。
+状态：对应 2026-09-30 当前实现。架构与依赖边界见 [architecture.md](architecture.md)，逐文件职责见 [module-file-design.md](module-file-design.md)，产品规则见 [spec.md](spec.md)。这里记录实际数据结构、页面跳转、写入和同步算法，后续改动应同步修订。
 
 ## 代码入口与职责
 
