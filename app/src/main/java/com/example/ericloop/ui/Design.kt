@@ -84,9 +84,10 @@ data class UiAccent(val container: Color, val content: Color)
     Icon(painterResource(resource), contentDescription = description, modifier = modifier.size(24.dp))
 }
 
-@Composable fun RecordIcon(record: LoopRecord) {
-    record.emoji?.let { Text(it, fontSize = 26.sp, fontFamily = FontFamily.Default) }
-        ?: LoopIcon(if (record.kind == RecordKind.IDEA) R.drawable.ic_lightbulb else R.drawable.ic_task_alt)
+@Composable fun RecordIcon(record: LoopRecord, compact: Boolean = false) {
+    record.emoji?.let { Text(it, fontSize = if (compact) 20.sp else 26.sp, fontFamily = FontFamily.Default) }
+        ?: Icon(painterResource(if (record.kind == RecordKind.IDEA) R.drawable.ic_lightbulb else R.drawable.ic_task_alt),
+            contentDescription = null, modifier = Modifier.size(if (compact) 20.dp else 24.dp))
 }
 fun displayTime(time: Long, pattern: String = "MM月dd日 HH:mm"): String =
     Instant.ofEpochMilli(time).atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern(pattern))

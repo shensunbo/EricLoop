@@ -1,6 +1,6 @@
 # EricLoop 当前设备界面密度调整计划
 
-状态：已批准，M15a/M15b 已完成；M15c 尚待后续实施。更新：2026-09-30。关联 [架构设计](architecture.md)、[详细设计](detailed-design.md) 与 [实施进度](implementation.md)。
+状态：已批准，M15a/M15b 已完成，详情页紧凑调整已在 M17 落地；其余 M15c 项目尚待后续实施。更新：2026-09-30。关联 [架构设计](architecture.md)、[详细设计](detailed-design.md) 与 [实施进度](implementation.md)。
 
 ## 调查依据
 

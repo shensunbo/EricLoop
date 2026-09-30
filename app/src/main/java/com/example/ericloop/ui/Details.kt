@@ -10,6 +10,7 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import com.example.ericloop.R
@@ -88,25 +89,25 @@ import java.time.format.DateTimeFormatter
     var deleteConfirm by remember { mutableStateOf(false) }
     var deletingCheckIn by remember { mutableStateOf<String?>(null) }
     val checkIns = backup.checkIns.filter { it.recordId == record.id && it.deletedAt == null }.sortedByDescending { it.occurredAt }
-    LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(24.dp), verticalArrangement = Arrangement.spacedBy(20.dp)) {
+    LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
         item {
             Text(if (record.deletedAt != null) "回收站" else if (record.kind == RecordKind.IDEA) "IDEA / 想法" else "PLAN / ${record.planType.label}", style = MaterialTheme.typography.labelMedium, letterSpacing = androidx.compose.ui.unit.TextUnit.Unspecified, color = MaterialTheme.colorScheme.primary)
-            Spacer(Modifier.height(12.dp))
+            Spacer(Modifier.height(4.dp))
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                RecordIcon(record)
+                RecordIcon(record, compact = true)
                 Text(record.title, style = MaterialTheme.typography.headlineLarge, modifier = Modifier.weight(1f))
                 if (record.kind == RecordKind.PLAN && record.status == PlanStatus.COMPLETED) CompletionMark()
             }
-            Spacer(Modifier.height(12.dp)); Text("创建于 ${displayTime(record.createdAt, "yyyy年MM月dd日 HH:mm")}", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
-            Text("最近变更 ${displayTime(record.updatedAt)}", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
-            FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) { backup.tags.filter { it.id in record.tagIds }.forEach { AssistChip(onClick = {}, label = { Text("${tagEmoji(it)} ${it.name}") }) } }
+            Spacer(Modifier.height(4.dp)); Text("创建于 ${displayTime(record.createdAt, "yyyy年MM月dd日 HH:mm")}", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Text("最近变更 ${displayTime(record.updatedAt)}", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) { backup.tags.filter { it.id in record.tagIds }.forEach { Text("${tagEmoji(it)} ${it.name}", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary) } }
         }
         if (record.kind == RecordKind.PLAN) item {
             val accent = accentColors(if (record.status == PlanStatus.COMPLETED) "completed" else "plans")
             Card(colors = CardDefaults.cardColors(containerColor = accent.container, contentColor = accent.content)) {
-                Column(Modifier.fillMaxWidth().metallicGold(record.status == PlanStatus.COMPLETED).padding(18.dp)) {
+                Column(Modifier.fillMaxWidth().metallicGold(record.status == PlanStatus.COMPLETED).padding(12.dp)) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        if (record.status == PlanStatus.COMPLETED) Text("🎉") else LoopIcon(R.drawable.ic_task_alt)
+                        if (record.status == PlanStatus.COMPLETED) Text("🎉") else Icon(painterResource(R.drawable.ic_task_alt), null, Modifier.size(20.dp))
                         Spacer(Modifier.width(10.dp)); Text(record.status.label, style = MaterialTheme.typography.titleMedium, modifier = Modifier.weight(1f))
                         if (record.deletedAt == null) ChoiceMenu("调整", PlanStatus.entries.map { it.label }, record.status.label) { label -> onStatus(PlanStatus.entries.first { it.label == label }) }
                     }
@@ -117,7 +118,7 @@ import java.time.format.DateTimeFormatter
         }
         item {
             HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
-            Spacer(Modifier.height(20.dp))
+            Spacer(Modifier.height(8.dp))
             androidx.compose.foundation.text.selection.SelectionContainer { Text(record.body.ifBlank { "还没有正文。" }, style = MaterialTheme.typography.bodyLarge, color = if (record.body.isBlank()) MaterialTheme.colorScheme.onSurfaceVariant else MaterialTheme.colorScheme.onSurface) }
         }
         if (record.kind == RecordKind.IDEA && record.deletedAt == null) item {
@@ -130,21 +131,21 @@ import java.time.format.DateTimeFormatter
             }
         }
         item {
-            Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+                TextButton(onClick = { onHistory(record.id) }) { Icon(painterResource(R.drawable.ic_history), null, Modifier.size(18.dp)); Text("历史") }
                 if (record.deletedAt != null) Button(onClick = onRestore) { LoopIcon(R.drawable.ic_restore); Text("恢复记录") }
                 else {
-                    OutlinedButton(onClick = onEdit) { LoopIcon(R.drawable.ic_edit); Spacer(Modifier.width(6.dp)); Text("编辑") }
-                    OutlinedButton(onClick = { deleteConfirm = true }) { LoopIcon(R.drawable.ic_delete); Text("删除") }
+                    TextButton(onClick = onEdit) { Icon(painterResource(R.drawable.ic_edit), null, Modifier.size(18.dp)); Text("编辑") }
+                    TextButton(onClick = { deleteConfirm = true }) { Icon(painterResource(R.drawable.ic_delete), null, Modifier.size(18.dp)); Text("删除") }
                 }
             }
-            TextButton(onClick = { onHistory(record.id) }) { LoopIcon(R.drawable.ic_history); Spacer(Modifier.width(6.dp)); Text("查看完整变更历史") }
         }
         if (record.kind == RecordKind.PLAN && record.planType == PlanType.LONG_TERM) {
             item {
-                HorizontalDivider(); Spacer(Modifier.height(18.dp))
+                HorizontalDivider(); Spacer(Modifier.height(8.dp))
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Column(Modifier.weight(1f)) { Text("进展笔记", style = MaterialTheme.typography.titleLarge); Text("${checkIns.size} 次打卡，每一步都有意义", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant) }
-                    if (record.deletedAt == null) FilledTonalButton(onClick = { editingCheckInId = null; checkInEditor = true }) { LoopIcon(R.drawable.ic_add); Text("打卡") }
+                    if (record.deletedAt == null) FilledTonalButton(onClick = { editingCheckInId = null; checkInEditor = true }) { Icon(painterResource(R.drawable.ic_add), null, Modifier.size(18.dp)); Text("打卡") }
                 }
             }
             if (checkIns.isEmpty()) item { EmptyPanel("记录今天的一小步", "打卡无需固定频率，也可以补记过去的进展。", R.drawable.ic_note_add) }
@@ -157,7 +158,7 @@ import java.time.format.DateTimeFormatter
                             Text(checkIn.note.ifBlank { "完成了一次打卡" }, style = MaterialTheme.typography.bodyLarge)
                         }
                         if (record.deletedAt == null) Box {
-                            IconButton(onClick = { actionsExpanded = true }) { LoopIcon(R.drawable.ic_more_vert, "进展操作") }
+                            IconButton(onClick = { actionsExpanded = true }) { Icon(painterResource(R.drawable.ic_more_vert), "进展操作", Modifier.size(20.dp)) }
                             DropdownMenu(expanded = actionsExpanded, onDismissRequest = { actionsExpanded = false }) {
                                 DropdownMenuItem(text = { Text("编辑") }, leadingIcon = { LoopIcon(R.drawable.ic_edit) }, onClick = {
                                     actionsExpanded = false; editingCheckInId = checkIn.id; checkInEditor = true
