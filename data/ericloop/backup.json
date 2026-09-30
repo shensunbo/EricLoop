@@ -1,8 +1,8 @@
 {
     "schemaVersion": 1,
     "datasetId": "468d0be1-b460-429d-94e2-d7cf841f60c1",
-    "revision": 38,
-    "exportedAt": 1790733882808,
+    "revision": 48,
+    "exportedAt": 1790735596631,
     "records": [
         {
             "id": "045cea38-a696-4aa0-8233-d43a2beffc90",
@@ -17,8 +17,8 @@
             ],
             "deadline": null,
             "createdAt": 1790674289957,
-            "updatedAt": 1790678390330,
-            "deletedAt": null,
+            "updatedAt": 1790733907961,
+            "deletedAt": 1790733907961,
             "emoji": null
         },
         {
@@ -123,13 +123,13 @@
             "body": "学习网球",
             "kind": "PLAN",
             "planType": "LONG_TERM",
-            "status": "NOT_STARTED",
+            "status": "ACTIVE",
             "tagIds": [
-                "life"
+                "902bf035-5d35-4c68-b885-63a409971e03"
             ],
             "deadline": null,
             "createdAt": 1790676832536,
-            "updatedAt": 1790677946679,
+            "updatedAt": 1790734345872,
             "deletedAt": null,
             "emoji": "🎾"
         }
@@ -201,12 +201,75 @@
             "deletedAt": 1790675109303
         },
         {
+            "id": "8fb65b3e-d60b-4a95-9872-8d8ffff5f890",
+            "recordId": "d29889c1-2c00-45bb-9a72-6da20aefd68e",
+            "note": "网球发球机一小时",
+            "occurredAt": 1790334720000,
+            "createdAt": 1790734328978,
+            "updatedAt": 1790734345872,
+            "deletedAt": null
+        },
+        {
+            "id": "9a9a330a-f6ca-40fe-aafc-5abe180c9fc9",
+            "recordId": "d29889c1-2c00-45bb-9a72-6da20aefd68e",
+            "note": "奥体网球多人课",
+            "occurredAt": 1790467800000,
+            "createdAt": 1790734245140,
+            "updatedAt": 1790734259124,
+            "deletedAt": null
+        },
+        {
             "id": "a043390d-564a-4eac-b7ff-5cc14d967ef8",
             "recordId": "045cea38-a696-4aa0-8233-d43a2beffc90",
             "note": "",
             "occurredAt": 1790588820000,
             "createdAt": 1790675379074,
             "updatedAt": 1790675392074,
+            "deletedAt": null
+        },
+        {
+            "id": "a1f8c2af-31c7-48f4-b682-231ae52ebbf1",
+            "recordId": "d29889c1-2c00-45bb-9a72-6da20aefd68e",
+            "note": "奥体网球多人课",
+            "occurredAt": 1790122200000,
+            "createdAt": 1790734213619,
+            "updatedAt": 1790734232793,
+            "deletedAt": null
+        },
+        {
+            "id": "ac276902-00b1-42e1-b899-d871f08acc57",
+            "recordId": "d29889c1-2c00-45bb-9a72-6da20aefd68e",
+            "note": "Alex第一节网球体验课",
+            "occurredAt": 1789603200000,
+            "createdAt": 1790734069086,
+            "updatedAt": 1790734095882,
+            "deletedAt": null
+        },
+        {
+            "id": "b65e95ea-a2ab-4063-ab9f-0011af1b454d",
+            "recordId": "d29889c1-2c00-45bb-9a72-6da20aefd68e",
+            "note": "奥体网球多人课",
+            "occurredAt": 1790554260000,
+            "createdAt": 1790734292694,
+            "updatedAt": 1790734307344,
+            "deletedAt": null
+        },
+        {
+            "id": "d390d831-9fbc-4fcc-a443-a794b444decd",
+            "recordId": "d29889c1-2c00-45bb-9a72-6da20aefd68e",
+            "note": "Alex第三节网球私教课",
+            "occurredAt": 1790208000000,
+            "createdAt": 1790734163008,
+            "updatedAt": 1790734195391,
+            "deletedAt": null
+        },
+        {
+            "id": "d6a075e6-9f84-4f9f-8354-09d898bd8169",
+            "recordId": "d29889c1-2c00-45bb-9a72-6da20aefd68e",
+            "note": "Alex第二节网球私教课",
+            "occurredAt": 1790035200000,
+            "createdAt": 1790734129448,
+            "updatedAt": 1790734152916,
             "deletedAt": null
         }
     ],
@@ -590,6 +653,106 @@
             "sequence": 38,
             "beforeJson": "{\n    \"id\": \"7b9a7a12-4f80-4298-a644-b75e6a8433bf\",\n    \"title\": \"健身\",\n    \"body\": \"健身撸铁\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"NOT_STARTED\",\n    \"tagIds\": [\n        \"health\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790694435734,\n    \"updatedAt\": 1790733313617,\n    \"deletedAt\": null,\n    \"emoji\": \"💪\",\n    \"tags\": [\n        {\n            \"id\": \"health\",\n            \"name\": \"健康\",\n            \"preset\": true,\n            \"emoji\": null\n        }\n    ]\n}",
             "afterJson": "{\n    \"id\": \"7b9a7a12-4f80-4298-a644-b75e6a8433bf\",\n    \"title\": \"健身\",\n    \"body\": \"健身撸铁\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"ACTIVE\",\n    \"tagIds\": [\n        \"health\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790694435734,\n    \"updatedAt\": 1790733318941,\n    \"deletedAt\": null,\n    \"emoji\": \"💪\",\n    \"tags\": [\n        {\n            \"id\": \"health\",\n            \"name\": \"健康\",\n            \"preset\": true,\n            \"emoji\": null\n        }\n    ]\n}"
+        },
+        {
+            "id": "d700faf8-ca7d-498f-ba9a-875292bd25b7",
+            "recordId": "045cea38-a696-4aa0-8233-d43a2beffc90",
+            "operation": "删除记录",
+            "title": "test",
+            "operatedAt": 1790733907978,
+            "sequence": 39,
+            "beforeJson": "{\n    \"id\": \"045cea38-a696-4aa0-8233-d43a2beffc90\",\n    \"title\": \"test\",\n    \"body\": \"C凹凸热暗idea俺的track\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"COMPLETED\",\n    \"tagIds\": [\n        \"work\",\n        \"902bf035-5d35-4c68-b885-63a409971e03\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790674289957,\n    \"updatedAt\": 1790678390330,\n    \"deletedAt\": null,\n    \"emoji\": null,\n    \"tags\": [\n        {\n            \"id\": \"work\",\n            \"name\": \"工作\",\n            \"preset\": true,\n            \"emoji\": null\n        },\n        {\n            \"id\": \"902bf035-5d35-4c68-b885-63a409971e03\",\n            \"name\": \"兴趣\",\n            \"preset\": false,\n            \"emoji\": \"🪂\"\n        }\n    ]\n}",
+            "afterJson": "{\n    \"id\": \"045cea38-a696-4aa0-8233-d43a2beffc90\",\n    \"title\": \"test\",\n    \"body\": \"C凹凸热暗idea俺的track\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"COMPLETED\",\n    \"tagIds\": [\n        \"work\",\n        \"902bf035-5d35-4c68-b885-63a409971e03\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790674289957,\n    \"updatedAt\": 1790733907961,\n    \"deletedAt\": 1790733907961,\n    \"emoji\": null,\n    \"tags\": [\n        {\n            \"id\": \"work\",\n            \"name\": \"工作\",\n            \"preset\": true,\n            \"emoji\": null\n        },\n        {\n            \"id\": \"902bf035-5d35-4c68-b885-63a409971e03\",\n            \"name\": \"兴趣\",\n            \"preset\": false,\n            \"emoji\": \"🪂\"\n        }\n    ]\n}"
+        },
+        {
+            "id": "419dd18e-9d26-4f26-87ed-b668ab18ced2",
+            "recordId": "d29889c1-2c00-45bb-9a72-6da20aefd68e",
+            "operation": "状态变更",
+            "title": "网球",
+            "operatedAt": 1790733946871,
+            "sequence": 40,
+            "beforeJson": "{\n    \"id\": \"d29889c1-2c00-45bb-9a72-6da20aefd68e\",\n    \"title\": \"网球\",\n    \"body\": \"学习网球\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"NOT_STARTED\",\n    \"tagIds\": [\n        \"life\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790676832536,\n    \"updatedAt\": 1790677946679,\n    \"deletedAt\": null,\n    \"emoji\": \"🎾\",\n    \"tags\": [\n        {\n            \"id\": \"life\",\n            \"name\": \"生活\",\n            \"preset\": true,\n            \"emoji\": null\n        }\n    ]\n}",
+            "afterJson": "{\n    \"id\": \"d29889c1-2c00-45bb-9a72-6da20aefd68e\",\n    \"title\": \"网球\",\n    \"body\": \"学习网球\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"ACTIVE\",\n    \"tagIds\": [\n        \"life\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790676832536,\n    \"updatedAt\": 1790733946867,\n    \"deletedAt\": null,\n    \"emoji\": \"🎾\",\n    \"tags\": [\n        {\n            \"id\": \"life\",\n            \"name\": \"生活\",\n            \"preset\": true,\n            \"emoji\": null\n        }\n    ]\n}"
+        },
+        {
+            "id": "3d755dd5-756c-455b-a854-b99f0f6886bb",
+            "recordId": "d29889c1-2c00-45bb-9a72-6da20aefd68e",
+            "operation": "编辑计划",
+            "title": "网球",
+            "operatedAt": 1790733960774,
+            "sequence": 41,
+            "beforeJson": "{\n    \"id\": \"d29889c1-2c00-45bb-9a72-6da20aefd68e\",\n    \"title\": \"网球\",\n    \"body\": \"学习网球\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"ACTIVE\",\n    \"tagIds\": [\n        \"life\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790676832536,\n    \"updatedAt\": 1790733946867,\n    \"deletedAt\": null,\n    \"emoji\": \"🎾\",\n    \"tags\": [\n        {\n            \"id\": \"life\",\n            \"name\": \"生活\",\n            \"preset\": true,\n            \"emoji\": null\n        }\n    ]\n}",
+            "afterJson": "{\n    \"id\": \"d29889c1-2c00-45bb-9a72-6da20aefd68e\",\n    \"title\": \"网球\",\n    \"body\": \"学习网球\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"ACTIVE\",\n    \"tagIds\": [\n        \"902bf035-5d35-4c68-b885-63a409971e03\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790676832536,\n    \"updatedAt\": 1790733960770,\n    \"deletedAt\": null,\n    \"emoji\": \"🎾\",\n    \"tags\": [\n        {\n            \"id\": \"902bf035-5d35-4c68-b885-63a409971e03\",\n            \"name\": \"兴趣\",\n            \"preset\": false,\n            \"emoji\": \"🪂\"\n        }\n    ]\n}"
+        },
+        {
+            "id": "f342d356-6130-4252-ac1c-bc423895dbff",
+            "recordId": "d29889c1-2c00-45bb-9a72-6da20aefd68e",
+            "operation": "补记打卡",
+            "title": "网球",
+            "operatedAt": 1790734095885,
+            "sequence": 42,
+            "beforeJson": null,
+            "afterJson": "{\n    \"id\": \"ac276902-00b1-42e1-b899-d871f08acc57\",\n    \"recordId\": \"d29889c1-2c00-45bb-9a72-6da20aefd68e\",\n    \"note\": \"Alex第一节网球体验课\",\n    \"occurredAt\": 1789603200000,\n    \"createdAt\": 1790734069086,\n    \"updatedAt\": 1790734095882,\n    \"deletedAt\": null\n}"
+        },
+        {
+            "id": "64c7cbf2-0851-47b6-9912-65749e4283d2",
+            "recordId": "d29889c1-2c00-45bb-9a72-6da20aefd68e",
+            "operation": "补记打卡",
+            "title": "网球",
+            "operatedAt": 1790734152917,
+            "sequence": 43,
+            "beforeJson": null,
+            "afterJson": "{\n    \"id\": \"d6a075e6-9f84-4f9f-8354-09d898bd8169\",\n    \"recordId\": \"d29889c1-2c00-45bb-9a72-6da20aefd68e\",\n    \"note\": \"Alex第二节网球私教课\",\n    \"occurredAt\": 1790035200000,\n    \"createdAt\": 1790734129448,\n    \"updatedAt\": 1790734152916,\n    \"deletedAt\": null\n}"
+        },
+        {
+            "id": "9aafa755-9d24-410e-ae92-a8b5f7e87ed8",
+            "recordId": "d29889c1-2c00-45bb-9a72-6da20aefd68e",
+            "operation": "补记打卡",
+            "title": "网球",
+            "operatedAt": 1790734195393,
+            "sequence": 44,
+            "beforeJson": null,
+            "afterJson": "{\n    \"id\": \"d390d831-9fbc-4fcc-a443-a794b444decd\",\n    \"recordId\": \"d29889c1-2c00-45bb-9a72-6da20aefd68e\",\n    \"note\": \"Alex第三节网球私教课\",\n    \"occurredAt\": 1790208000000,\n    \"createdAt\": 1790734163008,\n    \"updatedAt\": 1790734195391,\n    \"deletedAt\": null\n}"
+        },
+        {
+            "id": "d723c3d6-6129-43f7-9cad-3833ca1c65df",
+            "recordId": "d29889c1-2c00-45bb-9a72-6da20aefd68e",
+            "operation": "补记打卡",
+            "title": "网球",
+            "operatedAt": 1790734232794,
+            "sequence": 45,
+            "beforeJson": null,
+            "afterJson": "{\n    \"id\": \"a1f8c2af-31c7-48f4-b682-231ae52ebbf1\",\n    \"recordId\": \"d29889c1-2c00-45bb-9a72-6da20aefd68e\",\n    \"note\": \"奥体网球多人课\",\n    \"occurredAt\": 1790122200000,\n    \"createdAt\": 1790734213619,\n    \"updatedAt\": 1790734232793,\n    \"deletedAt\": null\n}"
+        },
+        {
+            "id": "fe92b804-5cdb-42b0-b41d-30fea6aaefa9",
+            "recordId": "d29889c1-2c00-45bb-9a72-6da20aefd68e",
+            "operation": "补记打卡",
+            "title": "网球",
+            "operatedAt": 1790734259125,
+            "sequence": 46,
+            "beforeJson": null,
+            "afterJson": "{\n    \"id\": \"9a9a330a-f6ca-40fe-aafc-5abe180c9fc9\",\n    \"recordId\": \"d29889c1-2c00-45bb-9a72-6da20aefd68e\",\n    \"note\": \"奥体网球多人课\",\n    \"occurredAt\": 1790467800000,\n    \"createdAt\": 1790734245140,\n    \"updatedAt\": 1790734259124,\n    \"deletedAt\": null\n}"
+        },
+        {
+            "id": "a037cb52-b898-4ac6-8ac7-1fbf02b2a787",
+            "recordId": "d29889c1-2c00-45bb-9a72-6da20aefd68e",
+            "operation": "补记打卡",
+            "title": "网球",
+            "operatedAt": 1790734307345,
+            "sequence": 47,
+            "beforeJson": null,
+            "afterJson": "{\n    \"id\": \"b65e95ea-a2ab-4063-ab9f-0011af1b454d\",\n    \"recordId\": \"d29889c1-2c00-45bb-9a72-6da20aefd68e\",\n    \"note\": \"奥体网球多人课\",\n    \"occurredAt\": 1790554260000,\n    \"createdAt\": 1790734292694,\n    \"updatedAt\": 1790734307344,\n    \"deletedAt\": null\n}"
+        },
+        {
+            "id": "e3cd7af6-52cb-4905-95ba-864b704ee416",
+            "recordId": "d29889c1-2c00-45bb-9a72-6da20aefd68e",
+            "operation": "补记打卡",
+            "title": "网球",
+            "operatedAt": 1790734345873,
+            "sequence": 48,
+            "beforeJson": null,
+            "afterJson": "{\n    \"id\": \"8fb65b3e-d60b-4a95-9872-8d8ffff5f890\",\n    \"recordId\": \"d29889c1-2c00-45bb-9a72-6da20aefd68e\",\n    \"note\": \"网球发球机一小时\",\n    \"occurredAt\": 1790334720000,\n    \"createdAt\": 1790734328978,\n    \"updatedAt\": 1790734345872,\n    \"deletedAt\": null\n}"
         }
     ]
 }
