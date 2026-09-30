@@ -10,6 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -148,11 +149,14 @@ import kotlinx.coroutines.launch
         item {
             Text("GitHub 连接", style = MaterialTheme.typography.titleLarge)
             Spacer(Modifier.height(12.dp))
-            Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                OutlinedTextField(owner, { owner = it }, Modifier.fillMaxWidth(), label = { Text("仓库所有者") }, singleLine = true)
-                OutlinedTextField(repo, { repo = it }, Modifier.fillMaxWidth(), label = { Text("仓库名称") }, singleLine = true)
-                OutlinedTextField(branch, { branch = it }, Modifier.fillMaxWidth(), label = { Text("分支") }, singleLine = true)
-                OutlinedTextField(token, { token = it }, Modifier.fillMaxWidth(), label = { Text("GitHub Token") }, singleLine = true, visualTransformation = PasswordVisualTransformation(), supportingText = { Text(if (settings.hasToken) "已保存 Token；留空保留现有授权" else "使用此仓库的细粒度 Token，Contents 读写权限") })
+            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                CompactTextField(owner, { owner = it }, "未设置", Modifier.fillMaxWidth(), prefixLabel = "所有者")
+                CompactTextField(repo, { repo = it }, "未设置", Modifier.fillMaxWidth(), prefixLabel = "仓库")
+                CompactTextField(branch, { branch = it }, "未设置", Modifier.fillMaxWidth(), prefixLabel = "分支")
+                CompactTextField(token, { token = it }, if (settings.hasToken) "留空保留授权" else "未设置", Modifier.fillMaxWidth(),
+                    prefixLabel = "Token", visualTransformation = PasswordVisualTransformation())
+                Text(if (settings.hasToken) "已保存 Token；留空保留现有授权" else "使用此仓库的细粒度 Token，Contents 读写权限",
+                    style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 Button(enabled = !status.busy && owner.isNotBlank() && repo.isNotBlank() && branch.isNotBlank(), onClick = { onSave(owner.trim(), repo.trim(), branch.trim(), token.trim()); token = "" }, modifier = Modifier.fillMaxWidth()) { Text("保存连接设置") }
                 if (settings.hasToken) TextButton(enabled = !status.busy, onClick = { token = ""; onClearToken() }) { Text("清除 GitHub 授权") }
             }
@@ -177,6 +181,7 @@ import kotlinx.coroutines.launch
                 }
             }
         }
-        item { Text("EricLoop 1.0\n想法有归处，行动有回声。", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant); Spacer(Modifier.height(24.dp)) }
+        item { Text("EricLoop v${stringResource(R.string.app_version_name)}\n想法有归处，行动有回声。",
+            style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant); Spacer(Modifier.height(24.dp)) }
     }
 }

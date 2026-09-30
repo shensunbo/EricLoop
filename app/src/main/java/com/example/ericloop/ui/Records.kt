@@ -2,6 +2,7 @@ package com.example.ericloop.ui
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -14,13 +15,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.foundation.shape.RoundedCornerShape
 import com.example.ericloop.R
 import com.example.ericloop.data.*
 
 @Composable fun ChoiceMenu(label: String, options: List<String>, value: String, onSelect: (String) -> Unit) {
     var expanded by remember { mutableStateOf(false) }
     Box {
-        OutlinedButton(onClick = { expanded = true }) { Text("$label · $value") }
+        Box(Modifier.height(48.dp).clickable { expanded = true }, contentAlignment = Alignment.Center) {
+            Box(Modifier.height(36.dp).border(1.dp, MaterialTheme.colorScheme.outline, RoundedCornerShape(12.dp))
+                .padding(horizontal = 12.dp), contentAlignment = Alignment.Center) {
+                Text("$label · $value", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary)
+            }
+        }
         DropdownMenu(expanded, { expanded = false }) {
             options.forEach { option -> DropdownMenuItem(text = { Text(option) }, onClick = { onSelect(option); expanded = false }) }
         }
@@ -113,9 +120,7 @@ import com.example.ericloop.data.*
             }
         }
         item {
-            OutlinedTextField(query, { query = it }, Modifier.fillMaxWidth(), singleLine = true,
-                textStyle = MaterialTheme.typography.bodyMedium, placeholder = { Text("搜索标题或正文", style = MaterialTheme.typography.bodyMedium) },
-                leadingIcon = { LoopIcon(R.drawable.ic_search) }, shape = MaterialTheme.shapes.large)
+            CompactTextField(query, { query = it }, "搜索标题或正文", Modifier.fillMaxWidth(), leadingIcon = R.drawable.ic_search)
             if (mode != "active" && mode != "ideas") Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 ChoiceMenu("类型", if (mode == "completed") listOf("全部", "一次性计划", "长期计划") else listOf("全部", "想法", "一次性计划", "长期计划"), category, { category = it })
                 if (mode != "completed") ChoiceMenu("状态", listOf("全部") + PlanStatus.entries.map { it.label }, status, { status = it })

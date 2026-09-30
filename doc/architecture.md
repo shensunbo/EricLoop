@@ -4,7 +4,7 @@
 
 ## 目标和边界
 
-EricLoop 是仅在当前连接的 Android 设备上运行的个人想法、计划与进展记录应用。编辑与查询以手机本地数据为准，GitHub 是用户手动操作的整份数据备份目标。电脑端不参与查询和分析。首版没有服务端、账号系统、自动同步、跨设备实时合并、永久删除和历史版本恢复。构建目标由 `app/build.gradle.kts` 定义：Kotlin、Jetpack Compose / Material 3、Room、Kotlin Serialization、OkHttp，`minSdk=35`。
+EricLoop 是仅在当前连接的 Android 设备上运行的个人想法、计划与进展记录应用。编辑与查询以手机本地数据为准，GitHub 是用户手动操作的整份数据备份目标。电脑端不参与查询和分析。首版没有服务端、账号系统、自动同步、跨设备实时合并、永久删除和历史版本恢复。构建目标由 `app/build.gradle.kts` 定义：Kotlin、Jetpack Compose / Material 3、Room、Kotlin Serialization、OkHttp，`minSdk=35`。应用版本的唯一来源是仓库根目录 `version.properties`，构建时写入 Android 的 `versionName`/`versionCode` 和设置页版本显示；每个应用修改节点提交前递增补丁版本及内部代码。它独立于 Room schema 与备份格式版本。
 
 质量目标是本地操作即时可见、记录与历史保持一致、失败的下载/恢复不破坏手机数据，以及上传时只改动仓库中的 `data/ericloop/backup.json`。备份和 GitHub 仓库按用户约定为公开明文；Token 只保存在手机端加密设置中。
 

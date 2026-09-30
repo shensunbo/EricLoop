@@ -1,19 +1,27 @@
 package com.example.ericloop.ui
 
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.Alignment
 import com.example.ericloop.R
 import com.example.ericloop.data.LoopRecord
 import com.example.ericloop.data.RecordKind
@@ -82,6 +90,52 @@ data class UiAccent(val container: Color, val content: Color)
 }
 fun displayTime(time: Long, pattern: String = "MM月dd日 HH:mm"): String =
     Instant.ofEpochMilli(time).atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern(pattern))
+
+@Composable fun CompactTextField(
+    value: String,
+    onValueChange: (String) -> Unit,
+    placeholder: String,
+    modifier: Modifier = Modifier,
+    leadingIcon: Int? = null,
+    isError: Boolean = false,
+    prefixLabel: String? = null,
+    visualTransformation: VisualTransformation = VisualTransformation.None,
+) {
+    val colors = MaterialTheme.colorScheme
+    val interactionSource = remember { MutableInteractionSource() }
+    val focused = interactionSource.collectIsFocusedAsState().value
+    val borderColor = when {
+        isError -> colors.error
+        focused -> colors.primary
+        else -> colors.outline
+    }
+    val shape = MaterialTheme.shapes.medium
+    BasicTextField(
+        value = value,
+        onValueChange = onValueChange,
+        modifier = modifier.height(48.dp),
+        textStyle = MaterialTheme.typography.bodyMedium.copy(color = colors.onSurface),
+        singleLine = true,
+        visualTransformation = visualTransformation,
+        cursorBrush = SolidColor(colors.primary),
+        interactionSource = interactionSource,
+        decorationBox = { innerTextField ->
+            Row(
+                Modifier.fillMaxSize().padding(vertical = 1.dp).border(1.dp, borderColor, shape).padding(horizontal = 12.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                leadingIcon?.let { Icon(painterResource(it), contentDescription = null, modifier = Modifier.size(20.dp), tint = colors.onSurfaceVariant) }
+                prefixLabel?.let { Text(it, style = MaterialTheme.typography.labelMedium, color = colors.onSurfaceVariant, maxLines = 1) }
+                Box(Modifier.weight(1f), contentAlignment = Alignment.CenterStart) {
+                    if (value.isEmpty()) Text(placeholder, style = MaterialTheme.typography.bodyMedium,
+                        color = colors.onSurfaceVariant, maxLines = 1)
+                    innerTextField()
+                }
+            }
+        },
+    )
+}
 
 @Composable fun SectionHeading(title: String, subtitle: String? = null, prominent: Boolean = false) {
     Column(Modifier.fillMaxWidth().padding(top = 4.dp, bottom = 4.dp), verticalArrangement = Arrangement.spacedBy(2.dp)) {

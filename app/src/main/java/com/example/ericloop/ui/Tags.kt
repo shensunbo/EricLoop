@@ -10,6 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.text.style.TextOverflow
 import com.example.ericloop.R
 import com.example.ericloop.data.Backup
 import com.example.ericloop.data.tagEmoji
@@ -24,7 +25,7 @@ import com.example.ericloop.data.tagEmoji
     var emoji by rememberSaveable { mutableStateOf<String?>(null) }
     var emojiOpen by rememberSaveable { mutableStateOf(false) }
     val records = backup.records.filter { it.deletedAt == null }
-    LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(20.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
+    LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
         item { SectionHeading("按标签探索", "收纳想法与计划，也留住每一次完成。") }
         item {
             Row(verticalAlignment = Alignment.CenterVertically) {
@@ -32,22 +33,22 @@ import com.example.ericloop.data.tagEmoji
                 TextButton(onClick = { name = ""; emoji = null; renameId = null; dialogOpen = true }) { LoopIcon(R.drawable.ic_add); Text("新标签") }
             }
         }
-        items(backup.tags.chunked(2)) { pair ->
-            Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                pair.forEach { tag ->
+        items(backup.tags.chunked(3)) { row ->
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                row.forEach { tag ->
                     Card(onClick = { onOpenTag(tag.id) }, modifier = Modifier.weight(1f), colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)) {
-                        Column(Modifier.padding(16.dp)) {
-                            Row(verticalAlignment = Alignment.CenterVertically) {
-                                Text(tagEmoji(tag), fontSize = 26.sp)
+                        Column(Modifier.padding(8.dp)) {
+                            Row(Modifier.height(48.dp), verticalAlignment = Alignment.CenterVertically) {
+                                Text(tagEmoji(tag), fontSize = 22.sp)
                                 Spacer(Modifier.weight(1f))
-                                if (!tag.preset) IconButton(onClick = { renameId = tag.id; name = tag.name; emoji = tag.emoji; dialogOpen = true }, modifier = Modifier.size(48.dp)) { LoopIcon(R.drawable.ic_edit, "编辑 ${tag.name}") }
+                                if (!tag.preset) IconButton(onClick = { renameId = tag.id; name = tag.name; emoji = tag.emoji; dialogOpen = true }, modifier = Modifier.size(48.dp)) { Icon(androidx.compose.ui.res.painterResource(R.drawable.ic_edit), "编辑 ${tag.name}", Modifier.size(18.dp)) }
                             }
-                            Text(tag.name, style = MaterialTheme.typography.titleMedium)
-                            Text("${records.count { tag.id in it.tagIds }} 条记录", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                            Text(tag.name, style = MaterialTheme.typography.titleMedium, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                            Text("${records.count { tag.id in it.tagIds }} 条", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                         }
                     }
                 }
-                if (pair.size == 1) Spacer(Modifier.weight(1f))
+                repeat(3 - row.size) { Spacer(Modifier.weight(1f)) }
             }
         }
         item {

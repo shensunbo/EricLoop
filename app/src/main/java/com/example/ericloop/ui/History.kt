@@ -1,6 +1,8 @@
 package com.example.ericloop.ui
 
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -18,12 +20,15 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import com.example.ericloop.R
 import com.example.ericloop.data.*
 import kotlinx.serialization.json.*
 import java.time.LocalDate
 import java.time.ZoneId
+import java.time.ZoneOffset
+import java.time.Instant
 
 private fun operationAccent(operation: String): UiAccent {
     return when (operation) {
@@ -52,12 +57,13 @@ private fun checkInPreview(event: HistoryEvent): CheckInPreview? {
 
 @Composable fun HistoryDirectory(backup: Backup, onSelect: (String) -> Unit) {
     val records = remember(backup.records) { backup.records.sortedByDescending { it.updatedAt } }
-    LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(20.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+    LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
         item { SectionHeading("变更记录", "选择一条想法或计划，查看它的历程。") }
         if (records.isEmpty()) item { EmptyPanel("旅程从第一条记录开始", "创建想法或计划后，可以在这里查看它的变更。", R.drawable.ic_timeline) }
         items(records, key = { it.id }) { record ->
             Card(onClick = { onSelect(record.id) }, modifier = Modifier.fillMaxWidth(), colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)) {
-                Row(Modifier.padding(20.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                Row(Modifier.fillMaxWidth().heightIn(min = 52.dp).padding(horizontal = 14.dp, vertical = 8.dp),
+                    verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                     RecordIcon(record)
                     Text(record.title, style = MaterialTheme.typography.titleMedium, maxLines = 2, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f))
                 }
@@ -66,10 +72,12 @@ private fun checkInPreview(event: HistoryEvent): CheckInPreview? {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable fun HistoryPage(backup: Backup, recordId: String, onOpen: (String) -> Unit) {
     var operation by rememberSaveable(recordId) { mutableStateOf("全部") }
     var start by rememberSaveable(recordId) { mutableStateOf("") }
     var end by rememberSaveable(recordId) { mutableStateOf("") }
+    var datePickerTarget by remember { mutableStateOf<String?>(null) }
     var selectedEvent by remember { mutableStateOf<HistoryEvent?>(null) }
     val startDate = runCatching { LocalDate.parse(start) }.getOrNull()
     val endDate = runCatching { LocalDate.parse(end) }.getOrNull()
@@ -91,12 +99,8 @@ private fun checkInPreview(event: HistoryEvent): CheckInPreview? {
             ChoiceMenu("操作", listOf("全部") + recordEvents.map { it.operation }.distinct(), operation) { operation = it }
         }
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            OutlinedTextField(start, { start = it }, Modifier.weight(1f).semantics { contentDescription = "起始日期，格式 yyyy-MM-dd" }, singleLine = true,
-                textStyle = MaterialTheme.typography.bodyMedium, placeholder = { Text("开始 yyyy-MM-dd") },
-                isError = start.isNotBlank() && startDate == null)
-            OutlinedTextField(end, { end = it }, Modifier.weight(1f).semantics { contentDescription = "结束日期，格式 yyyy-MM-dd" }, singleLine = true,
-                textStyle = MaterialTheme.typography.bodyMedium, placeholder = { Text("结束 yyyy-MM-dd") },
-                isError = end.isNotBlank() && (endDate == null || !datesValid))
+            CompactDateField("开始日期", start, Modifier.weight(1f), isError = start.isNotBlank() && startDate == null) { datePickerTarget = "start" }
+            CompactDateField("结束日期", end, Modifier.weight(1f), isError = end.isNotBlank() && (endDate == null || !datesValid)) { datePickerTarget = "end" }
         }
         Spacer(Modifier.height(16.dp))
         if (events.isEmpty()) EmptyPanel(if (datesValid) "旅程从第一条记录开始" else "请检查日期范围", if (datesValid) "创建、编辑、打卡和标签变更都会出现在这里。" else "输入 yyyy-MM-dd 格式，起始日期不能晚于结束日期。", R.drawable.ic_timeline)
@@ -147,6 +151,38 @@ private fun checkInPreview(event: HistoryEvent): CheckInPreview? {
         }, confirmButton = { TextButton(onClick = { selectedEvent = null }) { Text("关闭") } }, dismissButton = {
             event.recordId?.let { id -> TextButton(onClick = { selectedEvent = null; onOpen(id) }) { Text("打开记录") } }
         })
+    }
+    datePickerTarget?.let { target ->
+        val currentDate = if (target == "start") startDate else endDate
+        val state = rememberDatePickerState(initialSelectedDateMillis = currentDate?.atStartOfDay(ZoneOffset.UTC)?.toInstant()?.toEpochMilli())
+        DatePickerDialog(onDismissRequest = { datePickerTarget = null },
+            confirmButton = { TextButton(onClick = {
+                state.selectedDateMillis?.let { selected ->
+                    val date = Instant.ofEpochMilli(selected).atZone(ZoneOffset.UTC).toLocalDate().toString()
+                    if (target == "start") start = date else end = date
+                }
+                datePickerTarget = null
+            }) { Text("确定") } },
+            dismissButton = {
+                Row {
+                    TextButton(onClick = { if (target == "start") start = "" else end = ""; datePickerTarget = null }) { Text("清除") }
+                    TextButton(onClick = { datePickerTarget = null }) { Text("取消") }
+                }
+            }) { DatePicker(state) }
+    }
+}
+
+@Composable private fun CompactDateField(label: String, value: String, modifier: Modifier = Modifier, isError: Boolean = false, onClick: () -> Unit) {
+    val colors = MaterialTheme.colorScheme
+    val shape = MaterialTheme.shapes.medium
+    Row(modifier.height(48.dp).semantics { contentDescription = if (value.isBlank()) label else "$label：$value" }
+        .clickable(role = Role.Button, onClick = onClick).padding(vertical = 1.dp)
+        .border(1.dp, if (isError) colors.error else colors.outline, shape).padding(horizontal = 10.dp),
+        verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+        Icon(androidx.compose.ui.res.painterResource(R.drawable.ic_event), contentDescription = null, modifier = Modifier.size(18.dp), tint = colors.onSurfaceVariant)
+        Text(value.ifBlank { label }, style = MaterialTheme.typography.bodyMedium,
+            color = if (value.isBlank()) colors.onSurfaceVariant else colors.onSurface,
+            maxLines = 1, overflow = TextOverflow.Ellipsis)
     }
 }
 
