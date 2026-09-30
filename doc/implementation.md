@@ -1,6 +1,6 @@
 # EricLoop 首版实施计划与进度
 
-更新日期：2026-09-29。工作分支：`feat/ericloop-v1`。正式需求见 [spec.md](spec.md)。
+更新日期：2026-09-30。工作分支：`feat/ericloop-v1`。正式需求见 [spec.md](spec.md)，设计见 [architecture.md](architecture.md) 与 [detailed-design.md](detailed-design.md)。
 
 用户约束：仅使用当前设备 `10AE970D5P0017U`；不新增或运行单元测试；每个节点更新本文件并提交代码；不自动推送远端。用户对 `spec_rough.md` 的修改不混入实施提交。
 
@@ -177,3 +177,12 @@ Graph 颜色按记录 ID 固定；想法不校验隐藏的截止日期；补记�
 - [x] 新增 active/ideas 两个路由及候选集过滤；计数卡增加点击操作。
 - [ ] 编译、当前手机验证两个入口、列表和返回。
 - [ ] 保存验收记录并提交节点。
+
+## M13 — 架构与详细设计文档：完成
+
+此前只有需求、实施记录与 README，没有独立的完整设计文档。本节点按当前实现补充可维护的架构与详细设计，并将入口链接放在 README。
+
+- [x] `architecture.md`：系统上下文、模块依赖、数据所有权、Room/历史一致性、GitHub 单文件备份边界、安全及规模限制。
+- [x] `detailed-design.md`：模型与不变量、写入/恢复算法、路由与筛选、记录标签编辑、Graph、同步流程、变更约束。
+- [x] 对照 `Models`、`Database`、`DataRepository`、`BackupValidation`、`GithubSync` 及各 UI 页面复核行为；README 已链接两份文档，`git diff --check` 通过。
+- [x] 明确记录当前限制：全量内存加载、20 MiB 备份上限、标签管理事件尚无独立页面、云端成功路径尚未端到端验证。
