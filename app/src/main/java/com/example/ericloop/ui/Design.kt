@@ -60,13 +60,14 @@ data class UiAccent(val container: Color, val content: Color)
     MaterialTheme(
         colorScheme = if (isSystemInDarkTheme()) Dark else Light,
         typography = Typography(
-            headlineLarge = androidx.compose.ui.text.TextStyle(fontSize = 32.sp, fontWeight = FontWeight.Bold, letterSpacing = (-0.8).sp),
-            headlineMedium = androidx.compose.ui.text.TextStyle(fontSize = 26.sp, fontWeight = FontWeight.Bold),
-            titleLarge = androidx.compose.ui.text.TextStyle(fontSize = 21.sp, fontWeight = FontWeight.SemiBold),
-            titleMedium = androidx.compose.ui.text.TextStyle(fontSize = 17.sp, fontWeight = FontWeight.SemiBold),
-            bodyLarge = androidx.compose.ui.text.TextStyle(fontSize = 16.sp, lineHeight = 27.sp),
+            headlineLarge = androidx.compose.ui.text.TextStyle(fontSize = 28.sp, lineHeight = 34.sp, fontWeight = FontWeight.Bold, letterSpacing = (-0.5).sp),
+            headlineMedium = androidx.compose.ui.text.TextStyle(fontSize = 26.sp, lineHeight = 32.sp, fontWeight = FontWeight.Bold),
+            headlineSmall = androidx.compose.ui.text.TextStyle(fontSize = 23.sp, lineHeight = 29.sp, fontWeight = FontWeight.Bold),
+            titleLarge = androidx.compose.ui.text.TextStyle(fontSize = 18.sp, lineHeight = 24.sp, fontWeight = FontWeight.SemiBold),
+            titleMedium = androidx.compose.ui.text.TextStyle(fontSize = 16.sp, lineHeight = 22.sp, fontWeight = FontWeight.SemiBold),
+            bodyLarge = androidx.compose.ui.text.TextStyle(fontSize = 16.sp, lineHeight = 24.sp),
         ),
-        shapes = Shapes(medium = RoundedCornerShape(18.dp), large = RoundedCornerShape(24.dp)),
+        shapes = Shapes(medium = RoundedCornerShape(16.dp), large = RoundedCornerShape(20.dp)),
         content = content,
     )
 }
@@ -82,10 +83,9 @@ data class UiAccent(val container: Color, val content: Color)
 fun displayTime(time: Long, pattern: String = "MM月dd日 HH:mm"): String =
     Instant.ofEpochMilli(time).atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern(pattern))
 
-@Composable fun SectionHeading(kicker: String, title: String, subtitle: String? = null) {
-    Column(Modifier.fillMaxWidth().padding(top = 8.dp, bottom = 12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        Text(kicker, style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary, letterSpacing = 2.sp, fontFamily = FontFamily.Monospace)
-        Text(title, style = MaterialTheme.typography.headlineLarge)
+@Composable fun SectionHeading(title: String, subtitle: String? = null, prominent: Boolean = false) {
+    Column(Modifier.fillMaxWidth().padding(top = 4.dp, bottom = 4.dp), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+        Text(title, style = if (prominent) MaterialTheme.typography.headlineMedium else MaterialTheme.typography.headlineSmall)
         subtitle?.let { Text(it, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant) }
     }
 }

@@ -8,8 +8,11 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.ericloop.R
 import com.example.ericloop.data.*
@@ -63,7 +66,7 @@ import kotlinx.coroutines.launch
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background,
         topBar = {
-            TopAppBar(title = { Text(when (route) { "edit" -> "编辑记录"; "detail" -> "记录详情"; "completed" -> "已完成"; "active" -> "正在推进"; "ideas" -> "灵感收集"; "trash" -> "回收站"; "tagrecords" -> "标签记录"; "recordhistory" -> "变更记录"; else -> "EricLoop" }, style = MaterialTheme.typography.titleLarge) },
+            TopAppBar(title = { Text(when (route) { "edit" -> "编辑记录"; "detail" -> "记录详情"; "completed" -> "已完成"; "active" -> "正在推进"; "ideas" -> "灵感收集"; "trash" -> "回收站"; "tagrecords" -> "标签记录"; "recordhistory" -> "变更记录"; else -> "EricLoop" }, style = MaterialTheme.typography.titleLarge.copy(fontSize = 20.sp)) },
                 navigationIcon = { if (!isTab) IconButton(onClick = { back() }) { LoopIcon(R.drawable.ic_arrow_back, "返回") } },
                 actions = { if (isTab && ready) Text("${backup.records.count { it.deletedAt == null }} 条记录", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(end = 20.dp)) },
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.background))
@@ -78,7 +81,12 @@ import kotlinx.coroutines.launch
             }
         },
         floatingActionButton = {
-            if (route == "home" && ready && !busy) ExtendedFloatingActionButton(onClick = { selectedId = null; editorReturn = "home"; route = "edit" }, icon = { LoopIcon(R.drawable.ic_add) }, text = { Text("新记录") }, containerColor = MaterialTheme.colorScheme.primary, contentColor = MaterialTheme.colorScheme.onPrimary)
+            if (route == "home" && ready && !busy) FloatingActionButton(
+                onClick = { selectedId = null; editorReturn = "home"; route = "edit" },
+                modifier = Modifier.size(52.dp), shape = CircleShape,
+                containerColor = MaterialTheme.colorScheme.primaryContainer,
+                contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+            ) { Icon(painterResource(R.drawable.ic_add), contentDescription = "新记录", modifier = Modifier.size(20.dp)) }
         }, snackbarHost = { SnackbarHost(snackbar) },
     ) { padding ->
         Column(Modifier.fillMaxSize().padding(padding)) {
@@ -127,7 +135,7 @@ import kotlinx.coroutines.launch
     val canSync = !status.busy && settings.hasToken && !changed
     val pending = if (status.uploadedDatasetId == backup.datasetId) (backup.revision - status.uploadedRevision).coerceAtLeast(0) else backup.revision
     LazyColumn(Modifier.fillMaxSize().imePadding(), contentPadding = PaddingValues(20.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
-        item { SectionHeading("CONNECTED, ON YOUR TERMS", "让记录有个备份", "本地即时保存 · 云端手动上传") }
+        item { SectionHeading("让记录有个备份", "本地即时保存 · 云端手动上传") }
         item {
             Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer)) {
                 Column(Modifier.fillMaxWidth().padding(20.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {

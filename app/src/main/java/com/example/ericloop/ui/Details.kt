@@ -33,7 +33,7 @@ import java.time.format.DateTimeFormatter
     var dateOpen by remember { mutableStateOf(false) }
     val dateValid = kind != RecordKind.PLAN.name || deadline.isBlank() || runCatching { LocalDate.parse(deadline) }.isSuccess
     LazyColumn(Modifier.fillMaxSize().imePadding(), contentPadding = PaddingValues(24.dp), verticalArrangement = Arrangement.spacedBy(18.dp)) {
-        item { SectionHeading(if (record == null) "NEW CHAPTER" else "KEEP EVOLVING", if (record == null) "留下一点新想法" else "完善这条记录") }
+        item { SectionHeading(if (record == null) "留下一点新想法" else "完善这条记录") }
         if (record == null) item {
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 RecordKind.entries.forEach { value -> FilterChip(kind == value.name, { kind = value.name }, label = { Text(value.label) }) }

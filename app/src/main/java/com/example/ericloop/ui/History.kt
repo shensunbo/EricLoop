@@ -53,7 +53,7 @@ private fun checkInPreview(event: HistoryEvent): CheckInPreview? {
 @Composable fun HistoryDirectory(backup: Backup, onSelect: (String) -> Unit) {
     val records = remember(backup.records) { backup.records.sortedByDescending { it.updatedAt } }
     LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(20.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-        item { SectionHeading("YOUR JOURNEY", "变更记录", "选择一条想法或计划，查看它的历程。") }
+        item { SectionHeading("变更记录", "选择一条想法或计划，查看它的历程。") }
         if (records.isEmpty()) item { EmptyPanel("旅程从第一条记录开始", "创建想法或计划后，可以在这里查看它的变更。", R.drawable.ic_timeline) }
         items(records, key = { it.id }) { record ->
             Card(onClick = { onSelect(record.id) }, modifier = Modifier.fillMaxWidth(), colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)) {
@@ -86,15 +86,15 @@ private fun checkInPreview(event: HistoryEvent): CheckInPreview? {
     val graphScroll = rememberScrollState()
     val trackColor = MaterialTheme.colorScheme.outlineVariant
     Column(Modifier.fillMaxSize().padding(horizontal = 20.dp)) {
-        SectionHeading("YOUR JOURNEY", backup.records.find { it.id == recordId }?.title ?: "记录已不存在", "${events.size} 次变更 · 点击节点查看当时的内容")
+        SectionHeading(backup.records.find { it.id == recordId }?.title ?: "记录已不存在", "${events.size} 次变更 · 点击节点查看当时的内容")
         Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             ChoiceMenu("操作", listOf("全部") + recordEvents.map { it.operation }.distinct(), operation) { operation = it }
         }
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            OutlinedTextField(start, { start = it }, Modifier.weight(1f).height(52.dp).semantics { contentDescription = "起始日期" }, singleLine = true,
+            OutlinedTextField(start, { start = it }, Modifier.weight(1f).semantics { contentDescription = "起始日期，格式 yyyy-MM-dd" }, singleLine = true,
                 textStyle = MaterialTheme.typography.bodyMedium, placeholder = { Text("开始 yyyy-MM-dd") },
                 isError = start.isNotBlank() && startDate == null)
-            OutlinedTextField(end, { end = it }, Modifier.weight(1f).height(52.dp).semantics { contentDescription = "结束日期" }, singleLine = true,
+            OutlinedTextField(end, { end = it }, Modifier.weight(1f).semantics { contentDescription = "结束日期，格式 yyyy-MM-dd" }, singleLine = true,
                 textStyle = MaterialTheme.typography.bodyMedium, placeholder = { Text("结束 yyyy-MM-dd") },
                 isError = end.isNotBlank() && (endDate == null || !datesValid))
         }

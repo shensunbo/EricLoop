@@ -25,7 +25,7 @@ import com.example.ericloop.data.tagEmoji
     var emojiOpen by rememberSaveable { mutableStateOf(false) }
     val records = backup.records.filter { it.deletedAt == null }
     LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(20.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
-        item { SectionHeading("COLLECTIONS", "按标签探索", "收纳想法与计划，也留住每一次完成。") }
+        item { SectionHeading("按标签探索", "收纳想法与计划，也留住每一次完成。") }
         item {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text("标签库", style = MaterialTheme.typography.titleMedium, modifier = Modifier.weight(1f))

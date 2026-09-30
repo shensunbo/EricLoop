@@ -33,13 +33,13 @@ import com.example.ericloop.data.*
     val accent = accentColors(if (completed) "completed" else if (record.kind == RecordKind.IDEA) "ideas" else "plans")
     Card(onClick = onClick, modifier = Modifier.fillMaxWidth().then(if (completed) Modifier.border(BorderStroke(1.dp, accent.content.copy(alpha = 0.18f)), MaterialTheme.shapes.medium) else Modifier), colors = CardDefaults.cardColors(
         containerColor = accent.container, contentColor = accent.content)) {
-        Column(Modifier.fillMaxWidth().metallicGold(completed).padding(20.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+        Column(Modifier.fillMaxWidth().metallicGold(completed).padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(if (record.kind == RecordKind.IDEA) "想法" else record.planType.label, style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary)
                 Spacer(Modifier.weight(1f))
                 if (record.kind == RecordKind.PLAN) Text(record.status.label, style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.secondary)
             }
-            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 RecordIcon(record)
                 Text(record.title, style = MaterialTheme.typography.titleLarge, maxLines = 2, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f))
                 if (completed) CompletionMark()
@@ -87,34 +87,34 @@ import com.example.ericloop.data.*
         }) && (status == "全部" || (record.kind == RecordKind.PLAN && record.status.label == status)) &&
         (selectedTags.isEmpty() || selectedTags.any { if (it == "untagged") record.tagIds.isEmpty() else it in record.tagIds })
     }.sortedWith(compareBy<LoopRecord> { mode == "tagrecords" && it.kind == RecordKind.PLAN && it.status == PlanStatus.COMPLETED }.thenByDescending { it.updatedAt })
-    LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(20.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
+    LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
         item {
             when (mode) {
-                "tagrecords" -> SectionHeading("COLLECTION", initialTag?.let { id -> backup.tags.find { it.id == id }?.let { "${tagEmoji(it)} ${it.name}" } ?: "无标签" } ?: "全部记录", "想法与计划 · 已完成排在最后")
-                "completed" -> SectionHeading("COMPLETED", "🎉 已完成", "每一次完成，都值得留下。")
-                "active" -> SectionHeading("IN PROGRESS", "正在推进", "专注当下正在进行的计划。")
-                "ideas" -> SectionHeading("IDEAS", "灵感收集", "把值得继续想的念头留在这里。")
-                "trash" -> SectionHeading("RECYCLE BIN", "回收站", "恢复后会回到原来的收纳位置。")
-                else -> SectionHeading("ERICLOOP / YOUR SPACE", "想法，慢慢成真。", "记录灵感 · 推进计划 · 留下过程")
+                "tagrecords" -> SectionHeading(initialTag?.let { id -> backup.tags.find { it.id == id }?.let { "${tagEmoji(it)} ${it.name}" } ?: "无标签" } ?: "全部记录", "想法与计划 · 已完成排在最后")
+                "completed" -> SectionHeading("🎉 已完成", "每一次完成，都值得留下。")
+                "active" -> SectionHeading("正在推进", "专注当下正在进行的计划。")
+                "ideas" -> SectionHeading("灵感收集", "把值得继续想的念头留在这里。")
+                "trash" -> SectionHeading("回收站", "恢复后会回到原来的收纳位置。")
+                else -> SectionHeading("想法，慢慢成真。", "记录灵感 · 推进计划 · 留下过程", prominent = true)
             }
         }
         if (mode == "home") item {
-            Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+            Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                 StatCard("正在推进", active.count { it.kind == RecordKind.PLAN && it.status == PlanStatus.ACTIVE }.toString(), Modifier.weight(1f), accentColors("plans")) { onFolder("active") }
                 StatCard("灵感收集", active.count { it.kind == RecordKind.IDEA }.toString(), Modifier.weight(1f), accentColors("ideas")) { onFolder("ideas") }
             }
-            Spacer(Modifier.height(12.dp))
+            Spacer(Modifier.height(8.dp))
             val celebration = accentColors("completed")
             OutlinedCard(onClick = { onFolder("completed") }, modifier = Modifier.fillMaxWidth(), colors = CardDefaults.outlinedCardColors(containerColor = celebration.container, contentColor = celebration.content)) {
-                Row(Modifier.fillMaxWidth().metallicGold().padding(18.dp), verticalAlignment = Alignment.CenterVertically) {
-                    Text("🎉", style = MaterialTheme.typography.titleLarge); Spacer(Modifier.width(12.dp)); Text("已完成", style = MaterialTheme.typography.titleMedium)
-                    Spacer(Modifier.weight(1f)); Text("$completedCount 个计划", color = MaterialTheme.colorScheme.onSurfaceVariant); Spacer(Modifier.width(10.dp)); LoopIcon(R.drawable.ic_arrow_forward)
+                Row(Modifier.fillMaxWidth().metallicGold().padding(14.dp), verticalAlignment = Alignment.CenterVertically) {
+                    Text("🎉", style = MaterialTheme.typography.titleLarge); Spacer(Modifier.width(8.dp)); Text("已完成", style = MaterialTheme.typography.titleMedium)
+                    Spacer(Modifier.weight(1f)); Text("$completedCount 个计划", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant); Spacer(Modifier.width(8.dp)); LoopIcon(R.drawable.ic_arrow_forward)
                 }
             }
         }
         item {
-            OutlinedTextField(query, { query = it }, Modifier.fillMaxWidth().height(52.dp), singleLine = true,
-                textStyle = MaterialTheme.typography.bodyMedium, placeholder = { Text("搜索标题或正文") },
+            OutlinedTextField(query, { query = it }, Modifier.fillMaxWidth(), singleLine = true,
+                textStyle = MaterialTheme.typography.bodyMedium, placeholder = { Text("搜索标题或正文", style = MaterialTheme.typography.bodyMedium) },
                 leadingIcon = { LoopIcon(R.drawable.ic_search) }, shape = MaterialTheme.shapes.large)
             if (mode != "active" && mode != "ideas") Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 ChoiceMenu("类型", if (mode == "completed") listOf("全部", "一次性计划", "长期计划") else listOf("全部", "想法", "一次性计划", "长期计划"), category, { category = it })
@@ -135,8 +135,8 @@ import com.example.ericloop.data.*
 
 @Composable private fun StatCard(label: String, value: String, modifier: Modifier, accent: UiAccent, onClick: () -> Unit) {
     Card(onClick = onClick, modifier = modifier, colors = CardDefaults.cardColors(containerColor = accent.container, contentColor = accent.content)) {
-        Column(Modifier.padding(18.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-            Text(value, style = MaterialTheme.typography.headlineMedium, color = accent.content)
+        Column(Modifier.padding(14.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+            Text(value, style = MaterialTheme.typography.headlineSmall, color = accent.content)
             Text(label, style = MaterialTheme.typography.labelMedium, color = accent.content)
         }
     }
