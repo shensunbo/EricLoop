@@ -1,8 +1,8 @@
 {
-    "schemaVersion": 1,
+    "schemaVersion": 2,
     "datasetId": "468d0be1-b460-429d-94e2-d7cf841f60c1",
-    "revision": 48,
-    "exportedAt": 1790735596631,
+    "revision": 50,
+    "exportedAt": 1790752923305,
     "records": [
         {
             "id": "045cea38-a696-4aa0-8233-d43a2beffc90",
@@ -33,7 +33,7 @@
             ],
             "deadline": null,
             "createdAt": 1790685423104,
-            "updatedAt": 1790685476142,
+            "updatedAt": 1790738997400,
             "deletedAt": null,
             "emoji": "🗣️"
         },
@@ -132,6 +132,22 @@
             "updatedAt": 1790734345872,
             "deletedAt": null,
             "emoji": "🎾"
+        },
+        {
+            "id": "d640ac46-85cb-48c4-85e3-e0b3bde2a58f",
+            "title": "两情相悦英语角",
+            "body": "尝试做一次两情相悦英语角",
+            "kind": "IDEA",
+            "planType": "ONCE",
+            "status": "NOT_STARTED",
+            "tagIds": [
+                "life"
+            ],
+            "deadline": null,
+            "createdAt": 1790741497974,
+            "updatedAt": 1790741561543,
+            "deletedAt": null,
+            "emoji": "👨‍👩‍👦‍👦"
         }
     ],
     "tags": [
@@ -246,6 +262,15 @@
             "deletedAt": null
         },
         {
+            "id": "b029e886-6592-46b2-88bd-cf5d0227dd3b",
+            "recordId": "1515fdc7-e959-401a-97c8-5fdac94f35da",
+            "note": "No practice ",
+            "occurredAt": 1790738988308,
+            "createdAt": 1790738988308,
+            "updatedAt": 1790738997400,
+            "deletedAt": null
+        },
+        {
             "id": "b65e95ea-a2ab-4063-ab9f-0011af1b454d",
             "recordId": "d29889c1-2c00-45bb-9a72-6da20aefd68e",
             "note": "奥体网球多人课",
@@ -291,7 +316,7 @@
             "title": "D",
             "operatedAt": 1790674435413,
             "sequence": 2,
-            "beforeJson": "{\n    \"id\": \"045cea38-a696-4aa0-8233-d43a2beffc90\",\n    \"title\": \"D\",\n    \"body\": \"C凹凸热暗idea俺的track\",\n    \"kind\": \"IDEA\",\n    \"planType\": \"ONCE\",\n    \"status\": \"NOT_STARTED\",\n    \"tagIds\": [\n        \"work\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790674289957,\n    \"updatedAt\": 1790674347901,\n    \"deletedAt\": null,\n    \"tags\": [\n        {\n            \"id\": \"work\",\n            \"name\": \"工作\",\n            \"preset\": true\n        }\n    ]\n}",
+            "beforeJson": null,
             "afterJson": "{\n    \"id\": \"045cea38-a696-4aa0-8233-d43a2beffc90\",\n    \"title\": \"D\",\n    \"body\": \"C凹凸热暗idea俺的track\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"NOT_STARTED\",\n    \"tagIds\": [\n        \"work\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790674289957,\n    \"updatedAt\": 1790674435410,\n    \"deletedAt\": null,\n    \"tags\": [\n        {\n            \"id\": \"work\",\n            \"name\": \"工作\",\n            \"preset\": true\n        }\n    ]\n}"
         },
         {
@@ -311,7 +336,7 @@
             "title": "D",
             "operatedAt": 1790674536707,
             "sequence": 4,
-            "beforeJson": "{\n    \"id\": \"045cea38-a696-4aa0-8233-d43a2beffc90\",\n    \"title\": \"D\",\n    \"body\": \"C凹凸热暗idea俺的track\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"NOT_STARTED\",\n    \"tagIds\": [\n        \"work\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790674289957,\n    \"updatedAt\": 1790674513547,\n    \"deletedAt\": null,\n    \"tags\": [\n        {\n            \"id\": \"work\",\n            \"name\": \"工作\",\n            \"preset\": true\n        }\n    ]\n}",
+            "beforeJson": null,
             "afterJson": "{\n    \"id\": \"045cea38-a696-4aa0-8233-d43a2beffc90\",\n    \"title\": \"D\",\n    \"body\": \"C凹凸热暗idea俺的track\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"COMPLETED\",\n    \"tagIds\": [\n        \"work\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790674289957,\n    \"updatedAt\": 1790674536702,\n    \"deletedAt\": null,\n    \"tags\": [\n        {\n            \"id\": \"work\",\n            \"name\": \"工作\",\n            \"preset\": true\n        }\n    ]\n}"
         },
         {
@@ -321,7 +346,7 @@
             "title": "D",
             "operatedAt": 1790674586433,
             "sequence": 5,
-            "beforeJson": "{\n    \"id\": \"045cea38-a696-4aa0-8233-d43a2beffc90\",\n    \"title\": \"D\",\n    \"body\": \"C凹凸热暗idea俺的track\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"COMPLETED\",\n    \"tagIds\": [\n        \"work\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790674289957,\n    \"updatedAt\": 1790674536702,\n    \"deletedAt\": null,\n    \"tags\": [\n        {\n            \"id\": \"work\",\n            \"name\": \"工作\",\n            \"preset\": true\n        }\n    ]\n}",
+            "beforeJson": null,
             "afterJson": "{\n    \"id\": \"045cea38-a696-4aa0-8233-d43a2beffc90\",\n    \"title\": \"D\",\n    \"body\": \"C凹凸热暗idea俺的track\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"ACTIVE\",\n    \"tagIds\": [\n        \"work\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790674289957,\n    \"updatedAt\": 1790674586427,\n    \"deletedAt\": null,\n    \"tags\": [\n        {\n            \"id\": \"work\",\n            \"name\": \"工作\",\n            \"preset\": true\n        }\n    ]\n}"
         },
         {
@@ -341,7 +366,7 @@
             "title": "2027",
             "operatedAt": 1790674816438,
             "sequence": 7,
-            "beforeJson": "{\n    \"id\": \"902bf035-5d35-4c68-b885-63a409971e03\",\n    \"name\": \"2026\",\n    \"preset\": false\n}",
+            "beforeJson": null,
             "afterJson": "{\n    \"id\": \"902bf035-5d35-4c68-b885-63a409971e03\",\n    \"name\": \"2027\",\n    \"preset\": false\n}"
         },
         {
@@ -351,7 +376,7 @@
             "title": "20260929",
             "operatedAt": 1790674959776,
             "sequence": 8,
-            "beforeJson": "{\n    \"id\": \"045cea38-a696-4aa0-8233-d43a2beffc90\",\n    \"title\": \"D\",\n    \"body\": \"C凹凸热暗idea俺的track\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"ACTIVE\",\n    \"tagIds\": [\n        \"work\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790674289957,\n    \"updatedAt\": 1790674586427,\n    \"deletedAt\": null,\n    \"tags\": [\n        {\n            \"id\": \"work\",\n            \"name\": \"工作\",\n            \"preset\": true\n        }\n    ]\n}",
+            "beforeJson": null,
             "afterJson": "{\n    \"id\": \"045cea38-a696-4aa0-8233-d43a2beffc90\",\n    \"title\": \"20260929\",\n    \"body\": \"C凹凸热暗idea俺的track\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"ACTIVE\",\n    \"tagIds\": [\n        \"work\",\n        \"902bf035-5d35-4c68-b885-63a409971e03\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790674289957,\n    \"updatedAt\": 1790674959758,\n    \"deletedAt\": null,\n    \"tags\": [\n        {\n            \"id\": \"work\",\n            \"name\": \"工作\",\n            \"preset\": true\n        },\n        {\n            \"id\": \"902bf035-5d35-4c68-b885-63a409971e03\",\n            \"name\": \"2027\",\n            \"preset\": false\n        }\n    ]\n}"
         },
         {
@@ -361,7 +386,7 @@
             "title": "20260929",
             "operatedAt": 1790675008519,
             "sequence": 9,
-            "beforeJson": "{\n    \"id\": \"5c7c03ff-1141-4e5e-ad00-b41583f18048\",\n    \"recordId\": \"045cea38-a696-4aa0-8233-d43a2beffc90\",\n    \"note\": \"\",\n    \"occurredAt\": 1790674440000,\n    \"createdAt\": 1790674463492,\n    \"updatedAt\": 1790674513547,\n    \"deletedAt\": null\n}",
+            "beforeJson": null,
             "afterJson": "{\n    \"id\": \"5c7c03ff-1141-4e5e-ad00-b41583f18048\",\n    \"recordId\": \"045cea38-a696-4aa0-8233-d43a2beffc90\",\n    \"note\": \"1\",\n    \"occurredAt\": 1790674440000,\n    \"createdAt\": 1790674463492,\n    \"updatedAt\": 1790675008519,\n    \"deletedAt\": null\n}"
         },
         {
@@ -371,7 +396,7 @@
             "title": "20260929",
             "operatedAt": 1790675109304,
             "sequence": 10,
-            "beforeJson": "{\n    \"id\": \"5c7c03ff-1141-4e5e-ad00-b41583f18048\",\n    \"recordId\": \"045cea38-a696-4aa0-8233-d43a2beffc90\",\n    \"note\": \"1\",\n    \"occurredAt\": 1790674440000,\n    \"createdAt\": 1790674463492,\n    \"updatedAt\": 1790675008519,\n    \"deletedAt\": null\n}",
+            "beforeJson": null,
             "afterJson": "{\n    \"id\": \"5c7c03ff-1141-4e5e-ad00-b41583f18048\",\n    \"recordId\": \"045cea38-a696-4aa0-8233-d43a2beffc90\",\n    \"note\": \"1\",\n    \"occurredAt\": 1790674440000,\n    \"createdAt\": 1790674463492,\n    \"updatedAt\": 1790675109303,\n    \"deletedAt\": 1790675109303\n}"
         },
         {
@@ -381,7 +406,7 @@
             "title": "20260929",
             "operatedAt": 1790675114517,
             "sequence": 11,
-            "beforeJson": "{\n    \"id\": \"045cea38-a696-4aa0-8233-d43a2beffc90\",\n    \"title\": \"20260929\",\n    \"body\": \"C凹凸热暗idea俺的track\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"ACTIVE\",\n    \"tagIds\": [\n        \"work\",\n        \"902bf035-5d35-4c68-b885-63a409971e03\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790674289957,\n    \"updatedAt\": 1790675109303,\n    \"deletedAt\": null,\n    \"tags\": [\n        {\n            \"id\": \"work\",\n            \"name\": \"工作\",\n            \"preset\": true\n        },\n        {\n            \"id\": \"902bf035-5d35-4c68-b885-63a409971e03\",\n            \"name\": \"2027\",\n            \"preset\": false\n        }\n    ]\n}",
+            "beforeJson": null,
             "afterJson": "{\n    \"id\": \"045cea38-a696-4aa0-8233-d43a2beffc90\",\n    \"title\": \"20260929\",\n    \"body\": \"C凹凸热暗idea俺的track\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"ACTIVE\",\n    \"tagIds\": [\n        \"work\",\n        \"902bf035-5d35-4c68-b885-63a409971e03\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790674289957,\n    \"updatedAt\": 1790675114509,\n    \"deletedAt\": 1790675114509,\n    \"tags\": [\n        {\n            \"id\": \"work\",\n            \"name\": \"工作\",\n            \"preset\": true\n        },\n        {\n            \"id\": \"902bf035-5d35-4c68-b885-63a409971e03\",\n            \"name\": \"2027\",\n            \"preset\": false\n        }\n    ]\n}"
         },
         {
@@ -391,7 +416,7 @@
             "title": "20260929",
             "operatedAt": 1790675245352,
             "sequence": 12,
-            "beforeJson": "{\n    \"id\": \"045cea38-a696-4aa0-8233-d43a2beffc90\",\n    \"title\": \"20260929\",\n    \"body\": \"C凹凸热暗idea俺的track\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"ACTIVE\",\n    \"tagIds\": [\n        \"work\",\n        \"902bf035-5d35-4c68-b885-63a409971e03\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790674289957,\n    \"updatedAt\": 1790675114509,\n    \"deletedAt\": 1790675114509,\n    \"tags\": [\n        {\n            \"id\": \"work\",\n            \"name\": \"工作\",\n            \"preset\": true\n        },\n        {\n            \"id\": \"902bf035-5d35-4c68-b885-63a409971e03\",\n            \"name\": \"2027\",\n            \"preset\": false\n        }\n    ]\n}",
+            "beforeJson": null,
             "afterJson": "{\n    \"id\": \"045cea38-a696-4aa0-8233-d43a2beffc90\",\n    \"title\": \"20260929\",\n    \"body\": \"C凹凸热暗idea俺的track\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"ACTIVE\",\n    \"tagIds\": [\n        \"work\",\n        \"902bf035-5d35-4c68-b885-63a409971e03\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790674289957,\n    \"updatedAt\": 1790675245335,\n    \"deletedAt\": null,\n    \"tags\": [\n        {\n            \"id\": \"work\",\n            \"name\": \"工作\",\n            \"preset\": true\n        },\n        {\n            \"id\": \"902bf035-5d35-4c68-b885-63a409971e03\",\n            \"name\": \"2027\",\n            \"preset\": false\n        }\n    ]\n}"
         },
         {
@@ -411,7 +436,7 @@
             "title": "20260929",
             "operatedAt": 1790675427396,
             "sequence": 14,
-            "beforeJson": "{\n    \"id\": \"045cea38-a696-4aa0-8233-d43a2beffc90\",\n    \"title\": \"20260929\",\n    \"body\": \"C凹凸热暗idea俺的track\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"ACTIVE\",\n    \"tagIds\": [\n        \"work\",\n        \"902bf035-5d35-4c68-b885-63a409971e03\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790674289957,\n    \"updatedAt\": 1790675392074,\n    \"deletedAt\": null,\n    \"tags\": [\n        {\n            \"id\": \"work\",\n            \"name\": \"工作\",\n            \"preset\": true\n        },\n        {\n            \"id\": \"902bf035-5d35-4c68-b885-63a409971e03\",\n            \"name\": \"2027\",\n            \"preset\": false\n        }\n    ]\n}",
+            "beforeJson": null,
             "afterJson": "{\n    \"id\": \"045cea38-a696-4aa0-8233-d43a2beffc90\",\n    \"title\": \"20260929\",\n    \"body\": \"C凹凸热暗idea俺的track\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"COMPLETED\",\n    \"tagIds\": [\n        \"work\",\n        \"902bf035-5d35-4c68-b885-63a409971e03\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790674289957,\n    \"updatedAt\": 1790675427388,\n    \"deletedAt\": null,\n    \"tags\": [\n        {\n            \"id\": \"work\",\n            \"name\": \"工作\",\n            \"preset\": true\n        },\n        {\n            \"id\": \"902bf035-5d35-4c68-b885-63a409971e03\",\n            \"name\": \"2027\",\n            \"preset\": false\n        }\n    ]\n}"
         },
         {
@@ -421,7 +446,7 @@
             "title": "20260929",
             "operatedAt": 1790675725794,
             "sequence": 15,
-            "beforeJson": "{\n    \"id\": \"045cea38-a696-4aa0-8233-d43a2beffc90\",\n    \"title\": \"20260929\",\n    \"body\": \"C凹凸热暗idea俺的track\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"COMPLETED\",\n    \"tagIds\": [\n        \"work\",\n        \"902bf035-5d35-4c68-b885-63a409971e03\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790674289957,\n    \"updatedAt\": 1790675427388,\n    \"deletedAt\": null,\n    \"tags\": [\n        {\n            \"id\": \"work\",\n            \"name\": \"工作\",\n            \"preset\": true\n        },\n        {\n            \"id\": \"902bf035-5d35-4c68-b885-63a409971e03\",\n            \"name\": \"2027\",\n            \"preset\": false\n        }\n    ]\n}",
+            "beforeJson": null,
             "afterJson": "{\n    \"id\": \"045cea38-a696-4aa0-8233-d43a2beffc90\",\n    \"title\": \"20260929\",\n    \"body\": \"C凹凸热暗idea俺的track\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"COMPLETED\",\n    \"tagIds\": [\n        \"work\",\n        \"902bf035-5d35-4c68-b885-63a409971e03\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790674289957,\n    \"updatedAt\": 1790675725776,\n    \"deletedAt\": 1790675725776,\n    \"tags\": [\n        {\n            \"id\": \"work\",\n            \"name\": \"工作\",\n            \"preset\": true\n        },\n        {\n            \"id\": \"902bf035-5d35-4c68-b885-63a409971e03\",\n            \"name\": \"2027\",\n            \"preset\": false\n        }\n    ]\n}"
         },
         {
@@ -431,7 +456,7 @@
             "title": "20260929",
             "operatedAt": 1790675754418,
             "sequence": 16,
-            "beforeJson": "{\n    \"id\": \"045cea38-a696-4aa0-8233-d43a2beffc90\",\n    \"title\": \"20260929\",\n    \"body\": \"C凹凸热暗idea俺的track\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"COMPLETED\",\n    \"tagIds\": [\n        \"work\",\n        \"902bf035-5d35-4c68-b885-63a409971e03\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790674289957,\n    \"updatedAt\": 1790675725776,\n    \"deletedAt\": 1790675725776,\n    \"tags\": [\n        {\n            \"id\": \"work\",\n            \"name\": \"工作\",\n            \"preset\": true\n        },\n        {\n            \"id\": \"902bf035-5d35-4c68-b885-63a409971e03\",\n            \"name\": \"2027\",\n            \"preset\": false\n        }\n    ]\n}",
+            "beforeJson": null,
             "afterJson": "{\n    \"id\": \"045cea38-a696-4aa0-8233-d43a2beffc90\",\n    \"title\": \"20260929\",\n    \"body\": \"C凹凸热暗idea俺的track\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"COMPLETED\",\n    \"tagIds\": [\n        \"work\",\n        \"902bf035-5d35-4c68-b885-63a409971e03\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790674289957,\n    \"updatedAt\": 1790675754414,\n    \"deletedAt\": null,\n    \"tags\": [\n        {\n            \"id\": \"work\",\n            \"name\": \"工作\",\n            \"preset\": true\n        },\n        {\n            \"id\": \"902bf035-5d35-4c68-b885-63a409971e03\",\n            \"name\": \"2027\",\n            \"preset\": false\n        }\n    ]\n}"
         },
         {
@@ -461,7 +486,7 @@
             "title": "兴趣",
             "operatedAt": 1790677001700,
             "sequence": 19,
-            "beforeJson": "{\n    \"id\": \"902bf035-5d35-4c68-b885-63a409971e03\",\n    \"name\": \"2027\",\n    \"preset\": false\n}",
+            "beforeJson": null,
             "afterJson": "{\n    \"id\": \"902bf035-5d35-4c68-b885-63a409971e03\",\n    \"name\": \"兴趣\",\n    \"preset\": false\n}"
         },
         {
@@ -471,7 +496,7 @@
             "title": "test",
             "operatedAt": 1790677719708,
             "sequence": 20,
-            "beforeJson": "{\n    \"id\": \"045cea38-a696-4aa0-8233-d43a2beffc90\",\n    \"title\": \"20260929\",\n    \"body\": \"C凹凸热暗idea俺的track\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"COMPLETED\",\n    \"tagIds\": [\n        \"work\",\n        \"902bf035-5d35-4c68-b885-63a409971e03\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790674289957,\n    \"updatedAt\": 1790675754414,\n    \"deletedAt\": null,\n    \"tags\": [\n        {\n            \"id\": \"work\",\n            \"name\": \"工作\",\n            \"preset\": true\n        },\n        {\n            \"id\": \"902bf035-5d35-4c68-b885-63a409971e03\",\n            \"name\": \"兴趣\",\n            \"preset\": false\n        }\n    ]\n}",
+            "beforeJson": null,
             "afterJson": "{\n    \"id\": \"045cea38-a696-4aa0-8233-d43a2beffc90\",\n    \"title\": \"test\",\n    \"body\": \"C凹凸热暗idea俺的track\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"COMPLETED\",\n    \"tagIds\": [\n        \"work\",\n        \"902bf035-5d35-4c68-b885-63a409971e03\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790674289957,\n    \"updatedAt\": 1790677719689,\n    \"deletedAt\": null,\n    \"tags\": [\n        {\n            \"id\": \"work\",\n            \"name\": \"工作\",\n            \"preset\": true\n        },\n        {\n            \"id\": \"902bf035-5d35-4c68-b885-63a409971e03\",\n            \"name\": \"兴趣\",\n            \"preset\": false\n        }\n    ]\n}"
         },
         {
@@ -481,7 +506,7 @@
             "title": "网球",
             "operatedAt": 1790677946694,
             "sequence": 21,
-            "beforeJson": "{\n    \"id\": \"d29889c1-2c00-45bb-9a72-6da20aefd68e\",\n    \"title\": \"网球\",\n    \"body\": \"学习网球\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"NOT_STARTED\",\n    \"tagIds\": [\n        \"life\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790676832536,\n    \"updatedAt\": 1790676861575,\n    \"deletedAt\": null,\n    \"emoji\": null,\n    \"tags\": [\n        {\n            \"id\": \"life\",\n            \"name\": \"生活\",\n            \"preset\": true\n        }\n    ]\n}",
+            "beforeJson": null,
             "afterJson": "{\n    \"id\": \"d29889c1-2c00-45bb-9a72-6da20aefd68e\",\n    \"title\": \"网球\",\n    \"body\": \"学习网球\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"NOT_STARTED\",\n    \"tagIds\": [\n        \"life\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790676832536,\n    \"updatedAt\": 1790677946679,\n    \"deletedAt\": null,\n    \"emoji\": \"🎾\",\n    \"tags\": [\n        {\n            \"id\": \"life\",\n            \"name\": \"生活\",\n            \"preset\": true\n        }\n    ]\n}"
         },
         {
@@ -491,7 +516,7 @@
             "title": "HipHop探索",
             "operatedAt": 1790677965602,
             "sequence": 22,
-            "beforeJson": "{\n    \"id\": \"491252d3-f793-445b-99ae-a5907a3e7e91\",\n    \"title\": \"HipHop探索\",\n    \"body\": \"尝试HipHop\",\n    \"kind\": \"IDEA\",\n    \"planType\": \"ONCE\",\n    \"status\": \"NOT_STARTED\",\n    \"tagIds\": [\n        \"life\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790676594780,\n    \"updatedAt\": 1790676629747,\n    \"deletedAt\": null,\n    \"emoji\": null,\n    \"tags\": [\n        {\n            \"id\": \"life\",\n            \"name\": \"生活\",\n            \"preset\": true\n        }\n    ]\n}",
+            "beforeJson": null,
             "afterJson": "{\n    \"id\": \"491252d3-f793-445b-99ae-a5907a3e7e91\",\n    \"title\": \"HipHop探索\",\n    \"body\": \"尝试HipHop\",\n    \"kind\": \"IDEA\",\n    \"planType\": \"ONCE\",\n    \"status\": \"NOT_STARTED\",\n    \"tagIds\": [\n        \"life\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790676594780,\n    \"updatedAt\": 1790677965595,\n    \"deletedAt\": null,\n    \"emoji\": \"🕺🏻\",\n    \"tags\": [\n        {\n            \"id\": \"life\",\n            \"name\": \"生活\",\n            \"preset\": true\n        }\n    ]\n}"
         },
         {
@@ -501,7 +526,7 @@
             "title": "test",
             "operatedAt": 1790678348790,
             "sequence": 23,
-            "beforeJson": "{\n    \"id\": \"045cea38-a696-4aa0-8233-d43a2beffc90\",\n    \"title\": \"test\",\n    \"body\": \"C凹凸热暗idea俺的track\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"COMPLETED\",\n    \"tagIds\": [\n        \"work\",\n        \"902bf035-5d35-4c68-b885-63a409971e03\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790674289957,\n    \"updatedAt\": 1790677719689,\n    \"deletedAt\": null,\n    \"emoji\": null,\n    \"tags\": [\n        {\n            \"id\": \"work\",\n            \"name\": \"工作\",\n            \"preset\": true\n        },\n        {\n            \"id\": \"902bf035-5d35-4c68-b885-63a409971e03\",\n            \"name\": \"兴趣\",\n            \"preset\": false\n        }\n    ]\n}",
+            "beforeJson": null,
             "afterJson": "{\n    \"id\": \"045cea38-a696-4aa0-8233-d43a2beffc90\",\n    \"title\": \"test\",\n    \"body\": \"C凹凸热暗idea俺的track\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"COMPLETED\",\n    \"tagIds\": [\n        \"work\",\n        \"902bf035-5d35-4c68-b885-63a409971e03\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790674289957,\n    \"updatedAt\": 1790678348768,\n    \"deletedAt\": null,\n    \"emoji\": \"👩‍💻\",\n    \"tags\": [\n        {\n            \"id\": \"work\",\n            \"name\": \"工作\",\n            \"preset\": true\n        },\n        {\n            \"id\": \"902bf035-5d35-4c68-b885-63a409971e03\",\n            \"name\": \"兴趣\",\n            \"preset\": false\n        }\n    ]\n}"
         },
         {
@@ -511,7 +536,7 @@
             "title": "test",
             "operatedAt": 1790678390346,
             "sequence": 24,
-            "beforeJson": "{\n    \"id\": \"045cea38-a696-4aa0-8233-d43a2beffc90\",\n    \"title\": \"test\",\n    \"body\": \"C凹凸热暗idea俺的track\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"COMPLETED\",\n    \"tagIds\": [\n        \"work\",\n        \"902bf035-5d35-4c68-b885-63a409971e03\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790674289957,\n    \"updatedAt\": 1790678348768,\n    \"deletedAt\": null,\n    \"emoji\": \"👩‍💻\",\n    \"tags\": [\n        {\n            \"id\": \"work\",\n            \"name\": \"工作\",\n            \"preset\": true\n        },\n        {\n            \"id\": \"902bf035-5d35-4c68-b885-63a409971e03\",\n            \"name\": \"兴趣\",\n            \"preset\": false\n        }\n    ]\n}",
+            "beforeJson": null,
             "afterJson": "{\n    \"id\": \"045cea38-a696-4aa0-8233-d43a2beffc90\",\n    \"title\": \"test\",\n    \"body\": \"C凹凸热暗idea俺的track\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"COMPLETED\",\n    \"tagIds\": [\n        \"work\",\n        \"902bf035-5d35-4c68-b885-63a409971e03\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790674289957,\n    \"updatedAt\": 1790678390330,\n    \"deletedAt\": null,\n    \"emoji\": null,\n    \"tags\": [\n        {\n            \"id\": \"work\",\n            \"name\": \"工作\",\n            \"preset\": true\n        },\n        {\n            \"id\": \"902bf035-5d35-4c68-b885-63a409971e03\",\n            \"name\": \"兴趣\",\n            \"preset\": false\n        }\n    ]\n}"
         },
         {
@@ -521,7 +546,7 @@
             "title": "羽毛球",
             "operatedAt": 1790679867675,
             "sequence": 25,
-            "beforeJson": "{\n    \"id\": \"491252d3-f793-445b-99ae-a5907a3e7e91\",\n    \"title\": \"HipHop探索\",\n    \"body\": \"尝试HipHop\",\n    \"kind\": \"IDEA\",\n    \"planType\": \"ONCE\",\n    \"status\": \"NOT_STARTED\",\n    \"tagIds\": [\n        \"life\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790676594780,\n    \"updatedAt\": 1790677965595,\n    \"deletedAt\": null,\n    \"emoji\": \"🕺🏻\",\n    \"tags\": [\n        {\n            \"id\": \"life\",\n            \"name\": \"生活\",\n            \"preset\": true\n        }\n    ]\n}",
+            "beforeJson": null,
             "afterJson": "{\n    \"id\": \"491252d3-f793-445b-99ae-a5907a3e7e91\",\n    \"title\": \"羽毛球\",\n    \"body\": \"羽毛球\",\n    \"kind\": \"IDEA\",\n    \"planType\": \"ONCE\",\n    \"status\": \"NOT_STARTED\",\n    \"tagIds\": [\n        \"life\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790676594780,\n    \"updatedAt\": 1790679867655,\n    \"deletedAt\": null,\n    \"emoji\": \"🏸\",\n    \"tags\": [\n        {\n            \"id\": \"life\",\n            \"name\": \"生活\",\n            \"preset\": true\n        }\n    ]\n}"
         },
         {
@@ -531,7 +556,7 @@
             "title": "羽毛球",
             "operatedAt": 1790679879967,
             "sequence": 26,
-            "beforeJson": "{\n    \"id\": \"491252d3-f793-445b-99ae-a5907a3e7e91\",\n    \"title\": \"羽毛球\",\n    \"body\": \"羽毛球\",\n    \"kind\": \"IDEA\",\n    \"planType\": \"ONCE\",\n    \"status\": \"NOT_STARTED\",\n    \"tagIds\": [\n        \"life\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790676594780,\n    \"updatedAt\": 1790679867655,\n    \"deletedAt\": null,\n    \"emoji\": \"🏸\",\n    \"tags\": [\n        {\n            \"id\": \"life\",\n            \"name\": \"生活\",\n            \"preset\": true\n        }\n    ]\n}",
+            "beforeJson": null,
             "afterJson": "{\n    \"id\": \"491252d3-f793-445b-99ae-a5907a3e7e91\",\n    \"title\": \"羽毛球\",\n    \"body\": \"羽毛球\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"ONCE\",\n    \"status\": \"NOT_STARTED\",\n    \"tagIds\": [\n        \"life\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790676594780,\n    \"updatedAt\": 1790679879963,\n    \"deletedAt\": null,\n    \"emoji\": \"🏸\",\n    \"tags\": [\n        {\n            \"id\": \"life\",\n            \"name\": \"生活\",\n            \"preset\": true\n        }\n    ]\n}"
         },
         {
@@ -541,7 +566,7 @@
             "title": "羽毛球",
             "operatedAt": 1790681181586,
             "sequence": 27,
-            "beforeJson": "{\n    \"id\": \"491252d3-f793-445b-99ae-a5907a3e7e91\",\n    \"title\": \"羽毛球\",\n    \"body\": \"羽毛球\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"ONCE\",\n    \"status\": \"NOT_STARTED\",\n    \"tagIds\": [\n        \"life\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790676594780,\n    \"updatedAt\": 1790679879963,\n    \"deletedAt\": null,\n    \"emoji\": \"🏸\",\n    \"tags\": [\n        {\n            \"id\": \"life\",\n            \"name\": \"生活\",\n            \"preset\": true\n        }\n    ]\n}",
+            "beforeJson": null,
             "afterJson": "{\n    \"id\": \"491252d3-f793-445b-99ae-a5907a3e7e91\",\n    \"title\": \"羽毛球\",\n    \"body\": \"羽毛球\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"NOT_STARTED\",\n    \"tagIds\": [\n        \"life\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790676594780,\n    \"updatedAt\": 1790681181570,\n    \"deletedAt\": null,\n    \"emoji\": \"🏸\",\n    \"tags\": [\n        {\n            \"id\": \"life\",\n            \"name\": \"生活\",\n            \"preset\": true\n        }\n    ]\n}"
         },
         {
@@ -581,7 +606,7 @@
             "title": "唱歌",
             "operatedAt": 1790694381524,
             "sequence": 31,
-            "beforeJson": "{\n    \"id\": \"34144982-7dbf-4939-be19-c60252ea463a\",\n    \"title\": \"唱歌\",\n    \"body\": \"学习唱歌，练习歌曲\",\n    \"kind\": \"IDEA\",\n    \"planType\": \"ONCE\",\n    \"status\": \"NOT_STARTED\",\n    \"tagIds\": [\n        \"902bf035-5d35-4c68-b885-63a409971e03\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790694351183,\n    \"updatedAt\": 1790694377327,\n    \"deletedAt\": null,\n    \"emoji\": \"🎶\",\n    \"tags\": [\n        {\n            \"id\": \"902bf035-5d35-4c68-b885-63a409971e03\",\n            \"name\": \"兴趣\",\n            \"preset\": false\n        }\n    ]\n}",
+            "beforeJson": null,
             "afterJson": "{\n    \"id\": \"34144982-7dbf-4939-be19-c60252ea463a\",\n    \"title\": \"唱歌\",\n    \"body\": \"学习唱歌，练习歌曲\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"NOT_STARTED\",\n    \"tagIds\": [\n        \"902bf035-5d35-4c68-b885-63a409971e03\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790694351183,\n    \"updatedAt\": 1790694381519,\n    \"deletedAt\": null,\n    \"emoji\": \"🎶\",\n    \"tags\": [\n        {\n            \"id\": \"902bf035-5d35-4c68-b885-63a409971e03\",\n            \"name\": \"兴趣\",\n            \"preset\": false\n        }\n    ]\n}"
         },
         {
@@ -591,7 +616,7 @@
             "title": "唱歌",
             "operatedAt": 1790694384579,
             "sequence": 32,
-            "beforeJson": "{\n    \"id\": \"34144982-7dbf-4939-be19-c60252ea463a\",\n    \"title\": \"唱歌\",\n    \"body\": \"学习唱歌，练习歌曲\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"NOT_STARTED\",\n    \"tagIds\": [\n        \"902bf035-5d35-4c68-b885-63a409971e03\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790694351183,\n    \"updatedAt\": 1790694381519,\n    \"deletedAt\": null,\n    \"emoji\": \"🎶\",\n    \"tags\": [\n        {\n            \"id\": \"902bf035-5d35-4c68-b885-63a409971e03\",\n            \"name\": \"兴趣\",\n            \"preset\": false\n        }\n    ]\n}",
+            "beforeJson": null,
             "afterJson": "{\n    \"id\": \"34144982-7dbf-4939-be19-c60252ea463a\",\n    \"title\": \"唱歌\",\n    \"body\": \"学习唱歌，练习歌曲\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"ACTIVE\",\n    \"tagIds\": [\n        \"902bf035-5d35-4c68-b885-63a409971e03\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790694351183,\n    \"updatedAt\": 1790694384575,\n    \"deletedAt\": null,\n    \"emoji\": \"🎶\",\n    \"tags\": [\n        {\n            \"id\": \"902bf035-5d35-4c68-b885-63a409971e03\",\n            \"name\": \"兴趣\",\n            \"preset\": false\n        }\n    ]\n}"
         },
         {
@@ -631,7 +656,7 @@
             "title": "兴趣",
             "operatedAt": 1790733280290,
             "sequence": 36,
-            "beforeJson": "{\n    \"id\": \"902bf035-5d35-4c68-b885-63a409971e03\",\n    \"name\": \"兴趣\",\n    \"preset\": false,\n    \"emoji\": null\n}",
+            "beforeJson": null,
             "afterJson": "{\n    \"id\": \"902bf035-5d35-4c68-b885-63a409971e03\",\n    \"name\": \"兴趣\",\n    \"preset\": false,\n    \"emoji\": \"🪂\"\n}"
         },
         {
@@ -651,7 +676,7 @@
             "title": "健身",
             "operatedAt": 1790733318957,
             "sequence": 38,
-            "beforeJson": "{\n    \"id\": \"7b9a7a12-4f80-4298-a644-b75e6a8433bf\",\n    \"title\": \"健身\",\n    \"body\": \"健身撸铁\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"NOT_STARTED\",\n    \"tagIds\": [\n        \"health\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790694435734,\n    \"updatedAt\": 1790733313617,\n    \"deletedAt\": null,\n    \"emoji\": \"💪\",\n    \"tags\": [\n        {\n            \"id\": \"health\",\n            \"name\": \"健康\",\n            \"preset\": true,\n            \"emoji\": null\n        }\n    ]\n}",
+            "beforeJson": null,
             "afterJson": "{\n    \"id\": \"7b9a7a12-4f80-4298-a644-b75e6a8433bf\",\n    \"title\": \"健身\",\n    \"body\": \"健身撸铁\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"ACTIVE\",\n    \"tagIds\": [\n        \"health\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790694435734,\n    \"updatedAt\": 1790733318941,\n    \"deletedAt\": null,\n    \"emoji\": \"💪\",\n    \"tags\": [\n        {\n            \"id\": \"health\",\n            \"name\": \"健康\",\n            \"preset\": true,\n            \"emoji\": null\n        }\n    ]\n}"
         },
         {
@@ -661,7 +686,7 @@
             "title": "test",
             "operatedAt": 1790733907978,
             "sequence": 39,
-            "beforeJson": "{\n    \"id\": \"045cea38-a696-4aa0-8233-d43a2beffc90\",\n    \"title\": \"test\",\n    \"body\": \"C凹凸热暗idea俺的track\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"COMPLETED\",\n    \"tagIds\": [\n        \"work\",\n        \"902bf035-5d35-4c68-b885-63a409971e03\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790674289957,\n    \"updatedAt\": 1790678390330,\n    \"deletedAt\": null,\n    \"emoji\": null,\n    \"tags\": [\n        {\n            \"id\": \"work\",\n            \"name\": \"工作\",\n            \"preset\": true,\n            \"emoji\": null\n        },\n        {\n            \"id\": \"902bf035-5d35-4c68-b885-63a409971e03\",\n            \"name\": \"兴趣\",\n            \"preset\": false,\n            \"emoji\": \"🪂\"\n        }\n    ]\n}",
+            "beforeJson": null,
             "afterJson": "{\n    \"id\": \"045cea38-a696-4aa0-8233-d43a2beffc90\",\n    \"title\": \"test\",\n    \"body\": \"C凹凸热暗idea俺的track\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"COMPLETED\",\n    \"tagIds\": [\n        \"work\",\n        \"902bf035-5d35-4c68-b885-63a409971e03\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790674289957,\n    \"updatedAt\": 1790733907961,\n    \"deletedAt\": 1790733907961,\n    \"emoji\": null,\n    \"tags\": [\n        {\n            \"id\": \"work\",\n            \"name\": \"工作\",\n            \"preset\": true,\n            \"emoji\": null\n        },\n        {\n            \"id\": \"902bf035-5d35-4c68-b885-63a409971e03\",\n            \"name\": \"兴趣\",\n            \"preset\": false,\n            \"emoji\": \"🪂\"\n        }\n    ]\n}"
         },
         {
@@ -671,7 +696,7 @@
             "title": "网球",
             "operatedAt": 1790733946871,
             "sequence": 40,
-            "beforeJson": "{\n    \"id\": \"d29889c1-2c00-45bb-9a72-6da20aefd68e\",\n    \"title\": \"网球\",\n    \"body\": \"学习网球\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"NOT_STARTED\",\n    \"tagIds\": [\n        \"life\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790676832536,\n    \"updatedAt\": 1790677946679,\n    \"deletedAt\": null,\n    \"emoji\": \"🎾\",\n    \"tags\": [\n        {\n            \"id\": \"life\",\n            \"name\": \"生活\",\n            \"preset\": true,\n            \"emoji\": null\n        }\n    ]\n}",
+            "beforeJson": null,
             "afterJson": "{\n    \"id\": \"d29889c1-2c00-45bb-9a72-6da20aefd68e\",\n    \"title\": \"网球\",\n    \"body\": \"学习网球\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"ACTIVE\",\n    \"tagIds\": [\n        \"life\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790676832536,\n    \"updatedAt\": 1790733946867,\n    \"deletedAt\": null,\n    \"emoji\": \"🎾\",\n    \"tags\": [\n        {\n            \"id\": \"life\",\n            \"name\": \"生活\",\n            \"preset\": true,\n            \"emoji\": null\n        }\n    ]\n}"
         },
         {
@@ -681,7 +706,7 @@
             "title": "网球",
             "operatedAt": 1790733960774,
             "sequence": 41,
-            "beforeJson": "{\n    \"id\": \"d29889c1-2c00-45bb-9a72-6da20aefd68e\",\n    \"title\": \"网球\",\n    \"body\": \"学习网球\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"ACTIVE\",\n    \"tagIds\": [\n        \"life\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790676832536,\n    \"updatedAt\": 1790733946867,\n    \"deletedAt\": null,\n    \"emoji\": \"🎾\",\n    \"tags\": [\n        {\n            \"id\": \"life\",\n            \"name\": \"生活\",\n            \"preset\": true,\n            \"emoji\": null\n        }\n    ]\n}",
+            "beforeJson": null,
             "afterJson": "{\n    \"id\": \"d29889c1-2c00-45bb-9a72-6da20aefd68e\",\n    \"title\": \"网球\",\n    \"body\": \"学习网球\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"ACTIVE\",\n    \"tagIds\": [\n        \"902bf035-5d35-4c68-b885-63a409971e03\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790676832536,\n    \"updatedAt\": 1790733960770,\n    \"deletedAt\": null,\n    \"emoji\": \"🎾\",\n    \"tags\": [\n        {\n            \"id\": \"902bf035-5d35-4c68-b885-63a409971e03\",\n            \"name\": \"兴趣\",\n            \"preset\": false,\n            \"emoji\": \"🪂\"\n        }\n    ]\n}"
         },
         {
@@ -753,6 +778,26 @@
             "sequence": 48,
             "beforeJson": null,
             "afterJson": "{\n    \"id\": \"8fb65b3e-d60b-4a95-9872-8d8ffff5f890\",\n    \"recordId\": \"d29889c1-2c00-45bb-9a72-6da20aefd68e\",\n    \"note\": \"网球发球机一小时\",\n    \"occurredAt\": 1790334720000,\n    \"createdAt\": 1790734328978,\n    \"updatedAt\": 1790734345872,\n    \"deletedAt\": null\n}"
+        },
+        {
+            "id": "45762b1e-7020-4c34-b8ff-6260746aac00",
+            "recordId": "1515fdc7-e959-401a-97c8-5fdac94f35da",
+            "operation": "打卡",
+            "title": "英语口语",
+            "operatedAt": 1790738997403,
+            "sequence": 49,
+            "beforeJson": null,
+            "afterJson": "{\n    \"id\": \"b029e886-6592-46b2-88bd-cf5d0227dd3b\",\n    \"recordId\": \"1515fdc7-e959-401a-97c8-5fdac94f35da\",\n    \"note\": \"No practice \",\n    \"occurredAt\": 1790738988308,\n    \"createdAt\": 1790738988308,\n    \"updatedAt\": 1790738997400,\n    \"deletedAt\": null\n}"
+        },
+        {
+            "id": "0c6876e6-41d1-4f9e-ae72-3691a595dfee",
+            "recordId": "d640ac46-85cb-48c4-85e3-e0b3bde2a58f",
+            "operation": "创建想法",
+            "title": "两情相悦英语角",
+            "operatedAt": 1790741561559,
+            "sequence": 50,
+            "beforeJson": null,
+            "afterJson": "{\n    \"id\": \"d640ac46-85cb-48c4-85e3-e0b3bde2a58f\",\n    \"title\": \"两情相悦英语角\",\n    \"body\": \"尝试做一次两情相悦英语角\",\n    \"kind\": \"IDEA\",\n    \"planType\": \"ONCE\",\n    \"status\": \"NOT_STARTED\",\n    \"tagIds\": [\n        \"life\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790741497974,\n    \"updatedAt\": 1790741561543,\n    \"deletedAt\": null,\n    \"emoji\": \"👨‍👩‍👦‍👦\",\n    \"tags\": [\n        {\n            \"id\": \"life\",\n            \"name\": \"生活\",\n            \"preset\": true,\n            \"emoji\": null\n        }\n    ]\n}"
         }
     ]
 }
