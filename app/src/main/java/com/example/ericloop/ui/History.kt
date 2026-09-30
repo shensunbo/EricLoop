@@ -16,6 +16,8 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.example.ericloop.R
 import com.example.ericloop.data.*
@@ -23,8 +25,30 @@ import kotlinx.serialization.json.*
 import java.time.LocalDate
 import java.time.ZoneId
 
-private val laneColors = listOf(Color(0xFF7084D0), Color(0xFF6BA892), Color(0xFFD09F65), Color(0xFFBB82B0), Color(0xFF619BBB), Color(0xFFBD7979))
-private fun historyColor(id: String?) = laneColors[(id ?: "tags").hashCode().ushr(1) % laneColors.size]
+private fun operationAccent(operation: String): UiAccent {
+    return when (operation) {
+        "打卡", "补记打卡" -> UiAccent(Color(0xFFEAF7EE), Color(0xFF286844))
+        "编辑想法", "编辑计划", "编辑打卡" -> UiAccent(Color(0xFFF3ECFA), Color(0xFF724895))
+        "创建想法", "创建计划" -> UiAccent(Color(0xFFECF4FD), Color(0xFF395F8A))
+        "状态变更" -> UiAccent(Color(0xFFFCF3E2), Color(0xFF806019))
+        "转为计划" -> UiAccent(Color(0xFFE8F7F7), Color(0xFF2E6C70))
+        "删除记录", "删除打卡" -> UiAccent(Color(0xFFFCECEF), Color(0xFF9A4654))
+        "恢复记录" -> UiAccent(Color(0xFFE9F7F2), Color(0xFF326F5D))
+        else -> UiAccent(Color(0xFFF0F2F7), Color(0xFF58627A))
+    }
+}
+
+private data class CheckInPreview(val note: String, val occurredAt: Long?)
+
+private fun checkInPreview(event: HistoryEvent): CheckInPreview? {
+    if (event.operation !in setOf("打卡", "补记打卡", "编辑打卡", "删除打卡")) return null
+    val raw = if (event.operation == "删除打卡") event.beforeJson else event.afterJson
+    return runCatching {
+        val fields = backupJson.parseToJsonElement(requireNotNull(raw)).jsonObject
+        CheckInPreview(fields["note"]?.jsonPrimitive?.contentOrNull.orEmpty().ifBlank { "无备注" },
+            fields["occurredAt"]?.jsonPrimitive?.longOrNull)
+    }.getOrNull()
+}
 
 @Composable fun HistoryDirectory(backup: Backup, onSelect: (String) -> Unit) {
     val records = remember(backup.records) { backup.records.sortedByDescending { it.updatedAt } }
@@ -60,14 +84,19 @@ private fun historyColor(id: String?) = laneColors[(id ?: "tags").hashCode().ush
     val lanes = ids.withIndex().associate { it.value to it.index }
     val ranges = ids.associateWith { id -> events.indices.filter { (events[it].recordId ?: "tags") == id }.let { it.first()..it.last() } }
     val graphScroll = rememberScrollState()
+    val trackColor = MaterialTheme.colorScheme.outlineVariant
     Column(Modifier.fillMaxSize().padding(horizontal = 20.dp)) {
         SectionHeading("YOUR JOURNEY", backup.records.find { it.id == recordId }?.title ?: "记录已不存在", "${events.size} 次变更 · 点击节点查看当时的内容")
         Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             ChoiceMenu("操作", listOf("全部") + recordEvents.map { it.operation }.distinct(), operation) { operation = it }
         }
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            OutlinedTextField(start, { start = it }, Modifier.weight(1f), singleLine = true, label = { Text("起始日期") }, placeholder = { Text("yyyy-MM-dd") }, isError = start.isNotBlank() && startDate == null)
-            OutlinedTextField(end, { end = it }, Modifier.weight(1f), singleLine = true, label = { Text("结束日期") }, placeholder = { Text("yyyy-MM-dd") }, isError = end.isNotBlank() && (endDate == null || !datesValid))
+            OutlinedTextField(start, { start = it }, Modifier.weight(1f).height(52.dp).semantics { contentDescription = "起始日期" }, singleLine = true,
+                textStyle = MaterialTheme.typography.bodyMedium, placeholder = { Text("开始 yyyy-MM-dd") },
+                isError = start.isNotBlank() && startDate == null)
+            OutlinedTextField(end, { end = it }, Modifier.weight(1f).height(52.dp).semantics { contentDescription = "结束日期" }, singleLine = true,
+                textStyle = MaterialTheme.typography.bodyMedium, placeholder = { Text("结束 yyyy-MM-dd") },
+                isError = end.isNotBlank() && (endDate == null || !datesValid))
         }
         Spacer(Modifier.height(16.dp))
         if (events.isEmpty()) EmptyPanel(if (datesValid) "旅程从第一条记录开始" else "请检查日期范围", if (datesValid) "创建、编辑、打卡和标签变更都会出现在这里。" else "输入 yyyy-MM-dd 格式，起始日期不能晚于结束日期。", R.drawable.ic_timeline)
@@ -78,23 +107,28 @@ private fun historyColor(id: String?) = laneColors[(id ?: "tags").hashCode().ush
                 LazyColumn(Modifier.width(rowWidth).fillMaxHeight(), contentPadding = PaddingValues(bottom = 24.dp)) {
                     itemsIndexed(events, key = { _, event -> event.id }) { index, event ->
                         val lane = lanes.getValue(event.recordId ?: "tags")
-                        val color = historyColor(event.recordId)
+                        val accent = operationAccent(event.operation)
+                        val preview = remember(event) { checkInPreview(event) }
                         Row(Modifier.fillMaxWidth().height(IntrinsicSize.Min)) {
                             Canvas(Modifier.width(laneWidth).fillMaxHeight()) {
                                 ranges.forEach { (id, range) ->
                                     if (index in range) {
                                         val track = lanes.getValue(id)
                                         val x = (12 + track * 22).dp.toPx()
-                                        drawLine(historyColor(id.takeUnless { it == "tags" }).copy(alpha = 0.42f), Offset(x, if (index == range.first) 30.dp.toPx() else 0f), Offset(x, if (index == range.last) 30.dp.toPx() else size.height), strokeWidth = 2.dp.toPx())
+                                        drawLine(trackColor, Offset(x, if (index == range.first) 30.dp.toPx() else 0f), Offset(x, if (index == range.last) 30.dp.toPx() else size.height), strokeWidth = 2.dp.toPx())
                                     }
                                 }
-                                drawCircle(color, radius = 6.dp.toPx(), center = Offset((12 + lane * 22).dp.toPx(), 30.dp.toPx()))
+                                drawCircle(accent.content, radius = 6.dp.toPx(), center = Offset((12 + lane * 22).dp.toPx(), 30.dp.toPx()))
                             }
-                            Card(onClick = { selectedEvent = event }, modifier = Modifier.weight(1f).padding(bottom = 12.dp), colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)) {
+                            Card(onClick = { selectedEvent = event }, modifier = Modifier.weight(1f).padding(bottom = 12.dp), colors = CardDefaults.cardColors(containerColor = accent.container)) {
                                 Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                                     Text("${displayTime(event.operatedAt)}  ·  #${event.sequence}", style = MaterialTheme.typography.labelSmall, fontFamily = FontFamily.Monospace, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                                    Text(event.operation, style = MaterialTheme.typography.labelMedium, color = color)
-                                    Text(event.title, style = MaterialTheme.typography.titleMedium)
+                                    Text(event.operation, style = MaterialTheme.typography.labelMedium, color = accent.content)
+                                    preview?.let {
+                                        Text(it.note, style = MaterialTheme.typography.bodyMedium, maxLines = 2, overflow = TextOverflow.Ellipsis)
+                                        it.occurredAt?.takeIf { occurredAt -> displayTime(occurredAt) != displayTime(event.operatedAt) }
+                                            ?.let { occurredAt -> Text("发生于 ${displayTime(occurredAt)}", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
+                                    }
                                 }
                             }
                         }

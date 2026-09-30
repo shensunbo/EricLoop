@@ -149,13 +149,23 @@ import java.time.format.DateTimeFormatter
             }
             if (checkIns.isEmpty()) item { EmptyPanel("记录今天的一小步", "打卡无需固定频率，也可以补记过去的进展。", R.drawable.ic_note_add) }
             items(checkIns, key = { it.id }) { checkIn ->
+                var actionsExpanded by remember { mutableStateOf(false) }
                 Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)) {
-                    Column(Modifier.fillMaxWidth().padding(18.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                        Text(displayTime(checkIn.occurredAt, "yyyy年MM月dd日 HH:mm"), style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.secondary)
-                        Text(checkIn.note.ifBlank { "完成了一次打卡" }, style = MaterialTheme.typography.bodyLarge)
-                        if (record.deletedAt == null) Row {
-                            TextButton(onClick = { editingCheckInId = checkIn.id; checkInEditor = true }) { Text("编辑") }
-                            TextButton(onClick = { deletingCheckIn = checkIn.id }) { Text("删除") }
+                    Row(Modifier.fillMaxWidth().padding(12.dp), verticalAlignment = Alignment.Top) {
+                        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                            Text(displayTime(checkIn.occurredAt, "yyyy年MM月dd日 HH:mm"), style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.secondary)
+                            Text(checkIn.note.ifBlank { "完成了一次打卡" }, style = MaterialTheme.typography.bodyLarge)
+                        }
+                        if (record.deletedAt == null) Box {
+                            IconButton(onClick = { actionsExpanded = true }) { LoopIcon(R.drawable.ic_more_vert, "进展操作") }
+                            DropdownMenu(expanded = actionsExpanded, onDismissRequest = { actionsExpanded = false }) {
+                                DropdownMenuItem(text = { Text("编辑") }, leadingIcon = { LoopIcon(R.drawable.ic_edit) }, onClick = {
+                                    actionsExpanded = false; editingCheckInId = checkIn.id; checkInEditor = true
+                                })
+                                DropdownMenuItem(text = { Text("删除") }, leadingIcon = { LoopIcon(R.drawable.ic_delete) }, onClick = {
+                                    actionsExpanded = false; deletingCheckIn = checkIn.id
+                                })
+                            }
                         }
                     }
                 }

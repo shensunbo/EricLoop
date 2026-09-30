@@ -113,7 +113,9 @@ import com.example.ericloop.data.*
             }
         }
         item {
-            OutlinedTextField(query, { query = it }, Modifier.fillMaxWidth(), singleLine = true, placeholder = { Text("搜索标题或正文") }, leadingIcon = { LoopIcon(R.drawable.ic_search) }, shape = MaterialTheme.shapes.large)
+            OutlinedTextField(query, { query = it }, Modifier.fillMaxWidth().height(52.dp), singleLine = true,
+                textStyle = MaterialTheme.typography.bodyMedium, placeholder = { Text("搜索标题或正文") },
+                leadingIcon = { LoopIcon(R.drawable.ic_search) }, shape = MaterialTheme.shapes.large)
             if (mode != "active" && mode != "ideas") Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 ChoiceMenu("类型", if (mode == "completed") listOf("全部", "一次性计划", "长期计划") else listOf("全部", "想法", "一次性计划", "长期计划"), category, { category = it })
                 if (mode != "completed") ChoiceMenu("状态", listOf("全部") + PlanStatus.entries.map { it.label }, status, { status = it })
