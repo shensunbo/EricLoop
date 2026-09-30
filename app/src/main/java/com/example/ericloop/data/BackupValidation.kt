@@ -25,7 +25,9 @@ fun decodeBackup(text: String): Backup {
         require(rows is JsonArray) { "备份数据表格式无效" }
         rows.forEach { requiredObject(it, keys) }
     }
-    return backupJson.decodeFromString<Backup>(text).also(::validateBackup)
+    val decoded = backupJson.decodeFromString<Backup>(text).also(::validateBackup)
+    return if (decoded.schemaVersion == 1) decoded.copy(schemaVersion = 2,
+        events = decoded.events.map { it.copy(beforeJson = null) }).also(::validateBackup) else decoded
 }
 
 private fun validateTimes(created: Long, updated: Long, deleted: Long?) {
@@ -55,7 +57,7 @@ private fun validateCheckIn(checkIn: CheckIn, records: Map<String, LoopRecord>) 
 
 /** Throws before any persistent change if a backup is malformed or unsupported. */
 private fun validateCurrent(backup: Backup) {
-    require(backup.schemaVersion == 1) { "不支持的备份版本" }
+    require(backup.schemaVersion in 1..2) { "不支持的备份版本" }
     require(backup.datasetId.isNotBlank() && backup.revision >= 0 && backup.exportedAt >= 0) { "备份元数据无效" }
     fun ids(values: List<String>) = require(values.all { it.isNotBlank() } && values.distinct().size == values.size) { "备份包含重复或空 ID" }
     ids(backup.records.map { it.id }); ids(backup.tags.map { it.id })
@@ -78,7 +80,7 @@ fun validateBackup(backup: Backup) {
         require(event.sequence == index.toLong() + 1 && event.operatedAt >= 0 && event.title.isNotBlank()) { "历史序号或时间无效" }
         require(event.recordId == null || backup.records.any { it.id == event.recordId }) { "历史引用无效" }
         validateEvent(event, backup)
-        replay.apply(event)
+        replay.apply(event, backup.schemaVersion == 1)
     }
     replay.requireMatches(backup)
 }
@@ -86,14 +88,15 @@ fun validateBackup(backup: Backup) {
 /** Local writes only need to validate the new event against the previously verified state. */
 internal fun validateMutation(previous: Backup, next: Backup) {
     validateCurrent(next)
-    require(next.datasetId == previous.datasetId && next.revision == previous.revision + 1 &&
+    require(next.schemaVersion == 2 && previous.schemaVersion == 2 &&
+        next.datasetId == previous.datasetId && next.revision == previous.revision + 1 &&
         next.events.size == previous.events.size + 1 && next.events.dropLast(1) == previous.events) { "数据版本或历史变更无效" }
     val event = next.events.last()
     require(event.id.isNotBlank() && previous.events.none { it.id == event.id } && event.sequence == next.revision &&
         event.operatedAt >= 0 && event.title.isNotBlank()) { "新增历史元数据无效" }
     validateEvent(event, next)
     val replay = ReplayState(previous.records, previous.tags, previous.checkIns)
-    replay.apply(event)
+    replay.apply(event, false)
     replay.requireMatches(next)
 }
 
@@ -115,7 +118,7 @@ private class ReplayState(records: List<LoopRecord>, tags: List<LoopTag>, checkI
         return record
     }
 
-    fun apply(event: HistoryEvent) {
+    fun apply(event: HistoryEvent, legacy: Boolean) {
         when (event.operation) {
             in recordOperations -> {
                 val after = recordSnapshot(requireNotNull(event.afterJson))
@@ -123,12 +126,13 @@ private class ReplayState(records: List<LoopRecord>, tags: List<LoopTag>, checkI
                 if (event.operation in creationOperations) {
                     require(old == null && after.deletedAt == null) { "记录创建历史重复或无效" }
                 } else {
-                    val before = recordSnapshot(requireNotNull(event.beforeJson))
+                    val before = if (legacy) recordSnapshot(requireNotNull(event.beforeJson)) else old
                     require(old != null && before == old) { "记录历史前后不连续" }
-                    require(after.updatedAt >= before.updatedAt && after.createdAt == before.createdAt) { "记录历史时间无效" }
+                    require(after.updatedAt >= old.updatedAt && after.createdAt == old.createdAt) { "记录历史时间无效" }
                     when (event.operation) {
-                        "恢复记录" -> require(before.deletedAt != null && after.deletedAt == null) { "恢复记录历史无效" }
-                        else -> require(before.deletedAt == null) { "已删除记录的操作无效" }
+                        "恢复记录" -> require(old.deletedAt != null && after.deletedAt == null) { "恢复记录历史无效" }
+                        "删除记录" -> require(old.deletedAt == null && after.deletedAt != null) { "删除记录历史无效" }
+                        else -> require(old.deletedAt == null && after.deletedAt == null) { "已删除记录的操作无效" }
                     }
                 }
                 require(event.title == after.title) { "历史标题与快照不一致" }
@@ -145,8 +149,10 @@ private class ReplayState(records: List<LoopRecord>, tags: List<LoopTag>, checkI
                 if (event.operation in creationOperations) {
                     require(old == null) { "打卡创建历史重复" }
                 } else {
-                    val before = backupJson.decodeFromString<CheckIn>(requireNotNull(event.beforeJson))
-                    require(old != null && before == old && before.deletedAt == null && after.updatedAt >= before.updatedAt) { "打卡历史前后不连续" }
+                    val before = if (legacy) backupJson.decodeFromString<CheckIn>(requireNotNull(event.beforeJson)) else old
+                    require(old != null && before == old && old.deletedAt == null && after.updatedAt >= old.updatedAt &&
+                        after.createdAt == old.createdAt) { "打卡历史前后不连续" }
+                    require((event.operation == "删除打卡") == (after.deletedAt != null)) { "打卡删除历史无效" }
                 }
                 require(event.title == owner.title) { "打卡历史标题与所属计划不一致" }
                 checkIns[after.id] = after
@@ -158,8 +164,8 @@ private class ReplayState(records: List<LoopRecord>, tags: List<LoopTag>, checkI
                 if (event.operation == "新增标签") {
                     require(old == null && !after.preset) { "标签创建历史重复或无效" }
                 } else {
-                    val before = backupJson.decodeFromString<LoopTag>(requireNotNull(event.beforeJson))
-                    require(old != null && before == old && after.preset == before.preset) { "标签历史前后不连续" }
+                    val before = if (legacy) backupJson.decodeFromString<LoopTag>(requireNotNull(event.beforeJson)) else old
+                    require(old != null && before == old && after.id == old.id && after.preset == old.preset) { "标签历史前后不连续" }
                 }
                 require(tags.values.none { it.id != after.id && it.name.equals(after.name, ignoreCase = true) }) { "历史标签名称重复" }
                 require(event.title == after.name) { "标签历史标题无效" }
@@ -181,10 +187,11 @@ private val creationOperations = setOf("创建想法", "创建计划", "打卡",
 
 private fun validateEvent(event: HistoryEvent, backup: Backup) {
     require(event.operation in recordOperations + checkInOperations + tagOperations) { "历史操作无效" }
-    require(event.afterJson != null && ((event.operation in creationOperations && event.beforeJson == null) ||
-        (event.operation !in creationOperations && event.beforeJson != null))) { "历史快照缺失" }
+    val legacy = backup.schemaVersion == 1
+    require(event.afterJson != null && (if (legacy) (event.operation in creationOperations) == (event.beforeJson == null)
+        else event.beforeJson == null)) { "历史快照缺失" }
     val records = backup.records.associateBy { it.id }
-    val snapshots = listOfNotNull(event.beforeJson, event.afterJson)
+    val snapshots = if (legacy) listOfNotNull(event.beforeJson, event.afterJson) else listOf(event.afterJson)
     when (event.operation) {
         in recordOperations -> {
             require(event.recordId != null) { "记录历史引用无效" }
@@ -206,8 +213,8 @@ private fun validateEvent(event: HistoryEvent, backup: Backup) {
             when (event.operation) {
                 "创建想法", "编辑想法" -> require(after.kind == RecordKind.IDEA) { "历史记录类型无效" }
                 "创建计划", "编辑计划", "转为计划", "状态变更" -> require(after.kind == RecordKind.PLAN) { "历史记录类型无效" }
-                "删除记录" -> require(values.first().deletedAt == null && after.deletedAt != null) { "删除历史无效" }
-                "恢复记录" -> require(values.first().deletedAt != null && after.deletedAt == null) { "恢复历史无效" }
+                "删除记录" -> require(after.deletedAt != null && (!legacy || values.first().deletedAt == null)) { "删除历史无效" }
+                "恢复记录" -> require(after.deletedAt == null && (!legacy || values.first().deletedAt != null)) { "恢复历史无效" }
             }
             require(values.all { it.createdAt == after.createdAt }) { "历史创建时间不一致" }
         }
@@ -221,7 +228,7 @@ private fun validateEvent(event: HistoryEvent, backup: Backup) {
                 }
             }
             require(values.map { it.id }.distinct().size == 1 && values.map { it.createdAt }.distinct().size == 1) { "打卡历史 ID 或创建时间不一致" }
-            if (event.operation == "删除打卡") require(values.first().deletedAt == null && values.last().deletedAt != null) { "删除打卡历史无效" }
+            if (event.operation == "删除打卡") require(values.last().deletedAt != null && (!legacy || values.first().deletedAt == null)) { "删除打卡历史无效" }
             else require(values.all { it.deletedAt == null }) { "打卡历史状态无效" }
         }
         in tagOperations -> {

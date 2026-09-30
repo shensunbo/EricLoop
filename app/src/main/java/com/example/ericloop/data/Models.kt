@@ -32,7 +32,7 @@ fun newId(): String = UUID.randomUUID().toString()
     val beforeJson: String? = null, val afterJson: String? = null,
 )
 @Serializable data class Backup(
-    val schemaVersion: Int = 1, val datasetId: String = newId(), val revision: Long = 0,
+    val schemaVersion: Int = 2, val datasetId: String = newId(), val revision: Long = 0,
     val exportedAt: Long = System.currentTimeMillis(),
     val records: List<LoopRecord> = emptyList(), val tags: List<LoopTag> = emptyList(),
     val checkIns: List<CheckIn> = emptyList(), val events: List<HistoryEvent> = emptyList(),

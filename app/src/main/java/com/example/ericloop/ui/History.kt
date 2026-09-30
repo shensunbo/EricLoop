@@ -46,10 +46,9 @@ private fun operationAccent(operation: String): UiAccent {
 private data class CheckInPreview(val note: String, val occurredAt: Long?)
 
 private fun checkInPreview(event: HistoryEvent): CheckInPreview? {
-    if (event.operation !in setOf("打卡", "补记打卡", "编辑打卡", "删除打卡")) return null
-    val raw = if (event.operation == "删除打卡") event.beforeJson else event.afterJson
+    if (event.operation !in setOf("打卡", "补记打卡")) return null
     return runCatching {
-        val fields = backupJson.parseToJsonElement(requireNotNull(raw)).jsonObject
+        val fields = backupJson.parseToJsonElement(requireNotNull(event.afterJson)).jsonObject
         CheckInPreview(fields["note"]?.jsonPrimitive?.contentOrNull.orEmpty().ifBlank { "无备注" },
             fields["occurredAt"]?.jsonPrimitive?.longOrNull)
     }.getOrNull()
@@ -94,7 +93,7 @@ private fun checkInPreview(event: HistoryEvent): CheckInPreview? {
     val graphScroll = rememberScrollState()
     val trackColor = MaterialTheme.colorScheme.outlineVariant
     Column(Modifier.fillMaxSize().padding(horizontal = 20.dp)) {
-        SectionHeading(backup.records.find { it.id == recordId }?.title ?: "记录已不存在", "${events.size} 次变更 · 点击节点查看当时的内容")
+        SectionHeading(backup.records.find { it.id == recordId }?.title ?: "记录已不存在", "${events.size} 次变更 · 点击节点查看操作后的状态")
         Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             ChoiceMenu("操作", listOf("全部") + recordEvents.map { it.operation }.distinct(), operation) { operation = it }
         }
@@ -145,8 +144,7 @@ private fun checkInPreview(event: HistoryEvent): CheckInPreview? {
         AlertDialog(onDismissRequest = { selectedEvent = null }, title = { Text(event.operation) }, text = {
             LazyColumn(Modifier.heightIn(max = 440.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
                 item { Text(event.title, style = MaterialTheme.typography.titleMedium); Text(displayTime(event.operatedAt, "yyyy年MM月dd日 HH:mm:ss"), style = MaterialTheme.typography.labelMedium) }
-                event.beforeJson?.let { item { SnapshotText("变更前", it) } }
-                event.afterJson?.let { item { SnapshotText("变更后", it) } }
+                if (event.operation != "删除打卡") event.afterJson?.let { item { SnapshotText("操作后", it) } }
             }
         }, confirmButton = { TextButton(onClick = { selectedEvent = null }) { Text("关闭") } }, dismissButton = {
             event.recordId?.let { id -> TextButton(onClick = { selectedEvent = null; onOpen(id) }) { Text("打开记录") } }

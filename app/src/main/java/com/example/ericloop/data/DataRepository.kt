@@ -52,7 +52,9 @@ class DataRepository(context: Context) {
                         document["tags"] = kotlinx.serialization.json.JsonArray(dao.tags().map { backupJson.parseToJsonElement(it.payload) })
                         document["checkIns"] = kotlinx.serialization.json.JsonArray(dao.checkIns().map { backupJson.parseToJsonElement(it.payload) })
                         document["events"] = kotlinx.serialization.json.JsonArray(dao.events().map { backupJson.parseToJsonElement(it.payload) })
-                        decodeBackup(JsonObject(document).toString())
+                        decodeBackup(JsonObject(document).toString()).also { migrated ->
+                            if (document["schemaVersion"]?.toString() == "1") replaceAll(migrated)
+                        }
                     }
                 }
                 current.value = initial
@@ -92,12 +94,12 @@ class DataRepository(context: Context) {
         return backupJson.encodeToString(JsonObject(properties))
     }
 
-    private fun event(source: Backup, changed: Backup, operation: String, title: String, recordId: String?, before: String?, after: String?): Backup {
+    private fun event(source: Backup, changed: Backup, operation: String, title: String, recordId: String?, after: String): Backup {
         require(source.revision < Long.MAX_VALUE) { "数据版本已达上限" }
         val nextSequence = maxOf(source.revision, source.events.maxOfOrNull { it.sequence } ?: 0) + 1
         return changed.copy(revision = nextSequence, events = source.events + HistoryEvent(
             recordId = recordId, operation = operation, title = title, sequence = nextSequence,
-            beforeJson = before, afterJson = after,
+            beforeJson = null, afterJson = after,
         ))
     }
 
@@ -123,7 +125,7 @@ class DataRepository(context: Context) {
             val next = normalized.copy(updatedAt = maxOf(System.currentTimeMillis(), normalized.createdAt, old?.updatedAt ?: 0))
             val changed = source.copy(records = source.records.filterNot { it.id == next.id } + next)
             event(source, changed, if (old == null) "创建${next.kind.label}" else "编辑${next.kind.label}", next.title, next.id,
-                old?.let { recordJson(it, source) }, recordJson(next, changed))
+                recordJson(next, changed))
         }
     }
 
@@ -133,7 +135,7 @@ class DataRepository(context: Context) {
         if (candidate == old) source else {
             val next = candidate.copy(updatedAt = maxOf(System.currentTimeMillis(), old.updatedAt))
             val changed = source.copy(records = source.records.map { if (it.id == id) next else it })
-            event(source, changed, operation, next.title, id, recordJson(old, source), recordJson(next, changed))
+            event(source, changed, operation, next.title, id, recordJson(next, changed))
         }
     }
     suspend fun changeStatus(id: String, status: PlanStatus) = updateRecord(id, "状态变更") {
@@ -159,7 +161,7 @@ class DataRepository(context: Context) {
             val changed = source.copy(checkIns = source.checkIns.filterNot { it.id == next.id } + next,
                 records = source.records.map { if (it.id == owner.id) it.copy(updatedAt = maxOf(next.updatedAt, it.updatedAt)) else it })
             val operation = if (old != null) "编辑打卡" else if (java.time.Instant.ofEpochMilli(next.occurredAt).atZone(java.time.ZoneId.systemDefault()).toLocalDate().isBefore(LocalDate.now())) "补记打卡" else "打卡"
-            event(source, changed, operation, owner.title, owner.id, old?.let { backupJson.encodeToString(it) }, backupJson.encodeToString(next))
+            event(source, changed, operation, owner.title, owner.id, backupJson.encodeToString(next))
         }
     }
     suspend fun deleteCheckIn(id: String) = mutate { source ->
@@ -170,14 +172,14 @@ class DataRepository(context: Context) {
             val next = old.copy(deletedAt = maxOf(now, old.updatedAt), updatedAt = maxOf(now, old.updatedAt))
             val changed = source.copy(checkIns = source.checkIns.map { if (it.id == id) next else it },
                 records = source.records.map { if (it.id == owner.id) it.copy(updatedAt = maxOf(next.updatedAt, it.updatedAt)) else it })
-            event(source, changed, "删除打卡", owner.title, owner.id, backupJson.encodeToString(old), backupJson.encodeToString(next))
+            event(source, changed, "删除打卡", owner.title, owner.id, backupJson.encodeToString(next))
         }
     }
     suspend fun addTag(name: String, emoji: String? = null) = mutate { source ->
         val trimmed = name.trim()
         require(trimmed.isNotEmpty() && source.tags.none { it.name.equals(trimmed, ignoreCase = true) }) { "标签名称不能为空或重复" }
         val next = LoopTag(name = trimmed, emoji = emoji?.trim()?.ifBlank { null })
-        event(source, source.copy(tags = source.tags + next), "新增标签", trimmed, null, null, backupJson.encodeToString(next))
+        event(source, source.copy(tags = source.tags + next), "新增标签", trimmed, null, backupJson.encodeToString(next))
     }
     suspend fun editTag(id: String, name: String, emoji: String?) = mutate { source ->
         val old = source.tags.find { it.id == id } ?: error("标签不存在")
@@ -188,7 +190,7 @@ class DataRepository(context: Context) {
         if (old == next) source else {
             event(source, source.copy(tags = source.tags.map { if (it.id == id) next else it }),
                 if (old.emoji == next.emoji) "重命名标签" else "编辑标签", trimmed, null,
-                backupJson.encodeToString(old), backupJson.encodeToString(next))
+                backupJson.encodeToString(next))
         }
     }
     suspend fun snapshot(): Backup {

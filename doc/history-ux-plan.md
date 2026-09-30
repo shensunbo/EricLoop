@@ -1,5 +1,7 @@
 # 变更节点与进展笔记卡片设计及实施计划
 
+此文档保留当时的 UI 方案；M19 后的节点快照行为以 [history-after-snapshots-plan.md](history-after-snapshots-plan.md) 为准。
+
 状态：用户于 2026-09-30 确认范围。关联需求见 [spec.md](spec.md)，总体设计见 [detailed-design.md](detailed-design.md)。
 
 ## 设计

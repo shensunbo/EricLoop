@@ -56,6 +56,7 @@ class GithubSync(context: Context, private val repository: DataRepository) {
         uploadedRevision = prefs.getLong("revision", 0), uploadedDatasetId = prefs.getString("dataset", null)))
     val status: StateFlow<SyncStatus> = statusState.asStateFlow()
     private data class Remote(val head: String, val tree: String, val blob: String?)
+    private data class RemoteBackup(val backup: Backup, val schemaVersion: Int)
     private data class Preview(val settings: SyncSettings, val blob: String, val backup: Backup)
     private var preview: Preview? = null
     private class SyncFailure(message: String) : IOException(message)
@@ -107,7 +108,10 @@ class GithubSync(context: Context, private val repository: DataRepository) {
                 throw SyncFailure(if (baseline == null) "云端已有备份，请先下载并恢复，或确认强制上传。" else "云端备份已变化，请重新下载，或确认强制上传。")
             }
             val sameData = remote.blob?.let { sha ->
-                if (sha == desiredSha) true else try { semanticallyEqual(readBackup(config, token, sha), snapshot) }
+                if (sha == desiredSha) true else try {
+                    val backup = readBackup(config, token, sha)
+                    backup.schemaVersion == snapshot.schemaVersion && semanticallyEqual(backup.backup, snapshot)
+                }
                 catch (invalid: InvalidBackup) { if (force) false else throw invalid }
             } ?: false
             if (sameData) {
@@ -154,7 +158,7 @@ class GithubSync(context: Context, private val repository: DataRepository) {
         val token = readToken()
         val remote = remote(config, token)
         val blob = remote.blob ?: throw SyncFailure("此分支尚无 EricLoop 备份。")
-        val backup = readBackup(config, token, blob)
+        val backup = readBackup(config, token, blob).backup
         preview = Preview(config, blob, backup)
         statusState.value = statusState.value.copy(message = "备份已下载，请确认后恢复", error = false)
         backup
@@ -211,7 +215,7 @@ class GithubSync(context: Context, private val repository: DataRepository) {
         throw SyncFailure("无法读取云端备份路径。")
     }
 
-    private suspend fun readBackup(config: SyncSettings, token: String, sha: String): Backup {
+    private suspend fun readBackup(config: SyncSettings, token: String, sha: String): RemoteBackup {
         val blob = api(config, token, "GET", listOf("git", "blobs", sha))
         if (blob["size"]?.jsonPrimitive?.longOrNull?.let { it > MAX_BYTES } == true) throw InvalidBackup("备份文件超过 20 MB，请检查云端数据。")
         if (blob.required("encoding") != "base64") throw InvalidBackup("云端备份编码无效。")
@@ -220,7 +224,9 @@ class GithubSync(context: Context, private val repository: DataRepository) {
             if (bytes.size > MAX_BYTES || gitBlobSha(bytes) != sha) throw InvalidBackup("云端备份内容校验失败。")
             val text = Charsets.UTF_8.newDecoder().onMalformedInput(java.nio.charset.CodingErrorAction.REPORT)
                 .onUnmappableCharacter(java.nio.charset.CodingErrorAction.REPORT).decode(java.nio.ByteBuffer.wrap(bytes)).toString()
-            decodeBackup(text)
+            val schemaVersion = Json.parseToJsonElement(text).jsonObject["schemaVersion"]?.jsonPrimitive?.intOrNull
+                ?: throw InvalidBackup("备份版本无效。")
+            RemoteBackup(decodeBackup(text), schemaVersion)
         }
         catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { throw InvalidBackup("云端备份格式或数据校验失败，未修改手机数据。") }
