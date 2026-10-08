@@ -6,9 +6,9 @@ plugins {
     id("org.jetbrains.kotlin.plugin.serialization")
     id("com.google.devtools.ksp")
 }
-val appVersion = Properties().apply {
-    rootProject.file("version.properties").inputStream().use { load(it) }
-}
+
+val appVersion =
+    Properties().apply { rootProject.file("version.properties").inputStream().use { load(it) } }
 val appVersionName = appVersion.getProperty("VERSION_NAME")
 val appVersionCode = appVersion.getProperty("VERSION_CODE").toInt()
 
@@ -27,9 +27,13 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    buildFeatures { compose = true; resValues = true }
+    buildFeatures {
+        compose = true
+        resValues = true
+    }
     packaging { resources.excludes += "/META-INF/{AL2.0,LGPL2.1}" }
 }
+
 dependencies {
     implementation("androidx.core:core-ktx:1.18.0")
     implementation("androidx.activity:activity-compose:1.11.0")

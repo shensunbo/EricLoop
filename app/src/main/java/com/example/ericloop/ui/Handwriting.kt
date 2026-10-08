@@ -23,35 +23,58 @@ internal const val CHINESE_HANDWRITING_KEY = "chinese_handwriting"
 internal const val ENGLISH_FONT_KEY = "english_font"
 
 @Composable
-fun HandwritingText(text: String, style: TextStyle, modifier: Modifier = Modifier, useNotePreferences: Boolean = false,
-    maxLines: Int = Int.MAX_VALUE, overflow: TextOverflow = TextOverflow.Clip) {
+fun HandwritingText(
+    text: String,
+    style: TextStyle,
+    modifier: Modifier = Modifier,
+    useNotePreferences: Boolean = false,
+    maxLines: Int = Int.MAX_VALUE,
+    overflow: TextOverflow = TextOverflow.Clip,
+) {
     val context = LocalContext.current
-    val preferences = remember(context) { context.getSharedPreferences(NOTE_FONT_PREFERENCES, Context.MODE_PRIVATE) }
-    val chineseEnabled = !useNotePreferences || preferences.getBoolean(CHINESE_HANDWRITING_KEY, true)
-    val englishOption = if (useNotePreferences) preferences.getString(ENGLISH_FONT_KEY, "connected") else "connected"
-    val chineseFamily = if (chineseEnabled) chineseHandwriting else FontFamily.Default
-    val englishFamily = when (englishOption) {
-        "caveat" -> englishHandwriting
-        "system" -> FontFamily.Default
-        else -> englishConnected
-    }
-    val styled = remember(text, englishOption) {
-        buildAnnotatedString {
-            append(text)
-            var runStart = -1
-            var index = 0
-            while (index < text.length) {
-                val codePoint = Character.codePointAt(text, index)
-                val latin = Character.UnicodeScript.of(codePoint) == Character.UnicodeScript.LATIN || Character.isDigit(codePoint)
-                if (latin && runStart < 0) runStart = index
-                if (!latin && runStart >= 0) {
-                    addStyle(SpanStyle(fontFamily = englishFamily), runStart, index)
-                    runStart = -1
-                }
-                index += Character.charCount(codePoint)
-            }
-            if (runStart >= 0) addStyle(SpanStyle(fontFamily = englishFamily), runStart, text.length)
+    val preferences =
+        remember(context) {
+            context.getSharedPreferences(NOTE_FONT_PREFERENCES, Context.MODE_PRIVATE)
         }
-    }
-    Text(styled, modifier = modifier, style = style.copy(fontFamily = chineseFamily), maxLines = maxLines, overflow = overflow)
+    val chineseEnabled =
+        !useNotePreferences || preferences.getBoolean(CHINESE_HANDWRITING_KEY, true)
+    val englishOption =
+        if (useNotePreferences) preferences.getString(ENGLISH_FONT_KEY, "connected")
+        else "connected"
+    val chineseFamily = if (chineseEnabled) chineseHandwriting else FontFamily.Default
+    val englishFamily =
+        when (englishOption) {
+            "caveat" -> englishHandwriting
+            "system" -> FontFamily.Default
+            else -> englishConnected
+        }
+    val styled =
+        remember(text, englishOption) {
+            buildAnnotatedString {
+                append(text)
+                var runStart = -1
+                var index = 0
+                while (index < text.length) {
+                    val codePoint = Character.codePointAt(text, index)
+                    val latin =
+                        Character.UnicodeScript.of(codePoint) == Character.UnicodeScript.LATIN ||
+                            Character.isDigit(codePoint)
+                    if (latin && runStart < 0) runStart = index
+                    if (!latin && runStart >= 0) {
+                        addStyle(SpanStyle(fontFamily = englishFamily), runStart, index)
+                        runStart = -1
+                    }
+                    index += Character.charCount(codePoint)
+                }
+                if (runStart >= 0)
+                    addStyle(SpanStyle(fontFamily = englishFamily), runStart, text.length)
+            }
+        }
+    Text(
+        styled,
+        modifier = modifier,
+        style = style.copy(fontFamily = chineseFamily),
+        maxLines = maxLines,
+        overflow = overflow,
+    )
 }

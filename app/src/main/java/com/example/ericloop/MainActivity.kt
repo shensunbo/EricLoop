@@ -18,6 +18,7 @@ class LoopViewModel(application: Application) : AndroidViewModel(application) {
 
 class MainActivity : ComponentActivity() {
     private val model: LoopViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
