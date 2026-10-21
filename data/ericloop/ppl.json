@@ -1,9 +1,20 @@
 {
     "schemaVersion": 1,
     "datasetId": "4289b569-f987-490a-8097-ebbd8ef6f55b",
-    "revision": 12,
-    "exportedAt": 1792575525285,
+    "revision": 23,
+    "exportedAt": 1792576552623,
     "friends": [
+        {
+            "id": "02fb5d8e-0ff2-46f3-ba62-8f20c5e64c2f",
+            "name": "郑睿艺Monica",
+            "gender": "GIRL",
+            "intro": "江苏南通",
+            "notes": "一起打网球，参加活动，闲聊",
+            "initialScore": "4",
+            "colorArgb": 4289553492,
+            "createdAt": 1792576108671,
+            "updatedAt": 1792576108671
+        },
         {
             "id": "13c90a32-5396-444e-b9df-75d2477ef888",
             "name": "李百合",
@@ -16,6 +27,94 @@
             "updatedAt": 1792575148161
         },
         {
+            "id": "30df3115-0ffe-4cdc-9e66-bff59917df69",
+            "name": "刘鑫Renee",
+            "gender": "GIRL",
+            "intro": "安徽阜阳",
+            "notes": "",
+            "initialScore": "0",
+            "colorArgb": 4292519531,
+            "createdAt": 1792576433610,
+            "updatedAt": 1792576433610
+        },
+        {
+            "id": "4964ec48-fa6d-4cda-873a-04510517001d",
+            "name": "*美Jade",
+            "gender": "GIRL",
+            "intro": "辽宁鞍山",
+            "notes": "",
+            "initialScore": "3",
+            "colorArgb": 4286416961,
+            "createdAt": 1792576135676,
+            "updatedAt": 1792576135676
+        },
+        {
+            "id": "4ffbccf1-b3a1-4a85-84a7-e251852553d4",
+            "name": "黄万春",
+            "gender": "GIRL",
+            "intro": "贵州",
+            "notes": "",
+            "initialScore": "-1",
+            "colorArgb": 4288049338,
+            "createdAt": 1792575939234,
+            "updatedAt": 1792575939234
+        },
+        {
+            "id": "57097784-f4f2-459f-92f3-f67e638130ec",
+            "name": "孙美玲Susie",
+            "gender": "GIRL",
+            "intro": "安徽马鞍山",
+            "notes": "",
+            "initialScore": "0",
+            "colorArgb": 4286111204,
+            "createdAt": 1792576460073,
+            "updatedAt": 1792576460073
+        },
+        {
+            "id": "5d216458-e228-4d18-b38b-370050d19b31",
+            "name": "陈*昕",
+            "gender": "GIRL",
+            "intro": "四川成都",
+            "notes": "一起散步聊天的朋友",
+            "initialScore": "3",
+            "colorArgb": 4282224298,
+            "createdAt": 1792576052555,
+            "updatedAt": 1792576052555
+        },
+        {
+            "id": "8bb2c364-e2b4-4399-a6c8-5ea4bb115bb4",
+            "name": "李会楠",
+            "gender": "GIRL",
+            "intro": "安徽阜阳",
+            "notes": "",
+            "initialScore": "3",
+            "colorArgb": 4282354550,
+            "createdAt": 1792575905233,
+            "updatedAt": 1792575905233
+        },
+        {
+            "id": "b7e5b5e6-5c80-4622-8afe-adc69e4d976f",
+            "name": "金晓燕Ada",
+            "gender": "GIRL",
+            "intro": "上海",
+            "notes": "曾经的朋友",
+            "initialScore": "0",
+            "colorArgb": 4282150642,
+            "createdAt": 1792576347882,
+            "updatedAt": 1792576347882
+        },
+        {
+            "id": "be531086-93ef-4dfd-9821-4fff8ed1d035",
+            "name": "袁莎Vanessa",
+            "gender": "GIRL",
+            "intro": "江西萍乡",
+            "notes": "",
+            "initialScore": "3",
+            "colorArgb": 4288558969,
+            "createdAt": 1792576174497,
+            "updatedAt": 1792576174497
+        },
+        {
             "id": "ebb2225d-79cd-4d8d-b76e-a5079ee54708",
             "name": "张倩Cathy",
             "gender": "GIRL",
@@ -25,7 +124,27 @@
             "colorArgb": 4290010752,
             "createdAt": 1792575178137,
             "updatedAt": 1792575178137
+        },
+        {
+            "id": "f33ccf10-464e-407a-a362-e04aaf93907f",
+            "name": "严廷龙Kenzo",
+            "gender": "BOY",
+            "intro": "",
+            "notes": "",
+            "initialScore": "1",
+            "colorArgb": 4290083897,
+            "createdAt": 1792575982600,
+            "updatedAt": 1792575982600
         }
     ],
-    "events": []
+    "events": [
+        {
+            "id": "bba4edd7-e1d0-4fb3-bd37-c17ca71beb4b",
+            "friendId": "4ffbccf1-b3a1-4a85-84a7-e251852553d4",
+            "delta": "-1",
+            "description": "总是发莫名其妙的消息给自己。出去爬山回复不带我，在群里发消息私聊自己有时间摸鱼了",
+            "occurredAt": 1792576257923,
+            "updatedAt": 1792576257923
+        }
+    ]
 }
