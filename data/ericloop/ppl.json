@@ -1,1 +1,31 @@
-
+{
+    "schemaVersion": 1,
+    "datasetId": "4289b569-f987-490a-8097-ebbd8ef6f55b",
+    "revision": 12,
+    "exportedAt": 1792575525285,
+    "friends": [
+        {
+            "id": "13c90a32-5396-444e-b9df-75d2477ef888",
+            "name": "李百合",
+            "gender": "GIRL",
+            "intro": "盘锦",
+            "notes": "",
+            "initialScore": "5",
+            "colorArgb": 4283726791,
+            "createdAt": 1792575148161,
+            "updatedAt": 1792575148161
+        },
+        {
+            "id": "ebb2225d-79cd-4d8d-b76e-a5079ee54708",
+            "name": "张倩Cathy",
+            "gender": "GIRL",
+            "intro": "安徽六安",
+            "notes": "",
+            "initialScore": "2",
+            "colorArgb": 4290010752,
+            "createdAt": 1792575178137,
+            "updatedAt": 1792575178137
+        }
+    ],
+    "events": []
+}
