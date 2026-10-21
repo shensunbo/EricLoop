@@ -1,8 +1,8 @@
 {
     "schemaVersion": 2,
     "datasetId": "468d0be1-b460-429d-94e2-d7cf841f60c1",
-    "revision": 64,
-    "exportedAt": 1791024217974,
+    "revision": 81,
+    "exportedAt": 1792568531237,
     "records": [
         {
             "id": "045cea38-a696-4aa0-8233-d43a2beffc90",
@@ -54,6 +54,22 @@
             "emoji": "🗣️"
         },
         {
+            "id": "3181dae2-1d99-4421-b85e-711e691c8f79",
+            "title": "周六窑上村桂花线徒步",
+            "body": "窑上村桂花线",
+            "kind": "PLAN",
+            "planType": "ONCE",
+            "status": "COMPLETED",
+            "tagIds": [
+                "life"
+            ],
+            "deadline": null,
+            "createdAt": 1791599356226,
+            "updatedAt": 1792405213631,
+            "deletedAt": null,
+            "emoji": "🌸"
+        },
+        {
             "id": "34144982-7dbf-4939-be19-c60252ea463a",
             "title": "唱歌",
             "body": "学习唱歌，练习歌曲",
@@ -75,13 +91,13 @@
             "body": "羽毛球",
             "kind": "PLAN",
             "planType": "LONG_TERM",
-            "status": "NOT_STARTED",
+            "status": "ACTIVE",
             "tagIds": [
                 "life"
             ],
             "deadline": null,
             "createdAt": 1790676594780,
-            "updatedAt": 1790681181570,
+            "updatedAt": 1792405253934,
             "deletedAt": null,
             "emoji": "🏸"
         },
@@ -113,7 +129,7 @@
             ],
             "deadline": null,
             "createdAt": 1790694435734,
-            "updatedAt": 1790733318941,
+            "updatedAt": 1792469157456,
             "deletedAt": null,
             "emoji": "💪"
         },
@@ -123,13 +139,13 @@
             "body": "换一个细框眼镜",
             "kind": "PLAN",
             "planType": "ONCE",
-            "status": "ACTIVE",
+            "status": "COMPLETED",
             "tagIds": [
                 "life"
             ],
             "deadline": null,
             "createdAt": 1790694533270,
-            "updatedAt": 1790946407337,
+            "updatedAt": 1791360016466,
             "deletedAt": null,
             "emoji": "👓"
         },
@@ -155,15 +171,31 @@
             "body": "Learn and practice photograph ",
             "kind": "PLAN",
             "planType": "LONG_TERM",
-            "status": "NOT_STARTED",
+            "status": "ACTIVE",
             "tagIds": [
                 "902bf035-5d35-4c68-b885-63a409971e03"
             ],
             "deadline": null,
             "createdAt": 1790761465251,
-            "updatedAt": 1790761548752,
+            "updatedAt": 1791360044308,
             "deletedAt": null,
             "emoji": "📷"
+        },
+        {
+            "id": "b43e24e9-1601-4a29-8242-e2d117b515fc",
+            "title": "读渲染和游戏开发博客",
+            "body": "读渲染或游戏开发博客",
+            "kind": "PLAN",
+            "planType": "LONG_TERM",
+            "status": "ACTIVE",
+            "tagIds": [
+                "study"
+            ],
+            "deadline": null,
+            "createdAt": 1792046354637,
+            "updatedAt": 1792046415737,
+            "deletedAt": null,
+            "emoji": "🤹🏻‍♂️"
         },
         {
             "id": "b9b43aea-cb3e-4491-bb7f-9f0aac4cd08b",
@@ -193,7 +225,7 @@
             ],
             "deadline": null,
             "createdAt": 1790676832536,
-            "updatedAt": 1790734345872,
+            "updatedAt": 1792548579077,
             "deletedAt": null,
             "emoji": "🎾"
         },
@@ -201,15 +233,15 @@
             "id": "d640ac46-85cb-48c4-85e3-e0b3bde2a58f",
             "title": "两情相悦英语角",
             "body": "尝试做一次两情相悦英语角",
-            "kind": "IDEA",
-            "planType": "ONCE",
-            "status": "NOT_STARTED",
+            "kind": "PLAN",
+            "planType": "LONG_TERM",
+            "status": "ACTIVE",
             "tagIds": [
                 "life"
             ],
             "deadline": null,
             "createdAt": 1790741497974,
-            "updatedAt": 1790741561543,
+            "updatedAt": 1792394248131,
             "deletedAt": null,
             "emoji": "👨‍👩‍👦‍👦"
         }
@@ -272,6 +304,15 @@
             "deletedAt": null
         },
         {
+            "id": "4cd25d21-6e30-41ff-91aa-59a4bec75955",
+            "recordId": "7b9a7a12-4f80-4298-a644-b75e6a8433bf",
+            "note": "农夫行走",
+            "occurredAt": 1792469145731,
+            "createdAt": 1792469145731,
+            "updatedAt": 1792469157456,
+            "deletedAt": null
+        },
+        {
             "id": "59b315aa-f618-44a3-9866-758e69caf4ac",
             "recordId": "7b9a7a12-4f80-4298-a644-b75e6a8433bf",
             "note": "75俯卧撑",
@@ -288,6 +329,15 @@
             "createdAt": 1790674463492,
             "updatedAt": 1790675109303,
             "deletedAt": 1790675109303
+        },
+        {
+            "id": "861baa36-ae80-4a43-9fb3-048ec6ff14d3",
+            "recordId": "d29889c1-2c00-45bb-9a72-6da20aefd68e",
+            "note": "网球课，许久没练动作忘了，表现不是很好",
+            "occurredAt": 1792548562859,
+            "createdAt": 1792548562859,
+            "updatedAt": 1792548579077,
+            "deletedAt": null
         },
         {
             "id": "8fb65b3e-d60b-4a95-9872-8d8ffff5f890",
@@ -335,6 +385,24 @@
             "deletedAt": null
         },
         {
+            "id": "ae54bfac-f67c-447c-9191-542112a11501",
+            "recordId": "d640ac46-85cb-48c4-85e3-e0b3bde2a58f",
+            "note": "做小型英语角活动，四五个人，不需要一开始就组大型活动",
+            "occurredAt": 1792394227716,
+            "createdAt": 1792394227716,
+            "updatedAt": 1792394248131,
+            "deletedAt": null
+        },
+        {
+            "id": "af76bbe0-21d5-42b2-b638-343e82d5a99b",
+            "recordId": "7b9a7a12-4f80-4298-a644-b75e6a8433bf",
+            "note": "胸",
+            "occurredAt": 1790991180000,
+            "createdAt": 1791941634231,
+            "updatedAt": 1791941659330,
+            "deletedAt": null
+        },
+        {
             "id": "b029e886-6592-46b2-88bd-cf5d0227dd3b",
             "recordId": "1515fdc7-e959-401a-97c8-5fdac94f35da",
             "note": "No practice ",
@@ -350,6 +418,24 @@
             "occurredAt": 1790554260000,
             "createdAt": 1790734292694,
             "updatedAt": 1790734307344,
+            "deletedAt": null
+        },
+        {
+            "id": "ba173d6d-3cce-41be-857a-0825ca2a8f2e",
+            "recordId": "acc664e0-05b0-4d3d-abbb-d1ab2244e320",
+            "note": "安吉人像拍照 飞飞+百合",
+            "occurredAt": 1791360029184,
+            "createdAt": 1791360029184,
+            "updatedAt": 1791360044308,
+            "deletedAt": null
+        },
+        {
+            "id": "c26e6f08-6cc5-4fcb-ac6a-32911e583d6f",
+            "recordId": "491252d3-f793-445b-99ae-a5907a3e7e91",
+            "note": "单打动作练习，转肩然后击球",
+            "occurredAt": 1792318800000,
+            "createdAt": 1792405234392,
+            "updatedAt": 1792405253934,
             "deletedAt": null
         },
         {
@@ -377,6 +463,15 @@
             "occurredAt": 1790757170163,
             "createdAt": 1790757170163,
             "updatedAt": 1790757193885,
+            "deletedAt": null
+        },
+        {
+            "id": "f8c9957a-5f46-49dd-8802-71a74f9036d2",
+            "recordId": "d29889c1-2c00-45bb-9a72-6da20aefd68e",
+            "note": "网球私教课，正手和发球",
+            "occurredAt": 1791941600530,
+            "createdAt": 1791941600530,
+            "updatedAt": 1791941615651,
             "deletedAt": null
         }
     ],
@@ -1020,6 +1115,176 @@
             "sequence": 64,
             "beforeJson": null,
             "afterJson": "{\n    \"id\": \"0d60b096-1382-49da-b933-ecf06938ec87\",\n    \"recordId\": \"0c3c77d5-2ac6-4dbb-8acd-fbd8183cf74f\",\n    \"note\": \"农家一碗香\",\n    \"occurredAt\": 1790941260000,\n    \"createdAt\": 1790995277993,\n    \"updatedAt\": 1790995307581,\n    \"deletedAt\": null\n}"
+        },
+        {
+            "id": "98cf02dc-d6a3-45e9-9d2b-abe5e454f302",
+            "recordId": "8aca490e-9823-4d37-ad9f-12ab1d1a6225",
+            "operation": "状态变更",
+            "title": "更换眼镜",
+            "operatedAt": 1791360016481,
+            "sequence": 65,
+            "beforeJson": null,
+            "afterJson": "{\n    \"id\": \"8aca490e-9823-4d37-ad9f-12ab1d1a6225\",\n    \"title\": \"更换眼镜\",\n    \"body\": \"换一个细框眼镜\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"ONCE\",\n    \"status\": \"COMPLETED\",\n    \"tagIds\": [\n        \"life\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790694533270,\n    \"updatedAt\": 1791360016466,\n    \"deletedAt\": null,\n    \"emoji\": \"👓\",\n    \"tags\": [\n        {\n            \"id\": \"life\",\n            \"name\": \"生活\",\n            \"preset\": true,\n            \"emoji\": null\n        }\n    ]\n}"
+        },
+        {
+            "id": "4ea09d65-e655-4899-a20c-0561f0bf25eb",
+            "recordId": "acc664e0-05b0-4d3d-abbb-d1ab2244e320",
+            "operation": "状态变更",
+            "title": "拍照学习和练习",
+            "operatedAt": 1791360027746,
+            "sequence": 66,
+            "beforeJson": null,
+            "afterJson": "{\n    \"id\": \"acc664e0-05b0-4d3d-abbb-d1ab2244e320\",\n    \"title\": \"拍照学习和练习\",\n    \"body\": \"Learn and practice photograph \",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"ACTIVE\",\n    \"tagIds\": [\n        \"902bf035-5d35-4c68-b885-63a409971e03\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790761465251,\n    \"updatedAt\": 1791360027743,\n    \"deletedAt\": null,\n    \"emoji\": \"📷\",\n    \"tags\": [\n        {\n            \"id\": \"902bf035-5d35-4c68-b885-63a409971e03\",\n            \"name\": \"兴趣\",\n            \"preset\": false,\n            \"emoji\": \"🪂\"\n        }\n    ]\n}"
+        },
+        {
+            "id": "e6a6c6d0-bdf4-40de-9f7e-c93126302957",
+            "recordId": "acc664e0-05b0-4d3d-abbb-d1ab2244e320",
+            "operation": "打卡",
+            "title": "拍照学习和练习",
+            "operatedAt": 1791360044309,
+            "sequence": 67,
+            "beforeJson": null,
+            "afterJson": "{\n    \"id\": \"ba173d6d-3cce-41be-857a-0825ca2a8f2e\",\n    \"recordId\": \"acc664e0-05b0-4d3d-abbb-d1ab2244e320\",\n    \"note\": \"安吉人像拍照 飞飞+百合\",\n    \"occurredAt\": 1791360029184,\n    \"createdAt\": 1791360029184,\n    \"updatedAt\": 1791360044308,\n    \"deletedAt\": null\n}"
+        },
+        {
+            "id": "71479e67-f8b9-47f8-b16f-2378cb234f21",
+            "recordId": "3181dae2-1d99-4421-b85e-711e691c8f79",
+            "operation": "创建计划",
+            "title": "周六窑上村桂花线徒步",
+            "operatedAt": 1791599445655,
+            "sequence": 68,
+            "beforeJson": null,
+            "afterJson": "{\n    \"id\": \"3181dae2-1d99-4421-b85e-711e691c8f79\",\n    \"title\": \"周六窑上村桂花线徒步\",\n    \"body\": \"窑上村桂花线\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"ONCE\",\n    \"status\": \"NOT_STARTED\",\n    \"tagIds\": [\n        \"life\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1791599356226,\n    \"updatedAt\": 1791599445642,\n    \"deletedAt\": null,\n    \"emoji\": \"🌸\",\n    \"tags\": [\n        {\n            \"id\": \"life\",\n            \"name\": \"生活\",\n            \"preset\": true,\n            \"emoji\": null\n        }\n    ]\n}"
+        },
+        {
+            "id": "6bef8260-90ff-4e52-b319-374ee8e216f9",
+            "recordId": "d29889c1-2c00-45bb-9a72-6da20aefd68e",
+            "operation": "打卡",
+            "title": "网球",
+            "operatedAt": 1791941615656,
+            "sequence": 69,
+            "beforeJson": null,
+            "afterJson": "{\n    \"id\": \"f8c9957a-5f46-49dd-8802-71a74f9036d2\",\n    \"recordId\": \"d29889c1-2c00-45bb-9a72-6da20aefd68e\",\n    \"note\": \"网球私教课，正手和发球\",\n    \"occurredAt\": 1791941600530,\n    \"createdAt\": 1791941600530,\n    \"updatedAt\": 1791941615651,\n    \"deletedAt\": null\n}"
+        },
+        {
+            "id": "6641c4ea-7a44-458a-ac42-abff87f175d7",
+            "recordId": "7b9a7a12-4f80-4298-a644-b75e6a8433bf",
+            "operation": "补记打卡",
+            "title": "健身",
+            "operatedAt": 1791941659331,
+            "sequence": 70,
+            "beforeJson": null,
+            "afterJson": "{\n    \"id\": \"af76bbe0-21d5-42b2-b638-343e82d5a99b\",\n    \"recordId\": \"7b9a7a12-4f80-4298-a644-b75e6a8433bf\",\n    \"note\": \"胸\",\n    \"occurredAt\": 1790991180000,\n    \"createdAt\": 1791941634231,\n    \"updatedAt\": 1791941659330,\n    \"deletedAt\": null\n}"
+        },
+        {
+            "id": "80b0d7ea-b82f-4209-bcf2-170d48c02cae",
+            "recordId": "b43e24e9-1601-4a29-8242-e2d117b515fc",
+            "operation": "创建计划",
+            "title": "读渲染和游戏开发博客",
+            "operatedAt": 1792046412696,
+            "sequence": 71,
+            "beforeJson": null,
+            "afterJson": "{\n    \"id\": \"b43e24e9-1601-4a29-8242-e2d117b515fc\",\n    \"title\": \"读渲染和游戏开发博客\",\n    \"body\": \"读渲染或游戏开发博客\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"NOT_STARTED\",\n    \"tagIds\": [\n        \"study\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1792046354637,\n    \"updatedAt\": 1792046412686,\n    \"deletedAt\": null,\n    \"emoji\": \"🤹🏻‍♂️\",\n    \"tags\": [\n        {\n            \"id\": \"study\",\n            \"name\": \"学习\",\n            \"preset\": true,\n            \"emoji\": null\n        }\n    ]\n}"
+        },
+        {
+            "id": "bea0642d-b81c-4419-bd80-5ac14fae1e9f",
+            "recordId": "b43e24e9-1601-4a29-8242-e2d117b515fc",
+            "operation": "状态变更",
+            "title": "读渲染和游戏开发博客",
+            "operatedAt": 1792046415739,
+            "sequence": 72,
+            "beforeJson": null,
+            "afterJson": "{\n    \"id\": \"b43e24e9-1601-4a29-8242-e2d117b515fc\",\n    \"title\": \"读渲染和游戏开发博客\",\n    \"body\": \"读渲染或游戏开发博客\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"ACTIVE\",\n    \"tagIds\": [\n        \"study\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1792046354637,\n    \"updatedAt\": 1792046415737,\n    \"deletedAt\": null,\n    \"emoji\": \"🤹🏻‍♂️\",\n    \"tags\": [\n        {\n            \"id\": \"study\",\n            \"name\": \"学习\",\n            \"preset\": true,\n            \"emoji\": null\n        }\n    ]\n}"
+        },
+        {
+            "id": "649a7d77-3541-415e-92db-ea12e5f9c9f4",
+            "recordId": "d640ac46-85cb-48c4-85e3-e0b3bde2a58f",
+            "operation": "转为计划",
+            "title": "两情相悦英语角",
+            "operatedAt": 1792394212115,
+            "sequence": 73,
+            "beforeJson": null,
+            "afterJson": "{\n    \"id\": \"d640ac46-85cb-48c4-85e3-e0b3bde2a58f\",\n    \"title\": \"两情相悦英语角\",\n    \"body\": \"尝试做一次两情相悦英语角\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"ONCE\",\n    \"status\": \"NOT_STARTED\",\n    \"tagIds\": [\n        \"life\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790741497974,\n    \"updatedAt\": 1792394212100,\n    \"deletedAt\": null,\n    \"emoji\": \"👨‍👩‍👦‍👦\",\n    \"tags\": [\n        {\n            \"id\": \"life\",\n            \"name\": \"生活\",\n            \"preset\": true,\n            \"emoji\": null\n        }\n    ]\n}"
+        },
+        {
+            "id": "fe09c449-ae66-46dc-90f5-5c1ad0b01eeb",
+            "recordId": "d640ac46-85cb-48c4-85e3-e0b3bde2a58f",
+            "operation": "状态变更",
+            "title": "两情相悦英语角",
+            "operatedAt": 1792394219021,
+            "sequence": 74,
+            "beforeJson": null,
+            "afterJson": "{\n    \"id\": \"d640ac46-85cb-48c4-85e3-e0b3bde2a58f\",\n    \"title\": \"两情相悦英语角\",\n    \"body\": \"尝试做一次两情相悦英语角\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"ONCE\",\n    \"status\": \"ACTIVE\",\n    \"tagIds\": [\n        \"life\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790741497974,\n    \"updatedAt\": 1792394219018,\n    \"deletedAt\": null,\n    \"emoji\": \"👨‍👩‍👦‍👦\",\n    \"tags\": [\n        {\n            \"id\": \"life\",\n            \"name\": \"生活\",\n            \"preset\": true,\n            \"emoji\": null\n        }\n    ]\n}"
+        },
+        {
+            "id": "69b681cd-a021-4f83-a979-dd51ca155275",
+            "recordId": "d640ac46-85cb-48c4-85e3-e0b3bde2a58f",
+            "operation": "编辑计划",
+            "title": "两情相悦英语角",
+            "operatedAt": 1792394226418,
+            "sequence": 75,
+            "beforeJson": null,
+            "afterJson": "{\n    \"id\": \"d640ac46-85cb-48c4-85e3-e0b3bde2a58f\",\n    \"title\": \"两情相悦英语角\",\n    \"body\": \"尝试做一次两情相悦英语角\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"ACTIVE\",\n    \"tagIds\": [\n        \"life\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790741497974,\n    \"updatedAt\": 1792394226416,\n    \"deletedAt\": null,\n    \"emoji\": \"👨‍👩‍👦‍👦\",\n    \"tags\": [\n        {\n            \"id\": \"life\",\n            \"name\": \"生活\",\n            \"preset\": true,\n            \"emoji\": null\n        }\n    ]\n}"
+        },
+        {
+            "id": "346d523c-4394-4be4-89d4-50972bb94b67",
+            "recordId": "d640ac46-85cb-48c4-85e3-e0b3bde2a58f",
+            "operation": "打卡",
+            "title": "两情相悦英语角",
+            "operatedAt": 1792394248132,
+            "sequence": 76,
+            "beforeJson": null,
+            "afterJson": "{\n    \"id\": \"ae54bfac-f67c-447c-9191-542112a11501\",\n    \"recordId\": \"d640ac46-85cb-48c4-85e3-e0b3bde2a58f\",\n    \"note\": \"做小型英语角活动，四五个人，不需要一开始就组大型活动\",\n    \"occurredAt\": 1792394227716,\n    \"createdAt\": 1792394227716,\n    \"updatedAt\": 1792394248131,\n    \"deletedAt\": null\n}"
+        },
+        {
+            "id": "1b357eb3-5597-410c-9d18-757e4ad3f46a",
+            "recordId": "3181dae2-1d99-4421-b85e-711e691c8f79",
+            "operation": "状态变更",
+            "title": "周六窑上村桂花线徒步",
+            "operatedAt": 1792405213645,
+            "sequence": 77,
+            "beforeJson": null,
+            "afterJson": "{\n    \"id\": \"3181dae2-1d99-4421-b85e-711e691c8f79\",\n    \"title\": \"周六窑上村桂花线徒步\",\n    \"body\": \"窑上村桂花线\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"ONCE\",\n    \"status\": \"COMPLETED\",\n    \"tagIds\": [\n        \"life\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1791599356226,\n    \"updatedAt\": 1792405213631,\n    \"deletedAt\": null,\n    \"emoji\": \"🌸\",\n    \"tags\": [\n        {\n            \"id\": \"life\",\n            \"name\": \"生活\",\n            \"preset\": true,\n            \"emoji\": null\n        }\n    ]\n}"
+        },
+        {
+            "id": "0033b780-5d44-4735-b171-accca31867f2",
+            "recordId": "491252d3-f793-445b-99ae-a5907a3e7e91",
+            "operation": "状态变更",
+            "title": "羽毛球",
+            "operatedAt": 1792405231035,
+            "sequence": 78,
+            "beforeJson": null,
+            "afterJson": "{\n    \"id\": \"491252d3-f793-445b-99ae-a5907a3e7e91\",\n    \"title\": \"羽毛球\",\n    \"body\": \"羽毛球\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"ACTIVE\",\n    \"tagIds\": [\n        \"life\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1790676594780,\n    \"updatedAt\": 1792405231032,\n    \"deletedAt\": null,\n    \"emoji\": \"🏸\",\n    \"tags\": [\n        {\n            \"id\": \"life\",\n            \"name\": \"生活\",\n            \"preset\": true,\n            \"emoji\": null\n        }\n    ]\n}"
+        },
+        {
+            "id": "12d373b7-595d-4f81-b496-b7f89f6e8666",
+            "recordId": "491252d3-f793-445b-99ae-a5907a3e7e91",
+            "operation": "补记打卡",
+            "title": "羽毛球",
+            "operatedAt": 1792405253935,
+            "sequence": 79,
+            "beforeJson": null,
+            "afterJson": "{\n    \"id\": \"c26e6f08-6cc5-4fcb-ac6a-32911e583d6f\",\n    \"recordId\": \"491252d3-f793-445b-99ae-a5907a3e7e91\",\n    \"note\": \"单打动作练习，转肩然后击球\",\n    \"occurredAt\": 1792318800000,\n    \"createdAt\": 1792405234392,\n    \"updatedAt\": 1792405253934,\n    \"deletedAt\": null\n}"
+        },
+        {
+            "id": "8f0b85fe-ef69-4eae-a5aa-b4b736fa634c",
+            "recordId": "7b9a7a12-4f80-4298-a644-b75e6a8433bf",
+            "operation": "打卡",
+            "title": "健身",
+            "operatedAt": 1792469157466,
+            "sequence": 80,
+            "beforeJson": null,
+            "afterJson": "{\n    \"id\": \"4cd25d21-6e30-41ff-91aa-59a4bec75955\",\n    \"recordId\": \"7b9a7a12-4f80-4298-a644-b75e6a8433bf\",\n    \"note\": \"农夫行走\",\n    \"occurredAt\": 1792469145731,\n    \"createdAt\": 1792469145731,\n    \"updatedAt\": 1792469157456,\n    \"deletedAt\": null\n}"
+        },
+        {
+            "id": "235b0483-7119-484d-a619-27495875d9e2",
+            "recordId": "d29889c1-2c00-45bb-9a72-6da20aefd68e",
+            "operation": "打卡",
+            "title": "网球",
+            "operatedAt": 1792548579081,
+            "sequence": 81,
+            "beforeJson": null,
+            "afterJson": "{\n    \"id\": \"861baa36-ae80-4a43-9fb3-048ec6ff14d3\",\n    \"recordId\": \"d29889c1-2c00-45bb-9a72-6da20aefd68e\",\n    \"note\": \"网球课，许久没练动作忘了，表现不是很好\",\n    \"occurredAt\": 1792548562859,\n    \"createdAt\": 1792548562859,\n    \"updatedAt\": 1792548579077,\n    \"deletedAt\": null\n}"
         }
     ]
 }
