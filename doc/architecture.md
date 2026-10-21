@@ -1,5 +1,19 @@
 # EricLoop 架构设计
 
+## 2026-10-21：朋友功能扩展
+
+应用新增独立的朋友数据域。`MainActivity` 分别持有 `LoopViewModel` 和 `FriendsViewModel`；朋友页面经底部第五个入口进入，使用功能内的列表、排行、详情、编辑和备份路由。原数据库加载失败不会阻断朋友页面，原业务的记录计数和同步进度不在朋友页面显示。两层 Scaffold 通过消费外层窗口 inset 避免系统栏间距重复。
+
+`friends.db` 是独立 Room 数据库，schema 版本 1，包含 `friends`、`friend_events` 和 `friends_metadata`。人物颜色有唯一索引；事件通过人物 ID 外键关联并级联删除。`FriendsRepository` 串行化写操作，在 Room 事务成功后通过 StateFlow 发布完整快照，不在事务提交前更新页面。数据库仅由该 Repository 写入，因此当前实现无需额外的 DAO 查询观察流。ViewModel 的协程作用域管理加载、写入和同步生命周期。
+
+分数为任意精度整数，持久化和备份使用规范十进制字符串，计算与排序使用 `BigInteger`。当前总分 = 初始分值 + 全部事件分值。新增事件只能 ±1；编辑事件可修改为任意整数，保留原发生时间，不追加编辑审计事件。时间线和最近互动时间均基于事件发生时间。颜色自动分配并持久化，恢复时拒绝重复颜色。
+
+`GithubConnection` 管理共用的 GitHub 连接与原有 Keystore Token，保留旧 SharedPreferences 字段及密钥别名。两个同步器通过同一 Mutex 串行执行网络操作及连接修改，使用 `GithubFileClient` 的按路径 Git API 读写。原同步器仍维护原偏好字段并写入 `data/ericloop/backup.json`；`FriendsGithubSync` 使用独立偏好 `friends_github_sync`，只写路径 `data/ericloop/ppl.json`。切换仓库或分支会更新连接身份，使旧朋友同步基线失效。
+
+朋友备份格式为 `schemaVersion/datasetId/revision/exportedAt/friends/events`，与原 `Backup` 无关。下载严格检查版本、必需字段、整数、唯一 ID/颜色、引用和时间。恢复预览保存云端 blob、连接身份和本地修订号，确认时重新核对，变动后必须重新下载。恢复前保存 `friends-pre-restore-*.json`，事务内替换朋友数据；原数据库不参与替换。备份大小上限仍为 20 MiB，API 响应上限 32 MiB，不自动同步、不自动上传验证数据。
+
+以下章节保留原想法/计划数据域的设计说明。
+
 状态：按当前 `feat/ericloop-v1` 实现记录，更新于 2026-09-30。产品规则见 [spec.md](spec.md)，具体流程和接口见 [detailed-design.md](detailed-design.md)，逐文件职责见 [module-file-design.md](module-file-design.md)，实施与验证状态见 [implementation.md](implementation.md)。本文描述已实现结构；云端成功路径的验证状态以实施记录为准。
 
 ## 目标和边界

@@ -13,6 +13,9 @@
 - 首页“正在推进”“灵感收集”计数卡可点击进入各自列表。
 - 变更页显示记录标题，点击后查看该计划或想法的 Graph，按操作和日期筛选，查看该次操作后的状态。
 - GitHub 手动同步、强制上传数据及预览恢复。
+- 底部“ppl”提供独立的人物管理、好感度事件时间线及排行；新增、排行等操作使用图标，长按可查看说明。
+- 人物可设置初始好感度，新增互动每次 ±1 且必须填写说明；事件可编辑分值和说明，不补记、不保留编辑历史。删除人物会一并删除其事件。
+- 朋友数据保存于独立 `friends.db`，备份写入同一 GitHub 仓库的 `data/ericloop/ppl.json`。
 
 ## 构建与指定真机运行
 
@@ -43,11 +46,14 @@ Token 使用 Android Keystore 密钥加密保存，不进入日志或备份。�
 
 本地安全副本在应用私有文件目录 `pre-restore-*.json`，可在 Debug 版本用 `adb -s 10AE970D5P0017U shell run-as com.example.ericloop ls files` 查看。卸载应用会删除本地数据与副本，卸载前先同步。
 
+朋友功能在其管理页通过同步图标进入备份页面，共用设置页中的仓库、分支和加密 Token；上传/下载图标支持长按说明。朋友数据有独立的同步基线和待上传状态，恢复只替换朋友数据库，恢复前保存 `friends-pre-restore-*.json`。主仓库已有的 `ppl.json` 如果为空或不符合朋友备份格式，不能直接恢复；可明确确认强制上传，用手机数据初始化该文件。原想法/计划仍使用 `data/ericloop/backup.json`，两个备份文件互不替换。
+
 ## 项目结构
 
 - `data/`：模型、Room 数据库、Repository、备份校验。
 - `sync/`：Token 保护、GitHub API 与同步状态。
 - `ui/`：统一设计、记录/标签、详情编辑、Graph 和设置。
+- `friends/`：独立的人物数据库、好感度业务、页面和 `ppl.json` 同步；不写入原有记录与历史。
 - [首版需求](doc/spec.md)、[架构设计](doc/architecture.md)、[跨文件详细设计](doc/detailed-design.md)、[模块与逐文件详细设计](doc/module-file-design.md)、[实施记录](doc/implementation.md)。
 
 UI 图标来自 Google Material Symbols，Apache 2.0，见 NOTICE 与 licenses/。页面使用统一主题，不需要额外购买素材。

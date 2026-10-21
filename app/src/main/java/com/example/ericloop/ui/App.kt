@@ -7,6 +7,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveableStateHolder
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,6 +19,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.ericloop.R
+import com.example.ericloop.friends.FriendsViewModel
+import com.example.ericloop.friends.ui.FriendsHost
 import com.example.ericloop.data.*
 import com.example.ericloop.sync.*
 import kotlinx.coroutines.CancellationException
@@ -25,12 +28,14 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun EricLoopApp(repository: DataRepository, sync: GithubSync) = LoopTheme {
+fun EricLoopApp(repository: DataRepository, sync: GithubSync, friendsModel: FriendsViewModel) = LoopTheme {
     val backup by repository.data.collectAsStateWithLifecycle()
     val ready by repository.ready.collectAsStateWithLifecycle()
     val initError by repository.initializationError.collectAsStateWithLifecycle()
     val syncState by sync.status.collectAsStateWithLifecycle()
     val settings by sync.settings.collectAsStateWithLifecycle()
+    var friendsRoot by remember { mutableStateOf(true) }
+    val friendsHolder = rememberSaveableStateHolder()
     var route by rememberSaveable { mutableStateOf("home") }
     var selectedId by rememberSaveable { mutableStateOf<String?>(null) }
     var historyRecord by rememberSaveable { mutableStateOf<String?>(null) }
@@ -89,7 +94,7 @@ fun EricLoopApp(repository: DataRepository, sync: GithubSync) = LoopTheme {
                 else -> "home"
             }
     }
-    BackHandler(route !in listOf("home", "tags", "history", "settings")) { back() }
+    BackHandler(route !in listOf("home", "tags", "history", "settings", "friends")) { back() }
     LaunchedEffect(ready, backup.datasetId, selectedId) {
         if (ready && route == "detail" && selected == null) route = "home"
     }
@@ -98,13 +103,14 @@ fun EricLoopApp(repository: DataRepository, sync: GithubSync) = LoopTheme {
             Triple("home", "记录", R.drawable.ic_dashboard),
             Triple("tags", "标签", R.drawable.ic_sell),
             Triple("history", "变更", R.drawable.ic_timeline),
+            Triple("friends", "ppl", R.drawable.ic_friends),
             Triple("settings", "设置", R.drawable.ic_settings),
         )
     val isTab = route in tabs.map { it.first }
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background,
         topBar = {
-            TopAppBar(
+            if (route != "friends") TopAppBar(
                 title = {
                     Text(
                         when (route) {
@@ -143,7 +149,7 @@ fun EricLoopApp(repository: DataRepository, sync: GithubSync) = LoopTheme {
             )
         },
         bottomBar = {
-            if (isTab)
+            if (isTab && (route != "friends" || friendsRoot))
                 NavigationBar(containerColor = MaterialTheme.colorScheme.surface) {
                     tabs.forEach { (key, label, icon) ->
                         val accent = accentColors(key)
@@ -188,8 +194,14 @@ fun EricLoopApp(repository: DataRepository, sync: GithubSync) = LoopTheme {
         snackbarHost = { SnackbarHost(snackbar) },
     ) { padding ->
         Column(Modifier.fillMaxSize().padding(padding)) {
-            if (busy || syncState.busy) LinearProgressIndicator(Modifier.fillMaxWidth())
-            if (initError != null) {
+            if (route != "friends" && (busy || syncState.busy)) LinearProgressIndicator(Modifier.fillMaxWidth())
+            if (route == "friends") {
+                friendsHolder.SaveableStateProvider("friends") {
+                    Box(Modifier.fillMaxSize().consumeWindowInsets(padding)) {
+                        FriendsHost(friendsModel) { friendsRoot = it }
+                    }
+                }
+            } else if (initError != null) {
                 Box(Modifier.padding(24.dp)) {
                     EmptyPanel("本地数据读取失败", initError!!, R.drawable.ic_history)
                 }

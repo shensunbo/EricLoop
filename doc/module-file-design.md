@@ -1,5 +1,7 @@
 # EricLoop 模块与文件详细设计
 
+2026-10-21 新增朋友数据域：独立 Room、好感度事件、排行及 `ppl.json` 同步。该扩展的文件职责索引见 [实施计划](../docs/superpowers/plans/2026-10-21-friends-ranking.md)，业务规则见 [朋友规格](spec/friends.md)，与原数据域的隔离及共用 GitHub 传输边界见 [架构设计](architecture.md)。下文保留原想法/计划功能的逐文件说明。
+
 状态：对应 `feat/ericloop-v1` 当前实现，更新于 2026-09-30。本文覆盖仓库手写的应用源码、构建配置、运行资源和文档入口；Gradle 生成目录、设备私有数据库和本机 `local.properties` 不属于版本库。产品规则见 [spec.md](spec.md)，跨模块约束和同步时序见 [architecture.md](architecture.md)，业务算法见 [detailed-design.md](detailed-design.md)，已验证/未验证状态见 [implementation.md](implementation.md)。文件职责以代码为准，本文不是未实现功能的承诺。
 
 ## 模块边界与数据流
