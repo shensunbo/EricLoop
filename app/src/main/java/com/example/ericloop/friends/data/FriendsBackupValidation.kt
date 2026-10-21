@@ -43,9 +43,9 @@ fun decodeFriendsBackup(text: String): FriendsBackup {
 }
 
 fun validateFriendsBackup(value: FriendsBackup) {
-    require(value.schemaVersion == 1) { "不支持的朋友备份版本" }
+    require(value.schemaVersion == 1) { "不支持的备份版本" }
     require(value.datasetId.isNotBlank() && value.revision >= 0 && value.exportedAt > 0) {
-        "朋友备份元数据无效"
+        "备份元数据无效"
     }
     require(value.friends.map { it.id }.toSet().size == value.friends.size) { "人物 ID 重复" }
     require(value.events.map { it.id }.toSet().size == value.events.size) { "事件 ID 重复" }

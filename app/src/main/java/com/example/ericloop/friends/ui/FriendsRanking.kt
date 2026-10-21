@@ -29,7 +29,6 @@ fun FriendsRanking(
         contentPadding = PaddingValues(16.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        item { Text("好感度排行", style = MaterialTheme.typography.headlineMedium) }
         item {
             Column {
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -49,7 +48,7 @@ fun FriendsRanking(
                 )
             }
         }
-        if (ranked.isEmpty()) item { EmptyPanel("暂无排行", "新增朋友后，这里会显示好感度排行。") }
+        if (ranked.isEmpty()) item { EmptyPanel("暂无排行", "新增人物后，这里会显示好感度排行。") }
         itemsIndexed(ranked, key = { _, it -> it.friend.id }) { index, summary ->
             FriendCard(summary, { onOpen(summary.friend.id) }, index + 1)
         }

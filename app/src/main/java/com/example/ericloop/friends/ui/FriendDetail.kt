@@ -8,6 +8,7 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.unit.dp
 import com.example.ericloop.R
 import com.example.ericloop.friends.data.*
@@ -45,18 +46,24 @@ fun FriendDetail(
             ) {
                 FriendAvatar(summary.friend)
                 Column(Modifier.weight(1f)) {
-                    Text(summary.friend.name, style = MaterialTheme.typography.headlineSmall)
-                    Text(
-                        summary.friend.gender.label,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    ) {
+                        Text(
+                            summary.friend.name,
+                            style = MaterialTheme.typography.titleLarge,
+                            modifier = Modifier.weight(1f, fill = false),
+                        )
+                        GenderIcon(summary.friend.gender)
+                    }
                 }
-                FriendActionIcon(R.drawable.ic_edit, "编辑朋友", enabled = !busy, onClick = onEdit)
+                FriendActionIcon(R.drawable.ic_edit, "编辑资料", enabled = !busy, onClick = onEdit)
             }
         }
         item {
             Card(Modifier.fillMaxWidth(), colors = friendCardColors(summary.friend)) {
-                Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     Text("当前好感度", style = MaterialTheme.typography.labelLarge)
                     Text(
                         summary.score.toString(),
@@ -71,7 +78,7 @@ fun FriendDetail(
                         FriendActionIcon(
                             R.drawable.ic_add,
                             "好感度加一",
-                            filled = true,
+                            tint = eventScoreColor(java.math.BigInteger.ONE),
                             enabled = !busy,
                             onClick = {
                                 editingEventId = null
@@ -82,6 +89,7 @@ fun FriendDetail(
                         FriendActionIcon(
                             R.drawable.ic_remove,
                             "好感度减一",
+                            tint = eventScoreColor(java.math.BigInteger.ONE.negate()),
                             enabled = !busy,
                             onClick = {
                                 editingEventId = null
@@ -94,11 +102,25 @@ fun FriendDetail(
             }
         }
         item {
-            Text("简介", style = MaterialTheme.typography.titleMedium)
-            Text(summary.friend.intro.ifBlank { "暂无简介" })
+            Text(
+                "简介",
+                style = MaterialTheme.typography.labelLarge,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+            Text(
+                summary.friend.intro.ifBlank { "暂无简介" },
+                style = MaterialTheme.typography.bodyMedium,
+            )
             Spacer(Modifier.height(12.dp))
-            Text("备注", style = MaterialTheme.typography.titleMedium)
-            Text(summary.friend.notes.ifBlank { "暂无备注" })
+            Text(
+                "备注",
+                style = MaterialTheme.typography.labelLarge,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+            Text(
+                summary.friend.notes.ifBlank { "暂无备注" },
+                style = MaterialTheme.typography.bodyMedium,
+            )
             Spacer(Modifier.height(8.dp))
             Text(
                 "创建于 ${displayTime(summary.friend.createdAt)}",
@@ -106,15 +128,21 @@ fun FriendDetail(
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
         }
-        item { Text("相处时间线", style = MaterialTheme.typography.titleLarge) }
+        item { Text("互动记录", style = MaterialTheme.typography.titleMedium) }
         if (events.isEmpty())
             item {
-                Text("还没有互动事件，点击 +1 或 −1 记录。", color = MaterialTheme.colorScheme.onSurfaceVariant)
+                Text(
+                    "还没有互动事件，点击加减图标记录。",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
             }
         items(
             events.sortedWith(compareByDescending<FriendEvent> { it.occurredAt }.thenBy { it.id }),
             key = { it.id },
         ) { event ->
+            val score = parseScore(event.delta)
+            val tone = eventScoreColor(score)
             OutlinedCard(
                 onClick = {
                     if (!busy) {
@@ -123,30 +151,47 @@ fun FriendDetail(
                     }
                 },
                 modifier = Modifier.fillMaxWidth(),
+                colors =
+                    CardDefaults.outlinedCardColors(
+                        containerColor =
+                            tone
+                                .copy(alpha = 0.12f)
+                                .compositeOver(MaterialTheme.colorScheme.surface)
+                    ),
             ) {
-                Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+                Column(
+                    Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+                    verticalArrangement = Arrangement.spacedBy(4.dp),
+                ) {
+                    Row(
+                        Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    ) {
                         Text(
                             displayTime(event.occurredAt),
                             style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            modifier = Modifier.weight(1f),
                         )
+                        EventScoreBadge(score)
                         FriendActionIcon(R.drawable.ic_edit, "编辑事件", enabled = !busy) {
                             editingEventId = event.id
                             eventDialog = true
                         }
                     }
                     Text(
-                        signedScore(parseScore(event.delta)),
-                        style = MaterialTheme.typography.titleLarge,
+                        event.description,
+                        style = MaterialTheme.typography.bodyMedium,
+                        modifier = Modifier.padding(bottom = 8.dp),
                     )
-                    Text(event.description)
                 }
             }
         }
         item {
             FriendActionIcon(
                 R.drawable.ic_delete,
-                "删除朋友",
+                "删除人物",
                 enabled = !busy,
                 tint = MaterialTheme.colorScheme.error,
             ) {
@@ -167,7 +212,7 @@ fun FriendDetail(
     if (confirmDelete)
         AlertDialog(
             onDismissRequest = { if (!busy) confirmDelete = false },
-            title = { Text("删除这位朋友？") },
+            title = { Text("删除这位人物？") },
             text = { Text("将永久删除人物资料和全部 ${events.size} 条互动事件，无法撤销。") },
             confirmButton = { TextButton(enabled = !busy, onClick = onDelete) { Text("确认删除") } },
             dismissButton = {

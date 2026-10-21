@@ -36,7 +36,7 @@ class FriendsViewModel(application: Application) : AndroidViewModel(application)
             } catch (cancelled: CancellationException) {
                 throw cancelled
             } catch (_: Exception) {
-                loadingError.value = "无法读取朋友数据，请重试。"
+                loadingError.value = "无法读取数据，请重试。"
             }
         }
     }
@@ -66,7 +66,7 @@ class FriendsViewModel(application: Application) : AndroidViewModel(application)
             } catch (cancelled: CancellationException) {
                 throw cancelled
             } catch (failure: Exception) {
-                notices.send(failure.message ?: "朋友备份操作失败")
+                notices.send(failure.message ?: "备份操作失败")
             } finally {
                 networkStarting = false
             }

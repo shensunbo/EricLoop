@@ -33,18 +33,17 @@ fun FriendsPage(
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         item {
-            Text("朋友", style = MaterialTheme.typography.headlineMedium)
             Text(
-                "${summaries.size} 位朋友 · 记录每一次相处",
-                style = MaterialTheme.typography.bodyMedium,
+                "${summaries.size} 人 · 记录每一次相处",
+                style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
         }
         item {
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                FriendActionIcon(R.drawable.ic_add, "新增朋友", filled = true, onClick = onAdd)
+                FriendActionIcon(R.drawable.ic_add, "新增人物", filled = true, onClick = onAdd)
                 FriendActionIcon(R.drawable.ic_friends_ranking, "好感度排行", onClick = onRanking)
-                FriendActionIcon(R.drawable.ic_sync, "朋友备份", onClick = onSync)
+                FriendActionIcon(R.drawable.ic_sync, "备份", onClick = onSync)
             }
         }
         item {
@@ -59,8 +58,8 @@ fun FriendsPage(
         if (visible.isEmpty())
             item {
                 EmptyPanel(
-                    if (summaries.isEmpty()) "还没有朋友" else "没有匹配的朋友",
-                    if (summaries.isEmpty()) "新增一位朋友，开始记录相处点滴。" else "试试其他昵称。",
+                    if (summaries.isEmpty()) "还没有人物" else "没有匹配的人物",
+                    if (summaries.isEmpty()) "点击加号，开始记录相处点滴。" else "试试其他昵称。",
                 )
             }
         items(visible, key = { it.friend.id }) { summary ->

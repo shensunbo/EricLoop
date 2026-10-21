@@ -23,9 +23,7 @@ fun FriendEditor(
 ) {
     var name by rememberSaveable(friend?.id) { mutableStateOf(friend?.name.orEmpty()) }
     var genderName by
-        rememberSaveable(friend?.id) {
-            mutableStateOf((friend?.gender ?: FriendGender.UNSPECIFIED).name)
-        }
+        rememberSaveable(friend?.id) { mutableStateOf((friend?.gender ?: FriendGender.BOY).name) }
     var intro by rememberSaveable(friend?.id) { mutableStateOf(friend?.intro.orEmpty()) }
     var notes by rememberSaveable(friend?.id) { mutableStateOf(friend?.notes.orEmpty()) }
     var score by rememberSaveable(friend?.id) { mutableStateOf(friend?.initialScore ?: "0") }
@@ -34,7 +32,7 @@ fun FriendEditor(
     val validScore = runCatching { parseScore(score.trim()) }.isSuccess
     val dirty =
         name != friend?.name.orEmpty() ||
-            genderName != (friend?.gender ?: FriendGender.UNSPECIFIED).name ||
+            genderName != (friend?.gender ?: FriendGender.BOY).name ||
             intro != friend?.intro.orEmpty() ||
             notes != friend?.notes.orEmpty() ||
             score != (friend?.initialScore ?: "0")
@@ -47,7 +45,7 @@ fun FriendEditor(
         Modifier.fillMaxSize().verticalScroll(rememberScrollState()).imePadding().padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(14.dp),
     ) {
-        Text(if (friend == null) "新增朋友" else "编辑朋友", style = MaterialTheme.typography.headlineSmall)
+        Text(if (friend == null) "新增人物" else "编辑资料", style = MaterialTheme.typography.titleLarge)
         OutlinedTextField(
             name,
             { name = it },
@@ -59,15 +57,21 @@ fun FriendEditor(
         )
         Text("性别", style = MaterialTheme.typography.labelLarge)
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            FriendGender.entries.forEach { gender ->
+            listOf(FriendGender.BOY, FriendGender.GIRL).forEach { gender ->
                 FilterChip(
                     selected = genderName == gender.name,
                     onClick = { genderName = gender.name },
                     enabled = !busy,
-                    label = { Text(gender.label) },
+                    label = { GenderIcon(gender) },
                 )
             }
         }
+        if (submitted && genderName == FriendGender.UNSPECIFIED.name)
+            Text(
+                "请选择性别",
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.error,
+            )
         OutlinedTextField(
             intro,
             { intro = it },
@@ -97,12 +101,16 @@ fun FriendEditor(
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             FriendActionIcon(
                 R.drawable.ic_check,
-                "保存朋友",
+                "保存资料",
                 filled = true,
                 enabled = !busy,
                 onClick = {
                     submitted = true
-                    if (name.isNotBlank() && validScore)
+                    if (
+                        name.isNotBlank() &&
+                            validScore &&
+                            genderName != FriendGender.UNSPECIFIED.name
+                    )
                         onSave(name, FriendGender.valueOf(genderName), intro, notes, score)
                 },
             )

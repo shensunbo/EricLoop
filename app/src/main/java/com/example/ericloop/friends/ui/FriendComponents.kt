@@ -1,8 +1,10 @@
 package com.example.ericloop.friends.ui
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -15,6 +17,51 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.ericloop.R
 import com.example.ericloop.friends.data.*
+import java.math.BigInteger
+
+fun genderIcon(gender: FriendGender): Int? =
+    when (gender) {
+        FriendGender.BOY -> R.drawable.ic_gender_male
+        FriendGender.GIRL -> R.drawable.ic_gender_female
+        FriendGender.UNSPECIFIED -> null // Preserve existing data without guessing its gender.
+    }
+
+@Composable
+fun GenderIcon(gender: FriendGender) {
+    genderIcon(gender)?.let { resource ->
+        Icon(
+            painterResource(resource),
+            contentDescription = gender.label,
+            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.size(18.dp),
+        )
+    }
+}
+
+@Composable
+fun eventScoreColor(score: BigInteger): Color =
+    when {
+        score.signum() > 0 -> if (isSystemInDarkTheme()) Color(0xFFA0D8B2) else Color(0xFF236B40)
+        score.signum() < 0 -> if (isSystemInDarkTheme()) Color(0xFFFFB4AB) else Color(0xFFB3261E)
+        else -> MaterialTheme.colorScheme.onSurfaceVariant
+    }
+
+@Composable
+fun EventScoreBadge(score: BigInteger) {
+    val color = eventScoreColor(score)
+    Surface(
+        color = color.copy(alpha = 0.12f),
+        contentColor = color,
+        shape = RoundedCornerShape(8.dp),
+    ) {
+        Icon(
+            painterResource(if (score.signum() > 0) R.drawable.ic_add else R.drawable.ic_remove),
+            contentDescription =
+                if (score.signum() > 0) "加分事件" else if (score.signum() < 0) "减分事件" else "零分事件",
+            modifier = Modifier.padding(6.dp).size(20.dp),
+        )
+    }
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -92,18 +139,27 @@ fun FriendCard(summary: FriendSummary, onClick: () -> Unit, rank: Int? = null) {
             if (rank != null) Text("$rank", style = MaterialTheme.typography.titleMedium)
             FriendAvatar(summary.friend)
             Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                Text(
-                    summary.friend.name,
-                    style = MaterialTheme.typography.titleMedium,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                )
-                Text(
-                    "${summary.friend.gender.label} · ${summary.friend.intro.ifBlank { "暂无简介" }}",
-                    style = MaterialTheme.typography.bodySmall,
-                    maxLines = 2,
-                    overflow = TextOverflow.Ellipsis,
-                )
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(6.dp),
+                ) {
+                    Text(
+                        summary.friend.name,
+                        style = MaterialTheme.typography.titleMedium,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        modifier = Modifier.weight(1f, fill = false),
+                    )
+                    GenderIcon(summary.friend.gender)
+                }
+                if (summary.friend.intro.isNotBlank())
+                    Text(
+                        summary.friend.intro,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        maxLines = 2,
+                        overflow = TextOverflow.Ellipsis,
+                    )
             }
             Text(
                 summary.score.toString(),

@@ -32,32 +32,57 @@ fun FriendsSyncSection(
         Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
-        Text("朋友数据备份", style = MaterialTheme.typography.headlineSmall)
-        Text(
-            "${settings.owner}/${settings.repo} · ${settings.branch}\n${FriendsGithubSync.BACKUP_PATH}",
-            style = MaterialTheme.typography.bodyLarge,
-        )
-        Text(
-            if (settings.hasToken) "共用设置页中的 GitHub 连接" else "请先到主设置页保存 GitHub 连接与令牌",
-            style = MaterialTheme.typography.bodyMedium,
-        )
-        Text(
-            "${backup.friends.size} 位朋友 · ${backup.events.size} 条事件\n${if (pending) "有待上传的朋友数据" else "朋友数据已备份"}"
-        )
-        Text("上次成功：${status.lastSuccess?.let { displayTime(it, "yyyy年MM月dd日 HH:mm") } ?: "尚无"}")
-        if (status.busy) LinearProgressIndicator(Modifier.fillMaxWidth())
-        status.message?.let {
-            Text(
-                it,
-                color =
-                    if (status.error) MaterialTheme.colorScheme.error
-                    else MaterialTheme.colorScheme.primary,
-            )
+        OutlinedCard(Modifier.fillMaxWidth()) {
+            Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                Text(
+                    "${settings.owner}/${settings.repo}",
+                    style = MaterialTheme.typography.titleMedium,
+                )
+                Text(
+                    "分支 ${settings.branch}",
+                    style = MaterialTheme.typography.labelMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+                Text(
+                    FriendsGithubSync.BACKUP_PATH,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+                HorizontalDivider(Modifier.padding(vertical = 4.dp))
+                Row(
+                    Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = androidx.compose.ui.Alignment.CenterVertically,
+                ) {
+                    Text(
+                        "${backup.friends.size} 人 · ${backup.events.size} 条事件",
+                        style = MaterialTheme.typography.bodyMedium,
+                    )
+                    Surface(
+                        color =
+                            if (pending) MaterialTheme.colorScheme.primaryContainer
+                            else MaterialTheme.colorScheme.secondaryContainer,
+                        shape = MaterialTheme.shapes.small,
+                    ) {
+                        Text(
+                            if (pending) "待同步" else "已备份",
+                            style = MaterialTheme.typography.labelMedium,
+                            modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp),
+                        )
+                    }
+                }
+            }
         }
+        Text(
+            if (settings.hasToken) "使用设置中的 GitHub 连接" else "请先在设置中配置 GitHub 连接与令牌",
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+        if (status.busy) LinearProgressIndicator(Modifier.fillMaxWidth())
         Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
             FriendActionIcon(
                 R.drawable.ic_sync,
-                "手动同步朋友数据",
+                "手动同步",
                 enabled = !status.busy && settings.hasToken,
                 filled = true,
             ) {
@@ -71,14 +96,28 @@ fun FriendsSyncSection(
             )
             FriendActionIcon(
                 R.drawable.ic_friends_upload,
-                "强制上传手机朋友数据",
+                "强制上传手机数据",
                 enabled = !status.busy && settings.hasToken,
             ) {
                 confirmForce = true
             }
         }
         Text(
-            "恢复只替换朋友资料和事件。原有想法、计划数据使用自己的备份文件。",
+            "上次成功：${status.lastSuccess?.let { displayTime(it, "yyyy年MM月dd日 HH:mm") } ?: "尚无"}",
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+        status.message?.let {
+            Text(
+                it,
+                style = MaterialTheme.typography.bodySmall,
+                color =
+                    if (status.error) MaterialTheme.colorScheme.error
+                    else MaterialTheme.colorScheme.primary,
+            )
+        }
+        Text(
+            "恢复会替换当前人物与事件，操作前自动保存本地副本。",
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
@@ -87,7 +126,7 @@ fun FriendsSyncSection(
         AlertDialog(
             onDismissRequest = { confirmForce = false },
             title = { Text("替换云端 ppl.json？") },
-            text = { Text("将以手机上的朋友资料和事件覆盖云端文件。") },
+            text = { Text("将以手机上的人物资料和事件覆盖云端文件。") },
             confirmButton = {
                 TextButton(
                     enabled = !status.busy,
@@ -104,10 +143,10 @@ fun FriendsSyncSection(
     preview?.let { remote ->
         AlertDialog(
             onDismissRequest = { if (!status.busy) sync.cancelPreview() },
-            title = { Text("恢复云端朋友数据？") },
+            title = { Text("恢复云端数据？") },
             text = {
                 Text(
-                    "备份时间：${displayTime(remote.exportedAt, "yyyy年MM月dd日 HH:mm")}\n${remote.friends.size} 位朋友 · ${remote.events.size} 条事件\n\n将替换当前手机朋友数据，替换前会保存本地安全副本。"
+                    "备份时间：${displayTime(remote.exportedAt, "yyyy年MM月dd日 HH:mm")}\n${remote.friends.size} 人 · ${remote.events.size} 条事件\n\n将替换当前手机数据，替换前会保存本地安全副本。"
                 )
             },
             confirmButton = {

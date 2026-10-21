@@ -36,7 +36,7 @@ class FriendsRepository(context: Context) {
                                     )
                                     .also {
                                         require(dao.friends().isEmpty() && dao.events().isEmpty()) {
-                                            "朋友数据库元数据缺失"
+                                            "数据库元数据缺失"
                                         }
                                         dao.metadata(it)
                                     }
@@ -54,7 +54,7 @@ class FriendsRepository(context: Context) {
     private suspend fun mutate(transform: (FriendsBackup) -> FriendsBackup) =
         withContext(Dispatchers.IO) {
             mutex.withLock {
-                val before = checkNotNull(state.value) { "朋友数据尚未加载" }
+                val before = checkNotNull(state.value) { "数据尚未加载" }
                 val changed = transform(before)
                 if (changed == before) return@withLock
                 require(before.revision < Long.MAX_VALUE) { "数据版本已达上限" }
@@ -159,8 +159,7 @@ class FriendsRepository(context: Context) {
     suspend fun snapshot(): FriendsBackup =
         withContext(Dispatchers.IO) {
             mutex.withLock {
-                checkNotNull(state.value) { "朋友数据尚未加载" }
-                    .copy(exportedAt = System.currentTimeMillis())
+                checkNotNull(state.value) { "数据尚未加载" }.copy(exportedAt = System.currentTimeMillis())
             }
         }
 

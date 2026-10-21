@@ -82,8 +82,8 @@ class FriendsGithubSync(
                         is GithubFailure,
                         is GithubHttpFailure,
                         is IllegalArgumentException,
-                        is IllegalStateException -> failure.message ?: "朋友备份操作失败"
-                        else -> "无法完成朋友备份，请检查网络和 GitHub 连接设置。"
+                        is IllegalStateException -> failure.message ?: "备份操作失败"
+                        else -> "无法完成备份，请检查网络和 GitHub 连接设置。"
                     }
                 state.value = state.value.copy(error = true, message = message)
                 throw GithubFailure(message)
@@ -97,11 +97,8 @@ class FriendsGithubSync(
         val token = connection.readToken()
         val snapshot = canonical(repository.snapshot())
         val bytes = friendsJson.encodeToString(snapshot).toByteArray(Charsets.UTF_8)
-        require(bytes.size <= GithubFileClient.MAX_BYTES) { "朋友备份超过 20 MiB，无法上传" }
-        val baseline =
-            if (matchesBackupTarget())
-                prefs.getString("blob", null)
-            else null
+        require(bytes.size <= GithubFileClient.MAX_BYTES) { "备份超过 20 MiB，无法上传" }
+        val baseline = if (matchesBackupTarget()) prefs.getString("blob", null) else null
         repeat(3) {
             val remote = client.remote(config, token, BACKUP_PATH)
             if (!force && remote.blob != baseline)
@@ -124,7 +121,7 @@ class FriendsGithubSync(
                             snapshot.copy(exportedAt = 0)
                 } ?: false
             if (sameData) {
-                acknowledge(snapshot, remote.blob!!, "云端朋友备份已是最新数据")
+                acknowledge(snapshot, remote.blob!!, "云端备份已是最新数据")
                 return@operation
             }
             val blob =
@@ -137,7 +134,7 @@ class FriendsGithubSync(
                     "Back up friends data (revision ${snapshot.revision})",
                 )
             if (blob != null) {
-                acknowledge(snapshot, blob, "朋友备份上传成功")
+                acknowledge(snapshot, blob, "备份上传成功")
                 return@operation
             }
         }
@@ -150,7 +147,8 @@ class FriendsGithubSync(
         val token = connection.readToken()
         val local = repository.snapshot()
         val blob =
-            client.remote(config, token, BACKUP_PATH).blob ?: throw GithubFailure("主仓库中尚无 $BACKUP_PATH")
+            client.remote(config, token, BACKUP_PATH).blob
+                ?: throw GithubFailure("主仓库中尚无 $BACKUP_PATH")
         val backup =
             try {
                 decodeFriendsBackup(client.read(config, token, blob))
@@ -169,11 +167,11 @@ class FriendsGithubSync(
                 local.revision,
             )
         previewState.value = backup
-        state.value = state.value.copy(message = "已下载，请确认后恢复朋友数据")
+        state.value = state.value.copy(message = "已下载，请确认后恢复数据")
     }
 
     suspend fun restore() = operation {
-        val current = downloaded ?: throw GithubFailure("请先重新下载朋友备份")
+        val current = downloaded ?: throw GithubFailure("请先重新下载备份")
         require(
             current.identity == connection.identity &&
                 current.authorizationVersion == connection.changes.value
@@ -187,7 +185,7 @@ class FriendsGithubSync(
         }
         repository.restore(current.backup, current.localDataset, current.localRevision)
         cancelPreview()
-        acknowledge(current.backup, current.blob, "朋友数据已恢复，恢复前已保存本地安全副本")
+        acknowledge(current.backup, current.blob, "数据已恢复，恢复前已保存本地安全副本")
     }
 
     fun cancelPreview() {

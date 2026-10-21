@@ -71,13 +71,13 @@ fun FriendsHost(model: FriendsViewModel, onRootChanged: (Boolean) -> Unit) {
             TopAppBar(
                 title = {
                     Text(
-                        if (route == "list") "EricLoop · 朋友"
+                        if (route == "list") "ppl"
                         else
                             when (route) {
                                 "ranking" -> "排行"
-                                "edit" -> "朋友资料"
-                                "sync" -> "朋友备份"
-                                else -> "朋友详情"
+                                "edit" -> "资料"
+                                "sync" -> "备份"
+                                else -> "详情"
                             }
                     )
                 },
@@ -95,7 +95,7 @@ fun FriendsHost(model: FriendsViewModel, onRootChanged: (Boolean) -> Unit) {
             when {
                 error != null ->
                     Column(Modifier.padding(24.dp)) {
-                        EmptyPanel("朋友数据读取失败", error!!)
+                        EmptyPanel("数据读取失败", error!!)
                         Button(onClick = model::reload) { Text("重试") }
                     }
                 backup == null ->
