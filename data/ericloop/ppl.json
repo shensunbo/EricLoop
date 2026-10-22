@@ -1,8 +1,8 @@
 {
     "schemaVersion": 1,
     "datasetId": "4289b569-f987-490a-8097-ebbd8ef6f55b",
-    "revision": 23,
-    "exportedAt": 1792576552623,
+    "revision": 29,
+    "exportedAt": 1792646979483,
     "friends": [
         {
             "id": "02fb5d8e-0ff2-46f3-ba62-8f20c5e64c2f",
@@ -25,6 +25,17 @@
             "colorArgb": 4283726791,
             "createdAt": 1792575148161,
             "updatedAt": 1792575148161
+        },
+        {
+            "id": "2e5f8c47-87e3-4c09-879b-743311cf598e",
+            "name": "*瑾Lucy",
+            "gender": "GIRL",
+            "intro": "西安",
+            "notes": "",
+            "initialScore": "2",
+            "colorArgb": 4287624001,
+            "createdAt": 1792577604526,
+            "updatedAt": 1792577604526
         },
         {
             "id": "30df3115-0ffe-4cdc-9e66-bff59917df69",
@@ -93,6 +104,17 @@
             "updatedAt": 1792575905233
         },
         {
+            "id": "98dc50e3-767c-428c-ad07-b7b562db2665",
+            "name": "李玲玉",
+            "gender": "GIRL",
+            "intro": "黑龙江",
+            "notes": "",
+            "initialScore": "0",
+            "colorArgb": 4290071766,
+            "createdAt": 1792577491062,
+            "updatedAt": 1792577491062
+        },
+        {
             "id": "b7e5b5e6-5c80-4622-8afe-adc69e4d976f",
             "name": "金晓燕Ada",
             "gender": "GIRL",
@@ -126,15 +148,26 @@
             "updatedAt": 1792575178137
         },
         {
+            "id": "ef756291-c295-4f42-9f4d-849dc2378a38",
+            "name": "雪Emily",
+            "gender": "GIRL",
+            "intro": "江苏徐州",
+            "notes": "",
+            "initialScore": "3",
+            "colorArgb": 4283663439,
+            "createdAt": 1792577552814,
+            "updatedAt": 1792577552814
+        },
+        {
             "id": "f33ccf10-464e-407a-a362-e04aaf93907f",
             "name": "严廷龙Kenzo",
             "gender": "BOY",
-            "intro": "",
+            "intro": "山东泰安",
             "notes": "",
             "initialScore": "1",
             "colorArgb": 4290083897,
             "createdAt": 1792575982600,
-            "updatedAt": 1792575982600
+            "updatedAt": 1792577465625
         }
     ],
     "events": [
@@ -145,6 +178,22 @@
             "description": "总是发莫名其妙的消息给自己。出去爬山回复不带我，在群里发消息私聊自己有时间摸鱼了",
             "occurredAt": 1792576257923,
             "updatedAt": 1792576257923
+        },
+        {
+            "id": "be00300e-2bab-478d-900e-91fa406671e8",
+            "friendId": "13c90a32-5396-444e-b9df-75d2477ef888",
+            "delta": "1",
+            "description": "一起打网球",
+            "occurredAt": 1792625029189,
+            "updatedAt": 1792625029189
+        },
+        {
+            "id": "fddda629-bbf5-46c0-bd07-d66046871cc5",
+            "friendId": "ebb2225d-79cd-4d8d-b76e-a5079ee54708",
+            "delta": "1",
+            "description": "咨询买茶叶，给我推荐供应商和明天的新茶试喝",
+            "occurredAt": 1792646968689,
+            "updatedAt": 1792646968689
         }
     ]
 }
