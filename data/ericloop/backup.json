@@ -1,8 +1,8 @@
 {
     "schemaVersion": 2,
     "datasetId": "468d0be1-b460-429d-94e2-d7cf841f60c1",
-    "revision": 81,
-    "exportedAt": 1792568531237,
+    "revision": 97,
+    "exportedAt": 1792744314093,
     "records": [
         {
             "id": "045cea38-a696-4aa0-8233-d43a2beffc90",
@@ -52,6 +52,38 @@
             "updatedAt": 1790738997400,
             "deletedAt": null,
             "emoji": "🗣️"
+        },
+        {
+            "id": "28183fe6-2c29-42e6-a4c2-5c80765c0d0f",
+            "title": "情绪波动日志",
+            "body": "记录自己的情绪波动",
+            "kind": "PLAN",
+            "planType": "LONG_TERM",
+            "status": "ACTIVE",
+            "tagIds": [
+                "d74b6eae-b12e-4fb2-852f-a9835511c861"
+            ],
+            "deadline": null,
+            "createdAt": 1792744007762,
+            "updatedAt": 1792744289711,
+            "deletedAt": null,
+            "emoji": "😇"
+        },
+        {
+            "id": "2e138751-2e17-43ea-8d14-d70dbbdb06b6",
+            "title": "每个阶段的核心任务",
+            "body": "记录每个阶段的核心任务和诉求，减少噪声，减少在各种决策中内耗",
+            "kind": "PLAN",
+            "planType": "LONG_TERM",
+            "status": "NOT_STARTED",
+            "tagIds": [
+                "d74b6eae-b12e-4fb2-852f-a9835511c861"
+            ],
+            "deadline": null,
+            "createdAt": 1792744129303,
+            "updatedAt": 1792744295203,
+            "deletedAt": null,
+            "emoji": "🗽"
         },
         {
             "id": "3181dae2-1d99-4421-b85e-711e691c8f79",
@@ -132,6 +164,22 @@
             "updatedAt": 1792469157456,
             "deletedAt": null,
             "emoji": "💪"
+        },
+        {
+            "id": "805fe2d6-0b74-42ec-86e1-094e3a9b8c53",
+            "title": "流水日记",
+            "body": "记录自己的一些随机的计划和执行情况",
+            "kind": "PLAN",
+            "planType": "LONG_TERM",
+            "status": "ACTIVE",
+            "tagIds": [
+                "d74b6eae-b12e-4fb2-852f-a9835511c861"
+            ],
+            "deadline": null,
+            "createdAt": 1792742714673,
+            "updatedAt": 1792744282535,
+            "deletedAt": null,
+            "emoji": "🌵"
         },
         {
             "id": "8aca490e-9823-4d37-ad9f-12ab1d1a6225",
@@ -225,7 +273,7 @@
             ],
             "deadline": null,
             "createdAt": 1790676832536,
-            "updatedAt": 1792548579077,
+            "updatedAt": 1792720284033,
             "deletedAt": null,
             "emoji": "🎾"
         },
@@ -241,7 +289,7 @@
             ],
             "deadline": null,
             "createdAt": 1790741497974,
-            "updatedAt": 1792394248131,
+            "updatedAt": 1792720312800,
             "deletedAt": null,
             "emoji": "👨‍👩‍👦‍👦"
         }
@@ -252,6 +300,12 @@
             "name": "兴趣",
             "preset": false,
             "emoji": "🪂"
+        },
+        {
+            "id": "d74b6eae-b12e-4fb2-852f-a9835511c861",
+            "name": "成长",
+            "preset": false,
+            "emoji": "🙆🏻‍♂️"
         },
         {
             "id": "health",
@@ -286,12 +340,30 @@
     ],
     "checkIns": [
         {
+            "id": "0c5b9f7a-bf5f-4468-b130-1958a216ac52",
+            "recordId": "805fe2d6-0b74-42ec-86e1-094e3a9b8c53",
+            "note": "周五：健身，写日记，做饭：小炒黄牛肉\n周六：健身，网球，农家一碗香\n周日：羽毛球，吕一homeparty，英语游戏",
+            "occurredAt": 1792742783804,
+            "createdAt": 1792742783804,
+            "updatedAt": 1792742909586,
+            "deletedAt": null
+        },
+        {
             "id": "0d60b096-1382-49da-b933-ecf06938ec87",
             "recordId": "0c3c77d5-2ac6-4dbb-8acd-fbd8183cf74f",
             "note": "农家一碗香",
             "occurredAt": 1790941260000,
             "createdAt": 1790995277993,
             "updatedAt": 1790995307581,
+            "deletedAt": null
+        },
+        {
+            "id": "148322b7-1991-4be9-b77b-9bdec9c9613d",
+            "recordId": "d29889c1-2c00-45bb-9a72-6da20aefd68e",
+            "note": "网球课",
+            "occurredAt": 1792633860000,
+            "createdAt": 1792720270892,
+            "updatedAt": 1792720284033,
             "deletedAt": null
         },
         {
@@ -394,6 +466,15 @@
             "deletedAt": null
         },
         {
+            "id": "ae6d10ca-c088-436c-9d81-cae182678ef8",
+            "recordId": "d640ac46-85cb-48c4-85e3-e0b3bde2a58f",
+            "note": "已有四个人，一个群，还未确定好地点",
+            "occurredAt": 1792720294415,
+            "createdAt": 1792720294415,
+            "updatedAt": 1792720312800,
+            "deletedAt": null
+        },
+        {
             "id": "af76bbe0-21d5-42b2-b638-343e82d5a99b",
             "recordId": "7b9a7a12-4f80-4298-a644-b75e6a8433bf",
             "note": "胸",
@@ -463,6 +544,15 @@
             "occurredAt": 1790757170163,
             "createdAt": 1790757170163,
             "updatedAt": 1790757193885,
+            "deletedAt": null
+        },
+        {
+            "id": "f7c70e9c-2e40-4de0-9b2b-f9e4ea785a9a",
+            "recordId": "d29889c1-2c00-45bb-9a72-6da20aefd68e",
+            "note": "练习发球机",
+            "occurredAt": 1792547400000,
+            "createdAt": 1792720251400,
+            "updatedAt": 1792720267246,
             "deletedAt": null
         },
         {
@@ -1285,6 +1375,166 @@
             "sequence": 81,
             "beforeJson": null,
             "afterJson": "{\n    \"id\": \"861baa36-ae80-4a43-9fb3-048ec6ff14d3\",\n    \"recordId\": \"d29889c1-2c00-45bb-9a72-6da20aefd68e\",\n    \"note\": \"网球课，许久没练动作忘了，表现不是很好\",\n    \"occurredAt\": 1792548562859,\n    \"createdAt\": 1792548562859,\n    \"updatedAt\": 1792548579077,\n    \"deletedAt\": null\n}"
+        },
+        {
+            "id": "44ad5572-555a-4422-9e6b-b477854bb597",
+            "recordId": "d29889c1-2c00-45bb-9a72-6da20aefd68e",
+            "operation": "补记打卡",
+            "title": "网球",
+            "operatedAt": 1792720267257,
+            "sequence": 82,
+            "beforeJson": null,
+            "afterJson": "{\n    \"id\": \"f7c70e9c-2e40-4de0-9b2b-f9e4ea785a9a\",\n    \"recordId\": \"d29889c1-2c00-45bb-9a72-6da20aefd68e\",\n    \"note\": \"练习发球机\",\n    \"occurredAt\": 1792547400000,\n    \"createdAt\": 1792720251400,\n    \"updatedAt\": 1792720267246,\n    \"deletedAt\": null\n}"
+        },
+        {
+            "id": "812412be-b4ef-4478-8e03-ef7fe04fe32a",
+            "recordId": "d29889c1-2c00-45bb-9a72-6da20aefd68e",
+            "operation": "补记打卡",
+            "title": "网球",
+            "operatedAt": 1792720284034,
+            "sequence": 83,
+            "beforeJson": null,
+            "afterJson": "{\n    \"id\": \"148322b7-1991-4be9-b77b-9bdec9c9613d\",\n    \"recordId\": \"d29889c1-2c00-45bb-9a72-6da20aefd68e\",\n    \"note\": \"网球课\",\n    \"occurredAt\": 1792633860000,\n    \"createdAt\": 1792720270892,\n    \"updatedAt\": 1792720284033,\n    \"deletedAt\": null\n}"
+        },
+        {
+            "id": "95b47aa8-7c93-49ec-9a10-75391e5174ed",
+            "recordId": "d640ac46-85cb-48c4-85e3-e0b3bde2a58f",
+            "operation": "打卡",
+            "title": "两情相悦英语角",
+            "operatedAt": 1792720312801,
+            "sequence": 84,
+            "beforeJson": null,
+            "afterJson": "{\n    \"id\": \"ae6d10ca-c088-436c-9d81-cae182678ef8\",\n    \"recordId\": \"d640ac46-85cb-48c4-85e3-e0b3bde2a58f\",\n    \"note\": \"已有四个人，一个群，还未确定好地点\",\n    \"occurredAt\": 1792720294415,\n    \"createdAt\": 1792720294415,\n    \"updatedAt\": 1792720312800,\n    \"deletedAt\": null\n}"
+        },
+        {
+            "id": "1d3ed80c-be9a-4564-89a6-a31824bd0e03",
+            "recordId": "805fe2d6-0b74-42ec-86e1-094e3a9b8c53",
+            "operation": "创建计划",
+            "title": "流水日记",
+            "operatedAt": 1792742778258,
+            "sequence": 85,
+            "beforeJson": null,
+            "afterJson": "{\n    \"id\": \"805fe2d6-0b74-42ec-86e1-094e3a9b8c53\",\n    \"title\": \"流水日记\",\n    \"body\": \"记录自己的一些随机的计划和执行情况\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"NOT_STARTED\",\n    \"tagIds\": [\n        \"life\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1792742714673,\n    \"updatedAt\": 1792742778243,\n    \"deletedAt\": null,\n    \"emoji\": \"🌵\",\n    \"tags\": [\n        {\n            \"id\": \"life\",\n            \"name\": \"生活\",\n            \"preset\": true,\n            \"emoji\": null\n        }\n    ]\n}"
+        },
+        {
+            "id": "d1e87352-de4e-450c-9921-062e57273d4b",
+            "recordId": "805fe2d6-0b74-42ec-86e1-094e3a9b8c53",
+            "operation": "状态变更",
+            "title": "流水日记",
+            "operatedAt": 1792742781249,
+            "sequence": 86,
+            "beforeJson": null,
+            "afterJson": "{\n    \"id\": \"805fe2d6-0b74-42ec-86e1-094e3a9b8c53\",\n    \"title\": \"流水日记\",\n    \"body\": \"记录自己的一些随机的计划和执行情况\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"ACTIVE\",\n    \"tagIds\": [\n        \"life\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1792742714673,\n    \"updatedAt\": 1792742781247,\n    \"deletedAt\": null,\n    \"emoji\": \"🌵\",\n    \"tags\": [\n        {\n            \"id\": \"life\",\n            \"name\": \"生活\",\n            \"preset\": true,\n            \"emoji\": null\n        }\n    ]\n}"
+        },
+        {
+            "id": "6afc7d61-9e2a-4993-8664-c0e0ad5faffe",
+            "recordId": "805fe2d6-0b74-42ec-86e1-094e3a9b8c53",
+            "operation": "打卡",
+            "title": "流水日记",
+            "operatedAt": 1792742909587,
+            "sequence": 87,
+            "beforeJson": null,
+            "afterJson": "{\n    \"id\": \"0c5b9f7a-bf5f-4468-b130-1958a216ac52\",\n    \"recordId\": \"805fe2d6-0b74-42ec-86e1-094e3a9b8c53\",\n    \"note\": \"周五：健身，写日记，做饭：小炒黄牛肉\\n周六：健身，网球，农家一碗香\\n周日：羽毛球，吕一homeparty，英语游戏\",\n    \"occurredAt\": 1792742783804,\n    \"createdAt\": 1792742783804,\n    \"updatedAt\": 1792742909586,\n    \"deletedAt\": null\n}"
+        },
+        {
+            "id": "4d30660b-3db1-4511-8d67-3a5c4cc4804d",
+            "recordId": "28183fe6-2c29-42e6-a4c2-5c80765c0d0f",
+            "operation": "创建计划",
+            "title": "情绪波动日志",
+            "operatedAt": 1792744055654,
+            "sequence": 88,
+            "beforeJson": null,
+            "afterJson": "{\n    \"id\": \"28183fe6-2c29-42e6-a4c2-5c80765c0d0f\",\n    \"title\": \"情绪波动日志\",\n    \"body\": \"记录自己的情绪波动\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"NOT_STARTED\",\n    \"tagIds\": [\n        \"life\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1792744007762,\n    \"updatedAt\": 1792744055646,\n    \"deletedAt\": null,\n    \"emoji\": \"😇\",\n    \"tags\": [\n        {\n            \"id\": \"life\",\n            \"name\": \"生活\",\n            \"preset\": true,\n            \"emoji\": null\n        }\n    ]\n}"
+        },
+        {
+            "id": "e329433f-ed3f-4e70-b388-aba61973c3fc",
+            "recordId": "28183fe6-2c29-42e6-a4c2-5c80765c0d0f",
+            "operation": "状态变更",
+            "title": "情绪波动日志",
+            "operatedAt": 1792744058624,
+            "sequence": 89,
+            "beforeJson": null,
+            "afterJson": "{\n    \"id\": \"28183fe6-2c29-42e6-a4c2-5c80765c0d0f\",\n    \"title\": \"情绪波动日志\",\n    \"body\": \"记录自己的情绪波动\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"ACTIVE\",\n    \"tagIds\": [\n        \"life\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1792744007762,\n    \"updatedAt\": 1792744058621,\n    \"deletedAt\": null,\n    \"emoji\": \"😇\",\n    \"tags\": [\n        {\n            \"id\": \"life\",\n            \"name\": \"生活\",\n            \"preset\": true,\n            \"emoji\": null\n        }\n    ]\n}"
+        },
+        {
+            "id": "f56b55d2-3a07-4d5c-a220-fa3f2e266a26",
+            "recordId": "2e138751-2e17-43ea-8d14-d70dbbdb06b6",
+            "operation": "创建想法",
+            "title": "每个阶段的核心任务",
+            "operatedAt": 1792744199379,
+            "sequence": 90,
+            "beforeJson": null,
+            "afterJson": "{\n    \"id\": \"2e138751-2e17-43ea-8d14-d70dbbdb06b6\",\n    \"title\": \"每个阶段的核心任务\",\n    \"body\": \"记录每个阶段的核心任务和诉求，减少噪声，减少在各种决策中内耗\",\n    \"kind\": \"IDEA\",\n    \"planType\": \"ONCE\",\n    \"status\": \"NOT_STARTED\",\n    \"tagIds\": [\n        \"life\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1792744129303,\n    \"updatedAt\": 1792744199376,\n    \"deletedAt\": null,\n    \"emoji\": \"🗽\",\n    \"tags\": [\n        {\n            \"id\": \"life\",\n            \"name\": \"生活\",\n            \"preset\": true,\n            \"emoji\": null\n        }\n    ]\n}"
+        },
+        {
+            "id": "8ebdcae0-69f0-4026-8c5a-30e0b0afb0ba",
+            "recordId": "2e138751-2e17-43ea-8d14-d70dbbdb06b6",
+            "operation": "转为计划",
+            "title": "每个阶段的核心任务",
+            "operatedAt": 1792744202311,
+            "sequence": 91,
+            "beforeJson": null,
+            "afterJson": "{\n    \"id\": \"2e138751-2e17-43ea-8d14-d70dbbdb06b6\",\n    \"title\": \"每个阶段的核心任务\",\n    \"body\": \"记录每个阶段的核心任务和诉求，减少噪声，减少在各种决策中内耗\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"NOT_STARTED\",\n    \"tagIds\": [\n        \"life\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1792744129303,\n    \"updatedAt\": 1792744202306,\n    \"deletedAt\": null,\n    \"emoji\": \"🗽\",\n    \"tags\": [\n        {\n            \"id\": \"life\",\n            \"name\": \"生活\",\n            \"preset\": true,\n            \"emoji\": null\n        }\n    ]\n}"
+        },
+        {
+            "id": "4132a97c-d797-4408-b710-669ba8ed3df7",
+            "recordId": null,
+            "operation": "新增标签",
+            "title": "成长",
+            "operatedAt": 1792744255661,
+            "sequence": 92,
+            "beforeJson": null,
+            "afterJson": "{\n    \"id\": \"d74b6eae-b12e-4fb2-852f-a9835511c861\",\n    \"name\": \"成长\",\n    \"preset\": false,\n    \"emoji\": \"🙆🏻‍♂️\"\n}"
+        },
+        {
+            "id": "ba11ec2f-8b7e-499b-a451-3c124a60e943",
+            "recordId": "2e138751-2e17-43ea-8d14-d70dbbdb06b6",
+            "operation": "编辑计划",
+            "title": "每个阶段的核心任务",
+            "operatedAt": 1792744269101,
+            "sequence": 93,
+            "beforeJson": null,
+            "afterJson": "{\n    \"id\": \"2e138751-2e17-43ea-8d14-d70dbbdb06b6\",\n    \"title\": \"每个阶段的核心任务\",\n    \"body\": \"记录每个阶段的核心任务和诉求，减少噪声，减少在各种决策中内耗\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"NOT_STARTED\",\n    \"tagIds\": [\n        \"life\",\n        \"d74b6eae-b12e-4fb2-852f-a9835511c861\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1792744129303,\n    \"updatedAt\": 1792744269097,\n    \"deletedAt\": null,\n    \"emoji\": \"🗽\",\n    \"tags\": [\n        {\n            \"id\": \"life\",\n            \"name\": \"生活\",\n            \"preset\": true,\n            \"emoji\": null\n        },\n        {\n            \"id\": \"d74b6eae-b12e-4fb2-852f-a9835511c861\",\n            \"name\": \"成长\",\n            \"preset\": false,\n            \"emoji\": \"🙆🏻‍♂️\"\n        }\n    ]\n}"
+        },
+        {
+            "id": "42678bbc-41c2-4de5-bbd5-9b7978d205fa",
+            "recordId": "28183fe6-2c29-42e6-a4c2-5c80765c0d0f",
+            "operation": "编辑计划",
+            "title": "情绪波动日志",
+            "operatedAt": 1792744275116,
+            "sequence": 94,
+            "beforeJson": null,
+            "afterJson": "{\n    \"id\": \"28183fe6-2c29-42e6-a4c2-5c80765c0d0f\",\n    \"title\": \"情绪波动日志\",\n    \"body\": \"记录自己的情绪波动\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"ACTIVE\",\n    \"tagIds\": [\n        \"life\",\n        \"d74b6eae-b12e-4fb2-852f-a9835511c861\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1792744007762,\n    \"updatedAt\": 1792744275112,\n    \"deletedAt\": null,\n    \"emoji\": \"😇\",\n    \"tags\": [\n        {\n            \"id\": \"life\",\n            \"name\": \"生活\",\n            \"preset\": true,\n            \"emoji\": null\n        },\n        {\n            \"id\": \"d74b6eae-b12e-4fb2-852f-a9835511c861\",\n            \"name\": \"成长\",\n            \"preset\": false,\n            \"emoji\": \"🙆🏻‍♂️\"\n        }\n    ]\n}"
+        },
+        {
+            "id": "b152c8cc-eeac-447a-9fcb-94f709bae564",
+            "recordId": "805fe2d6-0b74-42ec-86e1-094e3a9b8c53",
+            "operation": "编辑计划",
+            "title": "流水日记",
+            "operatedAt": 1792744282538,
+            "sequence": 95,
+            "beforeJson": null,
+            "afterJson": "{\n    \"id\": \"805fe2d6-0b74-42ec-86e1-094e3a9b8c53\",\n    \"title\": \"流水日记\",\n    \"body\": \"记录自己的一些随机的计划和执行情况\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"ACTIVE\",\n    \"tagIds\": [\n        \"d74b6eae-b12e-4fb2-852f-a9835511c861\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1792742714673,\n    \"updatedAt\": 1792744282535,\n    \"deletedAt\": null,\n    \"emoji\": \"🌵\",\n    \"tags\": [\n        {\n            \"id\": \"d74b6eae-b12e-4fb2-852f-a9835511c861\",\n            \"name\": \"成长\",\n            \"preset\": false,\n            \"emoji\": \"🙆🏻‍♂️\"\n        }\n    ]\n}"
+        },
+        {
+            "id": "74d37a04-c4f2-4f49-92c4-abc6689814bc",
+            "recordId": "28183fe6-2c29-42e6-a4c2-5c80765c0d0f",
+            "operation": "编辑计划",
+            "title": "情绪波动日志",
+            "operatedAt": 1792744289715,
+            "sequence": 96,
+            "beforeJson": null,
+            "afterJson": "{\n    \"id\": \"28183fe6-2c29-42e6-a4c2-5c80765c0d0f\",\n    \"title\": \"情绪波动日志\",\n    \"body\": \"记录自己的情绪波动\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"ACTIVE\",\n    \"tagIds\": [\n        \"d74b6eae-b12e-4fb2-852f-a9835511c861\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1792744007762,\n    \"updatedAt\": 1792744289711,\n    \"deletedAt\": null,\n    \"emoji\": \"😇\",\n    \"tags\": [\n        {\n            \"id\": \"d74b6eae-b12e-4fb2-852f-a9835511c861\",\n            \"name\": \"成长\",\n            \"preset\": false,\n            \"emoji\": \"🙆🏻‍♂️\"\n        }\n    ]\n}"
+        },
+        {
+            "id": "6e2023dd-4668-4eba-bcfe-8f20ef97d814",
+            "recordId": "2e138751-2e17-43ea-8d14-d70dbbdb06b6",
+            "operation": "编辑计划",
+            "title": "每个阶段的核心任务",
+            "operatedAt": 1792744295206,
+            "sequence": 97,
+            "beforeJson": null,
+            "afterJson": "{\n    \"id\": \"2e138751-2e17-43ea-8d14-d70dbbdb06b6\",\n    \"title\": \"每个阶段的核心任务\",\n    \"body\": \"记录每个阶段的核心任务和诉求，减少噪声，减少在各种决策中内耗\",\n    \"kind\": \"PLAN\",\n    \"planType\": \"LONG_TERM\",\n    \"status\": \"NOT_STARTED\",\n    \"tagIds\": [\n        \"d74b6eae-b12e-4fb2-852f-a9835511c861\"\n    ],\n    \"deadline\": null,\n    \"createdAt\": 1792744129303,\n    \"updatedAt\": 1792744295203,\n    \"deletedAt\": null,\n    \"emoji\": \"🗽\",\n    \"tags\": [\n        {\n            \"id\": \"d74b6eae-b12e-4fb2-852f-a9835511c861\",\n            \"name\": \"成长\",\n            \"preset\": false,\n            \"emoji\": \"🙆🏻‍♂️\"\n        }\n    ]\n}"
         }
     ]
 }
